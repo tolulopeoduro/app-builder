@@ -1,0 +1,95 @@
+.container {
+	height: 80%;
+	max-width: 400px;
+	position: absolute;
+	top: 3vw;
+	right: 3vw;
+	color : white;
+	display: flex;
+	align-items: flex-end;
+	flex-direction: column;
+	padding-top: 1rem;
+	cursor: pointer;
+}
+
+.button {
+	background-color: rgba($color: #000000, $alpha: 0.9);
+	color: #fff;
+	height: 3rem;
+	width: 3rem;
+	border: 2px solid #b0b0b0;
+	box-sizing: border-box;
+	border-radius: 25%;
+	font-size: 1.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #b0b0b0;
+
+	>div {
+		// animation: om 200ms;
+	}
+
+}
+
+@keyframes mo {
+	from {
+		transform: rotate(0deg);
+	}
+	80% {
+		transform: rotate(60deg);
+	}
+	to {
+		transform: rotate(45deg);
+	}
+}
+@keyframes om {
+	from {
+		transform: rotate(45deg);
+	}
+	80% {
+		transform: rotate(345deg);
+	}
+	to {
+		transform: rotate(0deg);
+	}
+}
+
+.active {
+	// transform: rotate(45deg);
+	animation: mo 200ms;
+	transform: rotate(45deg);
+}
+
+.body {
+	max-width: 100%;
+	background-color: rgba($color: #000000, $alpha: 0.9);
+	border: 2px solid #878787;
+	border-radius: 8px;
+	margin-top: 0.5rem;
+}
+
+.elementList {
+	height: 3rem;
+	display: flex;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	box-sizing: border-box;
+	
+	> div {
+		border-radius: 4px;
+		height: 4rem;
+		width: 4rem;
+		margin: 0px 4px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 300ms;
+
+	}
+	>div:hover {
+		background-color: rgba($color: #fff, $alpha: 0.5);
+	}
+}
+

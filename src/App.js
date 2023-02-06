@@ -1,25 +1,42 @@
 import logo from './logo.svg';
 import './App.css';
+import { Fragment, useEffect } from 'react';
+import { RouterProvider } from 'react-router';
+import { createBrowserRouter } from 'react-router-dom';
+import Control from './Pages/Control/Control';
+import Result from './Result/Result';
+import { Provider, useDispatch } from 'react-redux';
+import Store from './Redux/Store';
+import { setElement } from './Redux/ActiveElement';
+import { PersistGate } from 'redux-persist/integration/react';
+import persistStore from 'redux-persist/es/persistStore';
+import newElement from './element/newElement';
 
-function App() {
+export default () => {
+
+  // useEffect(() => {
+  //   localStorage.setItem("project", newElement("div", null, 0, null))
+  // }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+      <Provider store={Store}>
+          {/* <PersistGate loading={<p>Hlllo</p>} persistor = {persistStore(Store)}> */}
+        <Fragment>
+            <RouterProvider
+              router = {
+                createBrowserRouter([
+                  {
+                    path : "/control",
+                    element : <Control/>
+                  },
+                  {
+                    path : "/",
+                    element : <Result/>
+                  },
+                ])
+              }/>
+        </Fragment>
+          {/* </PersistGate> */}
+      </Provider>
+  )
 }
-
-export default App;
