@@ -40,21 +40,17 @@ const Sidebar = () => {
   return (
 	<div className={styles.container}>
 		<div className={styles.button} onClick={() => showEls()}>
-			<div className={list && styles.active}>
+			<div className={list ? styles.active : styles.inactive}>
 				<FontAwesomeIcon icon = {faPlus} />
 			</div>
 		</div>
-		{
-			list ? (
-				<div className={styles.body}>
-					<div className={styles.elementList}>
-						{
-							"p span h1 h2 div".split(" ").map (el => <div key={el} onClick={() => create_el(el)}>{`<${el}>`}</div>)
-						}
-					</div>
+			<div className={classNames(styles.elementList, list ? styles.active : styles.inactive)}>
+				<div>
+					{
+						"p span h1 h2 div".split(" ").map (el => <div key={el} onClick={() => create_el(el)}>{`<${el}>`}</div>)
+					}
 				</div>
-			): null
-		}
+			</div>
 	</div>
   )
 }

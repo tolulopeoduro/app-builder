@@ -1,3 +1,5 @@
+@use '../../animations.scss';
+
 .container {
 	height: 80%;
 	max-width: 400px;
@@ -13,75 +15,69 @@
 }
 
 .button {
-	background-color: rgba($color: #000000, $alpha: 0.9);
+	background-color: #323232;
 	color: #fff;
 	height: 3rem;
 	width: 3rem;
-	border: 2px solid #b0b0b0;
 	box-sizing: border-box;
-	border-radius: 25%;
 	font-size: 1.5rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: #b0b0b0;
+	color: #A5B1FE;
+	box-shadow: 4px 4px 4px rgba($color: #002A96, $alpha: 0.5);
 
 	>div {
 		// animation: om 200ms;
+		// transform: rotate(0deg);
 	}
-
-}
-
-@keyframes mo {
-	from {
-		transform: rotate(0deg);
-	}
-	80% {
-		transform: rotate(60deg);
-	}
-	to {
+	>div.active {
+		animation: mo 200ms;
 		transform: rotate(45deg);
 	}
-}
-@keyframes om {
-	from {
-		transform: rotate(45deg);
+	
+	>div.inactive {
+		animation: om 200ms;
 	}
-	80% {
-		transform: rotate(345deg);
-	}
-	to {
-		transform: rotate(0deg);
-	}
+
 }
 
-.active {
-	// transform: rotate(45deg);
-	animation: mo 200ms;
-	transform: rotate(45deg);
-}
-
-.body {
-	max-width: 100%;
-	background-color: rgba($color: #000000, $alpha: 0.9);
-	border: 2px solid #878787;
-	border-radius: 8px;
-	margin-top: 0.5rem;
+.button.active {
+	
 }
 
 .elementList {
-	height: 3rem;
+	max-width: 100%;
+	display: flex;
+	background-color: #323232;
+	margin-top: 0.5rem;
+	padding: 0.5rem;
+	box-sizing: border-box;
+	position: relative;
+	box-shadow: 4px 4px 4px rgba($color: #002A96, $alpha: 0.5);
+}
+
+.elementList.active {
+	animation: showList 700ms;
+	left: 0px;
+}
+.elementList.inactive {
+	animation: hideList 700ms;
+	left: 100vh;
+}
+
+.elementList > div {
+	flex-wrap: wrap;
+	width: 210px;
 	display: flex;
 	display: flex;
 	flex-direction: row;
-	align-items: center;
 	box-sizing: border-box;
+	justify-content: flex-start;
 	
 	> div {
-		border-radius: 4px;
-		height: 4rem;
-		width: 4rem;
-		margin: 0px 4px;
+		width: 70px;
+		height: 50px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -89,7 +85,8 @@
 
 	}
 	>div:hover {
-		background-color: rgba($color: #fff, $alpha: 0.5);
+		background-color: rgba($color: #A5B1FE, $alpha: 0.5);
+		color: #000000;
 	}
 }
 

@@ -13,14 +13,8 @@ import persistStore from 'redux-persist/es/persistStore';
 import newElement from './element/newElement';
 
 export default () => {
-
-  // useEffect(() => {
-  //   localStorage.setItem("project", newElement("div", null, 0, null))
-  // }, [])
-
   return (
       <Provider store={Store}>
-          {/* <PersistGate loading={<p>Hlllo</p>} persistor = {persistStore(Store)}> */}
         <Fragment>
             <RouterProvider
               router = {
@@ -36,7 +30,6 @@ export default () => {
                 ])
               }/>
         </Fragment>
-          {/* </PersistGate> */}
       </Provider>
   )
 }

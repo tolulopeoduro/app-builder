@@ -1,0 +1,50 @@
+@keyframes mo {
+	from {
+		transform: rotate(0deg);
+	}
+	80% {
+		transform: rotate(60deg);
+	}
+	to {
+		transform: rotate(45deg);
+	}
+}
+@keyframes om {
+	from {
+		transform: rotate(45deg);
+	}
+	80% {
+		transform: rotate(-15deg);
+	}
+	to {
+		transform: rotate(0deg);
+	}
+}
+
+@keyframes showList {
+	from {
+		left: 100vh;
+		box-shadow: 10px 0px 6px rgba($color: #002A96, $alpha: 0.5);
+	}
+	30% {
+		left: -3rem;
+		box-shadow: -10px 0px 6px rgba($color: #002A96, $alpha: 0.5);
+	}
+	to {
+		left : 0px
+	}
+}
+
+@keyframes hideList {
+	from {
+		left: 0px;
+	}
+	20% {
+		left: -3rem;
+		box-shadow: 10px 0px 6px #000;
+	}
+	to {
+		box-shadow: -10px 0px 6px #000;
+		left : 100vh;
+	}
+}

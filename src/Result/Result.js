@@ -1,4 +1,4 @@
-import React, { Component, Fragment, useEffect, useState } from 'react'
+import React, { Component, Fragment, Suspense, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Div from '../Classes/Div/Div'
 import Text from '../Classes/Text/Text'
@@ -18,10 +18,12 @@ export default () => {
 
 	return (
 		<Fragment>
-			{
-				project && 
-				<RenderElement {...project["body"]}/>
-			}
+			<Suspense fallback={"hello"}>
+				{
+					project && 
+					<RenderElement {...project["body"]}/>
+				}
+			</Suspense>
 		</Fragment>
 	)
 }

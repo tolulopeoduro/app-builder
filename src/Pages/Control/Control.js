@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import RenderElement from '../../element/RenderElement'
 import { setElement } from '../../Redux/ActiveElement'
 import { setProject } from '../../Redux/Project/Project'
 import Result from '../../Result/Result'
@@ -19,7 +20,6 @@ const Control = () => {
         <div className={styles.container}>
             <Sidebar/>
             <iframe id="iframeid" className={styles.result} height="100%" width="100%" src="http://localhost:3000"/>
-            {/* <Result/> */}
         </div>
     )
 }
