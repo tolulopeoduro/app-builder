@@ -1,11 +1,17 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { Fragment, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {setElement} from "../Redux/ActiveElement"
+import { addElement, clearClicks } from "../Redux/clicks";
 
 const RenderElement = (props) => {
-	let {data, children, attributes, type} = props;
-	const {project} = useSelector(s => s)
-	data = {...data, onClick : () => console.log(data)}
-
+	let {children, attributes, type, id} = props;
+	const dispatch = useDispatch()
+	const {project, activeElement, clicks} = useSelector(s => s)
+	attributes = {...attributes, onClick : (e) =>{
+		e.preventDefault()
+		dispatch(addElement(id));
+	}}
+	
 	switch (type) {
 		case "div" : {
 			return (
@@ -16,30 +22,30 @@ const RenderElement = (props) => {
 		}
 		break;
 		case "h1":
-			return <h1 {...data}>{children}</h1>
+			return <h1 {...attributes}>{children}</h1>
 			break;
 		case "p":
-			return <p {...data}>{children}</p>
+			return <p {...attributes}>{children}</p>
 		case "h2":
-			return <h2 {...data}>{children}</h2>
+			return <h2 {...attributes}>{children}</h2>
 			break;
 		case "h3":
-			return <h3 {...data}>{children}</h3>
+			return <h3 {...attributes}>{children}</h3>
 			break;
 		case "h4":
-			return <h4 {...data}>{children}</h4>
+			return <h4 {...attributes}>{children}</h4>
 			break;
 		case "h5":
-			return <h5 {...data}>{children}</h5>
+			return <h5 {...attributes}>{children}</h5>
 			break;
 		case "h6":
-			return <h6 {...data}>{children}</h6>
+			return <h6 {...attributes}>{children}</h6>
 			break;
 		case "a":
-			return <a {...data}>{children}</a>
+			return <a {...attributes}>{children}</a>
 			break;
 		default:
-			return <span {...data}>{children}</span>
+			return <span {...attributes}>{children}</span>
 			break;
 	}
 }

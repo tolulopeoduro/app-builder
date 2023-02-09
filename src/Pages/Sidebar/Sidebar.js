@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Element from '../../Classes/Element/Element'
 import newElement from '../../element/newElement'
 import { setElement } from '../../Redux/ActiveElement'
 import { setProject } from '../../Redux/Project/Project'
@@ -29,11 +28,12 @@ const Sidebar = () => {
 	const create_el = (el) => {
 		const id = require("randomstring").generate();
 		let temp = {...project}
-		temp[id] = newElement(el, activeElement, temp[activeElement].children.length, {classNames : id})
+		const newParent = temp[activeElement]?.type === "div" ? activeElement : temp[activeElement]?.parent;
+		temp[id] = newElement(el, newParent, temp[newParent].children.length, {className : id}, null, id)
 
-		const newChildren = [...temp[activeElement].children, id]
+		const newChildren = [...temp[newParent].children, id]
 
-		temp[activeElement] = {...temp[activeElement], children : newChildren}
+		temp[newParent] = {...temp[newParent], children : newChildren}
 		dispatch(setProject(temp))
 	}
 

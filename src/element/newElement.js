@@ -4,7 +4,7 @@ export default (type, parent, position, attributes, children, id) => {
 		parent,
 		position,
 		type,
-		attributes : attributes ? {...attributes, className : this?.className + " " + id} : {class : id} ,
+		attributes,
 		children : type === "div" ? (children || []) : "hello"
 	}
 }

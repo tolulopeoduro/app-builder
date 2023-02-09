@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import newElement from "../../element/newElement";
 
 const initialState = JSON.parse(localStorage.getItem("project")) || {
-	"body" :  newElement("div",null, 0, {class : "app"}, [], "body"),
+	"body" :  newElement("div",null, 0, {class : "app", style : {overFlow : "auto"}}, [], "body"),
 }
 const project =  createSlice({
 	name : "project",

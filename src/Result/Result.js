@@ -1,29 +1,23 @@
 import React, { Component, Fragment, Suspense, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import Div from '../Classes/Div/Div'
-import Text from '../Classes/Text/Text'
 import RenderElement from '../element/RenderElement'
 
 export default () => {
 
-	const [project, setProject] = useState();
+	const {project} = useSelector(s => s);
 
-	useEffect(() => {
-		setProject(JSON.parse(localStorage.getItem("project")))
-	}, [])
-
-	useEffect(() => {
-		console.log("project loaded", project)
-	}, [project])
+	// useEffect(() => {
+	// 	setProject(localStorage.getItem("project"))
+	// }, [])
 
 	return (
-		<Fragment>
-			<Suspense fallback={"hello"}>
+		<Fragment>	
+			<div style={{height : "90vh", width : "90vw",overflow : "scroll", border : "1px solid black"}}>
 				{
 					project && 
 					<RenderElement {...project["body"]}/>
 				}
-			</Suspense>
+			</div>
 		</Fragment>
 	)
 }
