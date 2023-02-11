@@ -30,9 +30,6 @@ export default () => {
 
 	return (
 		<div className={styles.container}>
-			<div className={styles.headerContainer}>
-				<span>TEXT CONTENT:</span>
-			</div>
 			<div className={styles.inputContainer}>
 				<p contentEditable onKeyDown={(e) => handleChange(e)} id="edit">{initialContent}</p>
 				<div>

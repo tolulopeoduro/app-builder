@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import newElement from '../../element/newElement'
 import { setElement } from '../../Redux/ActiveElement'
 import { setProject } from '../../Redux/Project/Project'
+import CssSection from './CssSection/CssSection'
 import styles from "./Sidebar.module.scss"
 import TextContentEdit from './TextContentEdit/TextContentEdit'
 
@@ -32,13 +33,15 @@ const Sidebar = () => {
 		const id = require("randomstring").generate();
 		let temp = {...project}
 		const newParent = temp[activeElement]?.type === "div" ? activeElement : temp[activeElement]?.parent;
-		temp[id] = newElement(el, newParent, temp[newParent].children.length, {className : id}, null, id)
+		temp[id] = newElement(el, newParent, temp[newParent].children.length, {className : id, css : ""}, null, id)
 
 		const newChildren = [...temp[newParent].children, id]
 
 		temp[newParent] = {...temp[newParent], children : newChildren}
 		dispatch(setProject(temp))
 	}
+
+	const [selectedMenu, setSelectedMenu] = useState("text-content")
 
   return (
 	<div className={styles.container}>
@@ -55,10 +58,13 @@ const Sidebar = () => {
 			</div>
 		</div>
 		<div className={classNames(styles.elementOptions, (list && (activeElement && activeElement != "body")) ? styles.active : styles.inactive)}>
-			<div className={styles.navigatioin}>
-
+			<div className={styles.navigation}>
+				<button className={selectedMenu === "text-content" && styles.active} onClick={() => setSelectedMenu("text-content")}>TEXTCONTENT</button>
+				<button className={selectedMenu === "css" && styles.active} onClick={() => setSelectedMenu("css")} >CSS</button>
+				<button className={selectedMenu === "events" && styles.active} onClick={() => setSelectedMenu("events")}>EVENTS</button>
 			</div>
-			<TextContentEdit/>
+			{selectedMenu==="text-content" && <TextContentEdit/>}
+			{selectedMenu==="css" && <CssSection/>}
 		</div>
 	</div>
   )

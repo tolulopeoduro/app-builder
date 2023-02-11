@@ -1,9 +1,14 @@
 import { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 import {setElement} from "../Redux/ActiveElement"
 import { addElement, clearClicks } from "../Redux/clicks";
 import { getContainer } from "../Redux/elementContainer";
 
+const H1 =  styled.h1`${props => props?.css}`
+const H2 =  styled.h2`${props => props?.css}`
+const P =  styled.p`${props => props?.css}`
+const SPAN =  styled.span`${props => props?.css}`
 const RenderElement = (props) => {
 	let {children, attributes, type, id} = props;
 	const dispatch = useDispatch()
@@ -29,10 +34,10 @@ const RenderElement = (props) => {
 		}
 		break;
 		case "h1":
-			return <h1 {...attributes}>{children}</h1>
+			return <H1  {...attributes}></H1>
 			break;
 		case "p":
-			return <p {...attributes}>{children}</p>
+			return <P {...attributes}></P>
 		case "h2":
 			return <h2 {...attributes}>{children}</h2>
 			break;
