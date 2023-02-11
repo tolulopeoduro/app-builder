@@ -2,6 +2,7 @@ import { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {setElement} from "../Redux/ActiveElement"
 import { addElement, clearClicks } from "../Redux/clicks";
+import { getContainer } from "../Redux/elementContainer";
 
 const RenderElement = (props) => {
 	let {children, attributes, type, id} = props;
@@ -11,6 +12,12 @@ const RenderElement = (props) => {
 		e.preventDefault()
 		dispatch(addElement(id));
 	}}
+
+	useEffect(() => {
+		if (type !== "div") {
+			document.getElementsByClassName(id)[0].innerHTML = children;
+		}
+	}, [project])
 	
 	switch (type) {
 		case "div" : {

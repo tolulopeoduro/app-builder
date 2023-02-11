@@ -1,11 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
-import { Fragment, useEffect } from 'react';
 import { RouterProvider } from 'react-router';
 import { createBrowserRouter } from 'react-router-dom';
 import Control from './Pages/Control/Control';
 import Result from './Result/Result';
-import { Provider, useDispatch } from 'react-redux';
+import { Provider } from 'react-redux';
 import Store from './Redux/Store';
 import { setElement } from './Redux/ActiveElement';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -14,8 +12,9 @@ import newElement from './element/newElement';
 
 export default () => {
   return (
+          <PersistGate persistor={persistStore(Store)}>
       <Provider store={Store}>
-        <Fragment>
+        <div className='app'>
             <RouterProvider
               router = {
                 createBrowserRouter([
@@ -29,7 +28,8 @@ export default () => {
                   },
                 ])
               }/>
-        </Fragment>
+              </div>
       </Provider>
+          </PersistGate>
   )
 }

@@ -55,6 +55,23 @@
 	box-sizing: border-box;
 	position: relative;
 	box-shadow: 4px 4px 4px rgba($color: #002A96, $alpha: 0.5);
+
+	>div {
+		text-shadow: 2px 2px 4px rgba($color: #000, $alpha: 0.9);
+	}
+}
+
+.elementOptions {
+	// max-width: 100%;
+	width: 180%;
+	max-width: 100vw;
+	display: flex;
+	background-color: #323232;
+	margin-top: 0.5rem;
+	box-sizing: border-box;
+	position: relative;
+	box-shadow: 4px 4px 4px rgba($color: #002A96, $alpha: 0.5);
+	left: 100vh;
 }
 
 .elementList.active {
@@ -63,6 +80,15 @@
 }
 .elementList.inactive {
 	animation: hideList 700ms;
+	left: 100vh;
+}
+
+.elementOptions.active {
+	animation: showList 1000ms;
+	left: 0px;
+}
+.elementOptions.inactive {
+	animation: hideList 1000ms;
 	left: 100vh;
 }
 

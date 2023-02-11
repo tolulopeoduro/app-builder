@@ -7,11 +7,13 @@ import newElement from '../../element/newElement'
 import { setElement } from '../../Redux/ActiveElement'
 import { setProject } from '../../Redux/Project/Project'
 import styles from "./Sidebar.module.scss"
+import TextContentEdit from './TextContentEdit/TextContentEdit'
 
 const Sidebar = () => {
 
 	const {data, isEmpty} = useSelector(s => s.project)
 	const [list, setList] = useState(false)
+	const {project, activeElement} = useSelector(s => s)
 	const dispatch = useDispatch();
 
 	const showEls = () => {
@@ -19,11 +21,12 @@ const Sidebar = () => {
 	}
 
 	useEffect(() => {
-		dispatch(setElement("body"))
-	}, [])
+		if (activeElement && activeElement != "body") {
+			setList(true);
+		}
+	}, [activeElement])
 
 	
-	const {project, activeElement} = useSelector(s => s)
 	
 	const create_el = (el) => {
 		const id = require("randomstring").generate();
@@ -44,13 +47,19 @@ const Sidebar = () => {
 				<FontAwesomeIcon icon = {faPlus} />
 			</div>
 		</div>
-			<div className={classNames(styles.elementList, list ? styles.active : styles.inactive)}>
-				<div>
-					{
-						"p span h1 h2 div".split(" ").map (el => <div key={el} onClick={() => create_el(el)}>{`<${el}>`}</div>)
-					}
-				</div>
+		<div className={classNames(styles.elementList, list ? styles.active : styles.inactive)}>
+			<div>
+				{
+					"p span h1 h2 div".split(" ").map (el => <div key={el} onClick={() => create_el(el)}>{`<${el}>`}</div>)
+				}
 			</div>
+		</div>
+		<div className={classNames(styles.elementOptions, (list && (activeElement && activeElement != "body")) ? styles.active : styles.inactive)}>
+			<div className={styles.navigatioin}>
+
+			</div>
+			<TextContentEdit/>
+		</div>
 	</div>
   )
 }

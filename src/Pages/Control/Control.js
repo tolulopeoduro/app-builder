@@ -18,7 +18,11 @@ const Control = () => {
         const c = document.getElementsByClassName(activeElement)[0]?.getBoundingClientRect()
         let temp = (JSON.parse(JSON.stringify(c)))
         dispatch(getContainer(temp));
-    }, [activeElement])
+    }, [activeElement, project])
+
+    // useEffect(() => {
+    //     if (project[activeElement].children)
+    // }, [project])
     
     useEffect(() => {
         if (clicks.length > 0) {
@@ -32,7 +36,6 @@ const Control = () => {
             <Sidebar/>
             {(activeElement && activeElement != "body") && <div className={styles.box} style={elementContainer ? {...elementContainer, top : elementContainer.top - 5, left : elementContainer.left -5} : {}}></div>}
             <Result/>
-            {/* <RenderElement {...project["body"]}/> */}
         </div>
     )
 }
