@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import { debounce } from 'lodash';
+import React, { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { getContainer } from '../../../Redux/elementContainer';
 import { setProject } from '../../../Redux/Project/Project';
 import styles from "./CssSection.module.scss"
 
@@ -23,7 +25,17 @@ export default () => {
 		let temp = {...project}
 		temp[activeElement] = {...temp[activeElement], attributes : {...temp[activeElement].attributes, css : c}}
 		dispatch(setProject(temp))
+		handleEnd();
 	}
+
+	const handleEnd = useMemo(
+		() => debounce(() =>  {
+			if (!activeElement || activeElement === "body") return;
+			const c = document.getElementsByClassName(activeElement)[0]?.getBoundingClientRect()
+			let temp = (JSON.parse(JSON.stringify(c)))
+			dispatch(getContainer(temp));
+		}, 150), []
+	)
 
 	return (
 		<div className={styles.container}>

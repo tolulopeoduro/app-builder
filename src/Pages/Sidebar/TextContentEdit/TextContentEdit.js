@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { debounce } from 'lodash'
+import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setProject } from '../../../Redux/Project/Project'
 import styles from './TextContentEdit.module.scss'
@@ -13,17 +14,26 @@ export default () => {
 
 	const handleChange = (e) => {
 		setTimeout(() => {
+			handleEnd(e)
+		}, 0)
+	}
+
+	const handleEnd = useMemo(
+		(e) => debounce((e) =>  {
+			// if (!activeElement || activeElement === "body") return;
+			// const c = document.getElementsByClassName(activeElement)[0]?.getBoundingClientRect()
+			// let temp = (JSON.parse(JSON.stringify(c)))
 			const p = e.target.innerHTML;
 			const reg1 = /<div><br><\/div>/g
 			const reg2 = /<div>/g
 			const reg3 = /s<\/div>/g
 			const p2 = p.replace(reg1, "<br>").replace(reg2, "<br>").replace("</div>", "").split("</div>").join("")
 			let temp = {...project};
-			console.log(p2)
 			temp[activeElement] = {...temp[activeElement], children : p2}
 			dispatch(setProject(temp))
-		}, 0)
-	}
+		}, 150), []
+	)
+
 	useEffect(() => {
 		document.getElementById("edit").innerHTML=project[activeElement].children
 	}, [activeElement])
@@ -32,9 +42,6 @@ export default () => {
 		<div className={styles.container}>
 			<div className={styles.inputContainer}>
 				<p contentEditable onKeyDown={(e) => handleChange(e)} id="edit">{initialContent}</p>
-				<div>
-					<button onClick={() => console.log("hello")}>Update</button>		
-				</div>
 			</div>
 		</div>
 	)

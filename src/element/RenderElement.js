@@ -39,7 +39,7 @@ const RenderElement = (props) => {
 		case "p":
 			return <P {...attributes}></P>
 		case "h2":
-			return <h2 {...attributes}>{children}</h2>
+			return <H2 {...attributes}>{children}</H2>
 			break;
 		case "h3":
 			return <h3 {...attributes}>{children}</h3>
@@ -57,7 +57,7 @@ const RenderElement = (props) => {
 			return <a {...attributes}>{children}</a>
 			break;
 		default:
-			return <span {...attributes}>{children}</span>
+			return <SPAN {...attributes}>{children}</SPAN>
 			break;
 	}
 }

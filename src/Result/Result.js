@@ -9,10 +9,6 @@ export default () => {
 	const {project, activeElement} = useSelector(s => s);
 	const dispatch = useDispatch()
 
-	// useEffect(() => {
-	// 	setProject(localStorage.getItem("project"))
-	// }, [])
-	let myTimeout = null;
 	const handle = () => {
 		handleEnd()
 	}
