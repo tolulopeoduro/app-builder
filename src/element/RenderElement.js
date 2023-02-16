@@ -9,6 +9,8 @@ const H1 =  styled.h1`${props => props?.css}`
 const H2 =  styled.h2`${props => props?.css}`
 const P =  styled.p`${props => props?.css}`
 const SPAN =  styled.span`${props => props?.css}`
+const Div = styled.div`${props => props.css? props.css : "height : 2rem; width : 4rem"}`
+
 const RenderElement = (props) => {
 	let {children, attributes, type, id} = props;
 	const dispatch = useDispatch()
@@ -27,9 +29,9 @@ const RenderElement = (props) => {
 	switch (type) {
 		case "div" : {
 			return (
-				<div {...attributes}>
+				<Div {...attributes}>
 					{children?.map(child => <RenderElement {...project[child]}/>)}
-				</div>
+				</Div>
 			)
 		}
 		break;

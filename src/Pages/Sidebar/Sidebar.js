@@ -33,7 +33,7 @@ const Sidebar = () => {
 		const id = require("randomstring").generate();
 		let temp = {...project}
 		const newParent = temp[activeElement]?.type === "div" ? activeElement : temp[activeElement]?.parent;
-		temp[id] = newElement(el, newParent, temp[newParent].children.length, {className : id, css : ""}, null, id)
+		temp[id] = newElement(el, newParent, temp[newParent].children.length, {className : id, css : "color : red"}, null, id)
 
 		const newChildren = [...temp[newParent].children, id]
 
