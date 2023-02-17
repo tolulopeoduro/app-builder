@@ -7,6 +7,7 @@ import newElement from '../../element/newElement'
 import { setElement } from '../../Redux/ActiveElement'
 import { setProject } from '../../Redux/Project/Project'
 import CssSection from './CssSection/CssSection'
+import Events from './Events/Events'
 import styles from "./Sidebar.module.scss"
 import TextContentEdit from './TextContentEdit/TextContentEdit'
 
@@ -65,6 +66,7 @@ const Sidebar = () => {
 			</div>
 			{selectedMenu==="text-content" && <TextContentEdit/>}
 			{selectedMenu==="css" && <CssSection/>}
+			{selectedMenu==="events" && <Events/>}
 		</div>
 	</div>
   )

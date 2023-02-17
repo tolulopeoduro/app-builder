@@ -1,0 +1,35 @@
+.container {
+	min-height: 10rem;
+	padding: 1rem ;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.item {
+	width: 100%;
+	>select {
+		border: 1px solid #4c4c4c;
+		color: #fff;
+		background-color: #4c4c4c;
+		outline: none;
+	}
+
+	>select:focus {
+		outline: none;
+	}
+	box-sizing: border-box;
+}
+
+.block {
+	margin-top: 0.5rem;
+	background-color: #282828;
+	min-height: 7rem;
+	max-height: 9rem;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0.5rem;
+}
+
+.block:focus {
+	outline: none;
+}
