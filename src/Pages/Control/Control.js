@@ -18,6 +18,7 @@ const Control = () => {
         const c = document.getElementsByClassName(activeElement)[0]?.getBoundingClientRect()
         let temp = (JSON.parse(JSON.stringify(c)))
         dispatch(getContainer(temp));
+        console.log(project)
     }, [activeElement, project])
 
     // useEffect(() => {
