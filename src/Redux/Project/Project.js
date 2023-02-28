@@ -1,11 +1,22 @@
 
 import { createSlice } from "@reduxjs/toolkit"
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import newElement from "../../element/newElement";
+import { create_component } from "../../utils";
+
+const baseComponent = {
+	location : "src/App",
+	name : "App",
+	children : [],
+	wrapper_element : 'div',
+	attributes : {},
+	style : ``,
+	inlineStyle : ``
+}
+
 
 const initialState = JSON.parse(localStorage.getItem("project")) || {
-	"body" :  newElement("div",null, 0, {class : "app", style : {overFlow : "auto"}}, [], "body"),
+	components : {
+		"App" : create_component(baseComponent)
+	}
 }
 const project =  createSlice({
 	name : "project",
@@ -13,10 +24,19 @@ const project =  createSlice({
 	reducers : {
 		setProject : (state , action) => {
 			return action.payload;
+		},
+		updateText : (state, action) => {
+			let temp = {...state}
+			let [value , target] = action.payload;
+			console.log(target, temp[target])
+
+			let t2 = {...temp[target], children : value}
+			temp[target] = t2;
+			return temp;
 		}
 	}
 })
 
 export default project.reducer;
 
-export const {setProject} = project.actions
+export const {setProject, updateText} = project.actions
