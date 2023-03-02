@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 
-const initialState = "body"
+const initialState = null
 
 const activeElement = createSlice({
 	name : "activeSlice",
 	initialState,
 	reducers : {
-		setElement : (state, action) => {
+		setActiveElement : (state, action) => {
 			return action.payload;
 		}
 	}
@@ -15,4 +15,4 @@ const activeElement = createSlice({
 
 export default activeElement.reducer;
 
-export const {setElement} = activeElement.actions;
+export const {setActiveElement} = activeElement.actions;

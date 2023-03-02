@@ -5,10 +5,19 @@ import { create_component } from "../../utils";
 const baseComponent = {
 	location : "src/App",
 	name : "App",
+	component_name : "App",
 	children : [],
 	wrapper_element : 'div',
-	attributes : {},
-	style : ``,
+	attributes : {className : "styles.App"},
+	style : `* {
+		font-family: Inter, sans-serif;
+		margin : 0; padding : 0;
+	}
+	
+	.App {
+		height: 100vh;
+		width: 100vw;
+	}`,
 	inlineStyle : ``
 }
 
@@ -16,14 +25,15 @@ const baseComponent = {
 const initialState = JSON.parse(localStorage.getItem("project")) || {
 	components : {
 		"App" : create_component(baseComponent)
-	}
+	},
+	activeComponent : null
 }
 const project =  createSlice({
 	name : "project",
 	initialState,
 	reducers : {
 		setProject : (state , action) => {
-			return action.payload;
+			return {...state, components: action.payload};
 		},
 		updateText : (state, action) => {
 			let temp = {...state}
@@ -33,10 +43,13 @@ const project =  createSlice({
 			let t2 = {...temp[target], children : value}
 			temp[target] = t2;
 			return temp;
+		},
+		setActiveComponent : (state, action) => {
+			return {...state, activeComponent : action.payload}
 		}
 	}
 })
 
 export default project.reducer;
 
-export const {setProject, updateText} = project.actions
+export const {setProject, updateText, setActiveComponent} = project.actions
