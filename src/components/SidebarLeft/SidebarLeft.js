@@ -6,6 +6,7 @@ import {debounce} from "lodash"
 import { setActiveElement } from "../../Redux/ActiveElement"
 import { setActiveComponent } from "../../Redux/Project/Project"
 import ElementButton from "../ElementButton/ElementButton"
+import TextContentEdit from "../TextContentEdit/TextContentEdit"
 
 const socket = io.connect("http://localhost:3007")
 
@@ -50,6 +51,7 @@ export default () => {
 					['div', 'p', 'h1', 'h2', 'span', 'button'].map((element) => <ElementButton name ={element}/>)
 				}
 			</div>
+			{activeElement?.wrapper_element !== "div" && <TextContentEdit/>}
 			<div className={styles.cssSection}>
 			</div>	
 		</div>
