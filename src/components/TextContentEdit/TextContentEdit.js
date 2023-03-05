@@ -15,6 +15,7 @@ export default () => {
 	useEffect(() => {
 		set_init_val(activeElement?.innerHTML);
 		set_val(activeElement?.innerHTML)
+		document.getElementsByClassName(styles.container)[0].innerHTML = activeElement?.innerHTML;
 	}, [activeElement])
 
 	const update_content = () => {
@@ -37,7 +38,6 @@ export default () => {
 	return (
 		<Fragment>
 			<div contentEditable onKeyUp={(e) => handleKeyUp(e)} className={styles.container}>
-				{init_val}
 			</div>
 			<div className={styles.button}>
 				<button onClick={() => update_content()}>UPDATE</button>
