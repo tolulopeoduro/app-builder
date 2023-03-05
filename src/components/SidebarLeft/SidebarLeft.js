@@ -5,30 +5,30 @@ import { useDispatch, useSelector } from "react-redux"
 import {debounce} from "lodash"
 import { setActiveElement } from "../../Redux/ActiveElement"
 import { setActiveComponent } from "../../Redux/Project/Project"
+import ElementButton from "../ElementButton/ElementButton"
 
 const socket = io.connect("http://localhost:3007")
 
 export default () => {
 	const dispatch = useDispatch();
 
-	const {project, project : {components, activeComponent}, activeElement} = useSelector(s => s)
+	const {project, project : {elements, activeComponent}, activeElement} = useSelector(s => s)
 
 	useEffect(() => {
 		socket.emit("send_project", project)
 	}, [project])
 
 	useEffect(() => {
-		socket.on("send_selection", (data) => {
-			dispatch(setActiveElement(data))
+		socket.on("send_selection", (data) => {	
+			dispatch(setActiveElement(elements[data || activeElement]))
 		})
-	}, [socket])
+	}, [socket, elements])
 
 	useEffect(() => {
-		let d = components[activeElement]
-		const active_com = components[d?.component_name]
+		const active_com = elements[activeElement?.component_name]
 		dispatch(setActiveComponent(active_com));
 		setName(active_com?.name)
-	}, [activeElement])
+	}, [activeElement, elements])
 
 	const [name, setName] = useState("")
 
@@ -46,7 +46,9 @@ export default () => {
 			</div>
 			<input className={styles.default_input} disabled={activeComponent?.component_name === "App"} value={name} type="text" placeholder="ComponentName"/>
 			<div className={styles.elements}>
-				
+				{
+					['div', 'p', 'h1', 'h2', 'span', 'button'].map((element) => <ElementButton name ={element}/>)
+				}
 			</div>
 			<div className={styles.cssSection}>
 			</div>	

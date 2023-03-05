@@ -1,0 +1,19 @@
+.container {
+	height: 100%;
+	padding: 0px 0.2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0px 4px;
+	min-width: 3rem;
+	color: #fff;
+	font-size: 1rem;
+	border-radius: 0.25rem;
+	transition: all 400ms;
+	box-sizing: border-box;
+}
+
+.container:hover, .container.active {
+	background-color: #dfdfdf;
+	color: #000;
+}
