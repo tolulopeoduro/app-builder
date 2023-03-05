@@ -18,15 +18,20 @@ export default () => {
 	}, [activeElement])
 
 	const update_content = () => {
+
+		const reg1 = /<div><br><\/div>/g
+		const reg2 = /<div>/g
+		const reg3 = /s<\/div>/g
+		
 		let new_elements = {...elements};
 		let updated_element = {...activeElement};
-		updated_element.innerHTML=val;
+		updated_element.innerHTML= val.replace(reg1, "<br/>").replace(reg2, "<br/>").replace("</div>", "").replace(/<br>/g, "</br>").split("</div>").join("")
 		new_elements[activeElement?.name] = updated_element;
 		dispatch(setElements(new_elements))
 	}
 	
 	const handleKeyUp = (e) => {
-		set_val(e.target.innerHTML)
+		set_val(e.target.innerHTML)	
 	}
 
 	return (
