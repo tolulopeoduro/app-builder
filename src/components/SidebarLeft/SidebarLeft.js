@@ -7,6 +7,7 @@ import { setActiveElement } from "../../Redux/ActiveElement"
 import { setActiveComponent } from "../../Redux/Project/Project"
 import ElementButton from "../ElementButton/ElementButton"
 import TextContentEdit from "../TextContentEdit/TextContentEdit"
+import CSSEdit from "../CSSEdit/CSSEdit"
 
 const socket = io.connect("http://localhost:3007")
 
@@ -52,8 +53,7 @@ export default () => {
 				}
 			</div>
 			{activeElement?.wrapper_element !== "div" && <TextContentEdit/>}
-			<div className={styles.cssSection}>
-			</div>	
+			<CSSEdit/>
 		</div>
 	)
 }

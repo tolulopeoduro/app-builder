@@ -1,6 +1,7 @@
 *{
   width: fit-content;
   font-family: Inter;
+  box-sizing: border-box;
 }
 
 body {

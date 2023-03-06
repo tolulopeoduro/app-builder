@@ -37,12 +37,11 @@ export default () => {
 
 	return (
 		<Fragment>
-			<div contentEditable onKeyUp={(e) => handleKeyUp(e)} className={styles.container}>
+			<div contentEditable onKeyUp={(e) => handleKeyUp(e)} className={styles.container}>	
 			</div>
 			<div className={styles.button}>
 				<button onClick={() => update_content()}>UPDATE</button>
 			</div>
-		</Fragment>
-			
+		</Fragment>	
 	)
 }

@@ -9,7 +9,7 @@ import SidebarLeft from './components/SidebarLeft/SidebarLeft';
 
 export default () => {
 return (
-	<PersistGate persistor={persistStore(Store)}>
+	// <PersistGate persistor={persistStore(Store)}>
 		<Provider store={Store}>
 			<div className='app'>
 				<SidebarLeft/>
@@ -17,6 +17,6 @@ return (
 				</iframe>
 			</div>
 		</Provider>
-	</PersistGate>
+	// </PersistGate>
 )
 }

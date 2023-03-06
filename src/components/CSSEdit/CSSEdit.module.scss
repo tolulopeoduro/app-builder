@@ -1,0 +1,40 @@
+	.container {
+		min-height: 6rem;
+		width: 100%;
+		background-color: rgba($color: #000000, $alpha: 0.5);
+		margin: 1rem 0px 0px 0px;
+		box-sizing: border-box;
+		font-family: inter;
+		outline: none;
+		font-size: 1rem;
+		border-radius: 0.25rem 0.25rem 0px 0px;
+
+		>div {
+			width: 100% !important;
+		}
+	}
+
+.button {
+	width: 100%;
+	display: flex;
+	flex-direction: row-reverse;
+	border: none;
+	border-radius: 0px 0px 0.25rem 0.25rem	;
+	background-color: rgba($color: #000000, $alpha: 0.5);
+	
+	>button {
+		border: 0px;
+		padding: 6px;
+		border-radius: 2px;
+		color: #fff;
+		background-color: rgba($color: #3d3d3d, $alpha: 0.5);
+		margin-bottom: 2px;
+		margin-right: 2px;
+		font-size: 0.75rem;
+		transition: all 300ms;
+	}
+	
+	>button:hover {
+		background-color: rgba($color: #6b6b6b, $alpha: 0.5);
+	}
+}
