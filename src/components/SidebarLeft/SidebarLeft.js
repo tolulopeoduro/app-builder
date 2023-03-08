@@ -53,7 +53,6 @@ export default () => {
 				}
 			</div>
 			{activeElement?.wrapper_element !== "div" && <TextContentEdit/>}
-			<CSSEdit/>
 		</div>
 	)
 }

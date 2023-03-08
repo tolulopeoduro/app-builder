@@ -13,18 +13,18 @@ const code = 'const a = 0;';
 
 export default () => {
 
-	const {activeElement, project : {elements}} = useSelector(s => s);
+	const {activeElement, project : {elements, activeComponent}} = useSelector(s => s);
 	const [init_val, set_init_val] = useState("")
 	const [val, set_val] = useState("")
 	const dispatch = useDispatch();
 
 	
 
-	// useEffect(() => {
-	// 	set_init_val(activeElement?.style);
-	// 	set_val(activeElement?.style)
-	// 	document.getElementsByClassName(styles.container)[0].textContent = activeElement?.style;
-	// }, [activeElement])
+	useEffect(() => {
+		set_init_val(activeComponent?.style);
+		set_val(activeComponent?.style)
+		// document.getElementsByClassName(styles.container)[0].textContent = activeComponent?.style;
+	}, [activeComponent])
 
 	const update_content = () => {
 
@@ -33,9 +33,9 @@ export default () => {
 		const reg3 = /s<\/div>/g
 		
 		let new_elements = {...elements};
-		let updated_element = {...activeElement};
+		let updated_element = {...activeComponent};
 		updated_element.style= val.replace(reg1, "<br/>").replace(reg2, "<br/>").replace("</div>", "").replace(/<br>/g, "</br>").split("</div>").join("")
-		new_elements[activeElement?.name] = updated_element;
+		new_elements[activeComponent?.name] = updated_element;
 		dispatch(setElements(new_elements))	
 	}
 	
@@ -50,15 +50,16 @@ export default () => {
 			<div className={styles.container}>
 				<ReactCodeMirror
 				lang={css}
-				height="6rem"
+				height="15rem"
 				width={"100%"}
 				theme={dracula}
 				extensions = {[basicSetup, css()]}
+				value ={val}
 				/>
 			</div>
-			<div className={styles.button}>		
+			{/* <div className={styles.button}>		
 				<button onClick={() => update_content()}>UPDATE</button>
-			</div>
+			</div> */}
 		</Fragment>	
 	)
 }
