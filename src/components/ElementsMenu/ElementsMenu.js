@@ -22,8 +22,8 @@ export default () => {
 
 
 	return (
-		<ClickAwayListener onClickAway={() => element_menu && dispatch(set_element_menu(false))}>
-			<div id="element_menu" className={styles.container} style={{top :pos[0], left : pos[1]}}>
+		<ClickAwayListener onClickAway={() => dispatch(set_element_menu(false))}>
+			<div id="element_menu" className={styles.container} style={{top :element_menu ? pos[0] : 5000, left : pos[1]}}>
 				<span>
 					ADD ELEMENT
 				</span>
