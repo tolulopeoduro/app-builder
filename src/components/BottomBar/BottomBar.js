@@ -59,7 +59,7 @@ export default () => {
 					{tab === "CSS" && <CSSEdit/>}
 				</div>
 			</div>
-			<ElementsMenu/>
+			{element_menu && <ElementsMenu/>}
 		</Fragment>
 	)
 }
