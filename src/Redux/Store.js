@@ -5,15 +5,11 @@ import persistReducer from "redux-persist/es/persistReducer";
 import persistStore from "redux-persist/es/persistStore";
 import storage from "redux-persist/lib/storage";
 import ActiveElement from "./ActiveElement";
-import clicks from "./clicks";
-import elementContainer from "./elementContainer";
 import projectSlice from "./Project/Project";
 
 const reducers = combineReducers({
 	project : projectSlice,
 	activeElement : ActiveElement,
-	clicks : clicks,
-	elementContainer : elementContainer
 })
 
 
