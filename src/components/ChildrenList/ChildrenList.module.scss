@@ -1,0 +1,45 @@
+.container {
+	min-height: 6rem;
+	width: 50%;
+	min-width: 30vw;
+	height: 90%;
+	margin-top: 4px;
+	background-color: rgba($color: #000000, $alpha: 0.5);		
+	padding-top: 0.2rem;
+	box-sizing: border-box;
+	border-radius: 0.25rem;
+	color : #fff;
+	outline: none;
+	font-size: 1rem;
+
+	>div {
+		width: 100%;
+		height: 100%;
+		position: relative;
+	}
+
+	button {
+		position: absolute;
+		right: 1rem;
+		bottom : 1rem;
+		background-color: #fff;
+		border: none;
+		border-radius: 0.25rem;
+		height: 1.5rem;
+		box-sizing: border-box;
+		padding: 0px;
+		margin: 0px;
+		width: 1.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		outline: none;
+
+		>svg {
+			height: 1.5rem;
+			width: 1.5rem;
+		}
+
+	}
+
+}
