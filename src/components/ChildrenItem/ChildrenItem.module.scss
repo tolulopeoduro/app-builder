@@ -1,11 +1,18 @@
 .container {
-	height: 1rem;
-	margin-bottom: 1px;
-	background-color: gray;
+	height: 1.1rem;
+	background-color: rgba($color: #fff, $alpha: 0.1);
 	width: 100%;
 	display: flex;
 	align-items: center;
 	padding-left: 0.5rem;
+}
+
+.container:hover {
+	background-color: rgba($color: #fff, $alpha: 0.3);
+}
+
+.container.active_element {
+	background-color: rgba($color: #fff, $alpha: 0.5);
 }
 
 .type {
@@ -35,16 +42,14 @@ svg.inactive_dropdown{
 
 .children {
 	width: 100%;
-	overflow: hidden;
-	transition: all 200ms;
+	padding: 0px;
+	margin : 0px;
 }
 
-.active {
-	max-height: 300px;
-	width: 100%;
-}
+// .active > div{
+// 	height: 1rem;
+// }
 
-.inactive{
-	height: 0px;
-	width: 100%;
-}
+// .inactive > div{	
+// 	height: 0px;
+// }
