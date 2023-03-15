@@ -1,19 +1,23 @@
 .container {
-	height: 100%;
+	height: 1rem;
+	font-family: Inter;
 	padding: 0px 0.2rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	margin: 0px 4px;
-	min-width: 3rem;
+	min-width: 2rem;
 	color: #fff;
-	font-size: 1rem;
 	border-radius: 0.25rem;
 	transition: all 400ms;
 	box-sizing: border-box;
+	font-size: 0.7rem;
+	background-color: #dfdfdf;
+	color: #000;
+	cursor: pointer;
+	margin-bottom: 0.5rem;
 }
 
 .container:hover, .container.active {
-	background-color: #dfdfdf;
-	color: #000;
+	
 }
