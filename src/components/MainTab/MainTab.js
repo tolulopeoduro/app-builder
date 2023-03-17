@@ -10,16 +10,10 @@ export default () => {
 
 	return (
 		<div className={styles.container}>
-				{activeElement?.wrapper_element !== "div" ? (
-					<Fragment>
-						<span>TEXT CONTENT</span>
-						<TextContentEdit/>
-					</Fragment>
-				): (
-					<Fragment>
-						<ChildrenList/>
-					</Fragment>
-				)}
+			<Fragment>
+				<ChildrenList/>
+				{activeElement?.wrapper_element !== "div" && <TextContentEdit/>}
+			</Fragment>
 		</div>
 	)
-}
+}	

@@ -15,6 +15,7 @@
 	background-color: rgba($color: #fff, $alpha: 0.5);
 }
 
+
 .type {
 	font-size : 8px;
 	font-weight: bold;
@@ -26,6 +27,7 @@
 	text-overflow: ellipsis;
 	max-width: 6rem;
 	overflow: hidden;
+	word-wrap: none;
 }
 
 svg {
@@ -38,6 +40,9 @@ svg.active_dropdown{
 }
 svg.inactive_dropdown{
 	transform: rotate(-90deg);
+}
+svg.active_dropdown, svg.inactive_dropdown {
+	z-index: 7;
 }
 
 .children {
