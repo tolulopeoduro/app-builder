@@ -1,3 +1,4 @@
+import { trimEnd, trimStart } from "lodash"
 import { setProject } from "./Redux/Project/Project"
 import Store from "./Redux/Store"
 
@@ -27,4 +28,11 @@ export const newElement = (data) => {
 
 export const addChild = () => {
 	
+}
+
+export const trim_text_content = (str) => {
+	if (str.length > 10) {
+		return trimStart(trimEnd(str.substring(0, 10))) + "..."
+	}
+	return str;
 }
