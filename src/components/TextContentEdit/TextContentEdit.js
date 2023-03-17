@@ -15,7 +15,7 @@ export default () => {
 	useEffect(() => {
 		set_init_val(activeElement?.innerHTML);
 		set_val(activeElement?.innerHTML)
-		document.getElementsByClassName(styles.container)[0].innerHTML = activeElement?.innerHTML;
+		document.getElementsByClassName(styles.input)[0].innerHTML = activeElement?.innerHTML;
 	}, [activeElement])
 
 	const update_content = () => {
@@ -27,6 +27,7 @@ export default () => {
 		let new_elements = {...elements};
 		let updated_element = {...activeElement};
 		updated_element.innerHTML= val.replace(reg1, "<br/>").replace(reg2, "<br/>").replace("</div>", "").replace(/<br>/g, "</br>").split("</div>").join("")
+		updated_element.text_content= document.getElementById("text_content_edit").textContent;
 		new_elements[activeElement?.name] = updated_element;
 		dispatch(setElements(new_elements))
 	}
@@ -36,12 +37,11 @@ export default () => {
 	}
 
 	return (
-		<Fragment>
-			<div contentEditable onKeyUp={(e) => handleKeyUp(e)} className={styles.container}>	
-			</div>
-			<div className={styles.button}>
-				<button onClick={() => update_content()}>UPDATE</button>
-			</div>
-		</Fragment>	
+		<div className={styles.container}>	
+				<div contentEditable onKeyUp={(e) => handleKeyUp(e)} id ="text_content_edit" className={styles.input}></div>
+				<div>
+					<button className={styles.update_button} onClick={() => update_content()}>UPDATE</button>
+				</div>
+		</div>	
 	)
 }

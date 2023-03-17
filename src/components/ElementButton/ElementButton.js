@@ -13,17 +13,18 @@ export default (props) => {
 	const handleClick = () => {
 		let id = require("randomstring").generate();
 		let active_element_name = activeElement?.name;
-
+		let default_string = `new ${name}`;
 		let el = newElement({
 			name : id,
 			parent : elements[active_element_name]?.wrapper_element === "div" ? active_element_name : elements[active_element_name],
 			wrapper_element : name,
 			attributes : {},
 			children : [],
-			innerHTML : `new ${name}`,
+			innerHTML : default_string,
 			styles : ``,
 			component_name : activeComponent?.name,
-			is_component : false
+			is_component : false,
+			text_content : default_string
 		})
 		let m = {}
 		m[id] = el;

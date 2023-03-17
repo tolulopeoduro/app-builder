@@ -9,6 +9,7 @@ const baseComponent = {
 	component_name : "App",
 	children : [],
 	innerHTML : "",
+	text_content : "",
 	wrapper_element : 'div',
 	attributes : {className : "styles.App"},
 	style : `* {

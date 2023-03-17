@@ -1,43 +1,47 @@
 .container {
 	min-height: 6rem;
-	width: 100%;
+	max-width: 80%;
 	min-width: 30vw;
-	height: 50%;
+	height: 90%;
+	margin-left: 1rem;
 	min-height: 7rem;
 	margin-top: 4px;
 	background-color: rgba($color: #000000, $alpha: 0.5);
 	padding-left: 0.5rem;
 	padding-top: 0.5rem;
 	box-sizing: border-box;
-	// border-radius: 0.25rem;
+	border-radius: 0.25rem;
 	color : #fff;
 	font-family: inter;
 	outline: none;
-	font-size: 1rem;
-	border-radius: 0.25rem 0.25rem 0px 0px	;
+	position: relative;
 }
 
-.button {
+.input {
 	width: 100%;
-	display: flex;
-	flex-direction: row-reverse;
-	border: none;
-	border-radius: 0px 0px 0.25rem 0.25rem	;
-	background-color: rgba($color: #000000, $alpha: 0.5);
+	height: 100%;
+	min-width: 100%	;
+	outline: 0;
+	caret-shape: block;
+	box-sizing: border-box;
+	font-size: 0.8rem;
+	overflow: auto;
+	display: block;
 	
-	>button {
-		border: 0px;
-		padding: 6px;
-		border-radius: 2px;
-		color: #fff;
-		background-color: rgba($color: #3d3d3d, $alpha: 0.5);
-		margin-bottom: 2px;
-		margin-right: 2px;
-		font-size: 0.75rem;
-		transition: all 300ms;
+	> * {
+		outline: 0;
+		display: block;
 	}
-	
-	>button:hover {
-		background-color: rgba($color: #6b6b6b, $alpha: 0.5);
-	}
+}
+
+.update_button {
+	position: absolute;
+	bottom: 0.25rem;
+	right: 0.25rem;
+	border : none;
+	border-radius: 0.25rem;
+	background-color: #fff;
+	color: #000000;
+	font-size: 0.8rem;
+	z-index: 4;
 }
