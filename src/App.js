@@ -15,7 +15,7 @@ import { setActiveElement } from './Redux/ActiveElement';
 export default () => {
 
 	return (
-		<PersistGate persistor={persistStore(Store)}>
+		// <PersistGate persistor={persistStore(Store)}>
 			<Provider store={Store}>
 				<div className='app'>
 					{/* <SidebarLeft/> */}
@@ -25,6 +25,6 @@ export default () => {
 					<BottomBar/>
 				</div>
 			</Provider>
-		</PersistGate>
+		// </PersistGate>
 	)
 }

@@ -57,3 +57,16 @@
 .inactive {
 	transform: rotate(0deg);
 }
+
+.path_container {
+	font-size: 0.5rem;
+	padding: 0px;
+	margin : 0px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	max-width: 100%;
+	overflow: scroll;
+	padding: 0px;
+}
