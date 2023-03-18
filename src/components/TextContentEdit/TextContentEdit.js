@@ -37,11 +37,14 @@ export default () => {
 	}
 
 	return (
-		<div className={styles.container}>	
-				<div contentEditable onKeyUp={(e) => handleKeyUp(e)} id ="text_content_edit" className={styles.input}></div>
-				<div>
-					<button className={styles.update_button} onClick={() => update_content()}>UPDATE</button>
-				</div>
-		</div>	
+		<div className={styles.text_content_edit}>
+			<span>CONTENT</span>
+			<div className={styles.container}>	
+					<div contentEditable onKeyUp={(e) => handleKeyUp(e)} id ="text_content_edit" className={styles.input}></div>
+					<div>
+						<button className={styles.update_button} onClick={() => update_content()}>UPDATE</button>
+					</div>
+			</div>	
+		</div>
 	)
 }
