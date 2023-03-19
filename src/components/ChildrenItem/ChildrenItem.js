@@ -26,10 +26,27 @@ const ChildrenItem = (props) => {
 	return (
 		<Fragment>
 			<div className={classNames(styles.container, {[styles.active_element] : activeElement?.name === element})} onClick={() => dispatch(() => handle_click(element?.name))}>
-				{new Array(level).fill(<span className={styles.tab}></span>).map((el) => el)}
-				<span className={styles.type}>{element_data?.wrapper_element}</span>
-				{element_data?.innerHTML && <span className={styles.content}>{trim_text_content(element_data?.text_content)}</span>}
-				{element_data?.wrapper_element === "div" && <svg onClick={(e) => toggle_active(e)} className={active ? styles.active_dropdown : styles.inactive_dropdown} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m7 10l5 5l5-5z"/></svg>}
+				<span className={styles.left}>
+					{new Array(level).fill(<span className={styles.tab}></span>).map((el) => el)}
+					{
+						element_data?.is_component ? 
+						<span className={styles.component_name}>{element_data?.name}</span>
+						:
+						<Fragment>
+							<span className={styles.type}>{element_data?.wrapper_element}</span>
+							{element_data?.innerHTML && <span className={styles.content}>{trim_text_content(element_data?.text_content)}</span>}
+						</Fragment>
+					}
+					{element_data?.wrapper_element === "div" && <svg onClick={(e) => toggle_active(e)} className={active ? styles.active_dropdown : styles.inactive_dropdown} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m7 10l5 5l5-5z"/></svg>}
+				</span>
+				<span className={styles.right}>
+					<svg id="delete_el" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+						<path fill="currentColor" 
+						d="M17 6h5v2h-2v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8H2V6h5V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3zm1 
+						2H6v12h12V8zm-4.586 6l1.768 1.768l-1.414 1.414L12 15.414l-1.768 1.768l-1.414-1.414L10.586 
+						14l-1.768-1.768l1.414-1.414L12 12.586l1.768-1.768l1.414 1.414L13.414 14zM9 4v2h6V4H9z"/>
+					</svg>
+				</span>
 			</div>
 			<div id="children" className={classNames(styles.children, {[styles.active] : active}, {[styles.inactive] : !active})}>
 				{
