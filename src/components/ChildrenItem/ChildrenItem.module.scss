@@ -4,12 +4,32 @@
 	width: 100%;
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 	padding-left: 0.5rem;
 	overflow: hidden;
 }
 
+.right {
+	display: none;
+	opacity: 0.3;
+}
+
+.right:hover {
+	opacity: 1;
+}
+
+.left {
+	display: display;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
 .container:hover {
 	background-color: rgba($color: #fff, $alpha: 0.3);
+	>.right {
+		display: inline;
+	}
 }
 
 .container.active_element {
@@ -44,8 +64,12 @@ svg.active_dropdown, svg.inactive_dropdown {
 	z-index: 7;
 }
 
+.component_name {
+	font-size: 8px;
+}
+
 .children {
-	width: 100%;
+	min-width: 100%;
 	padding: 0px;
 	margin : 0px;
 }
@@ -57,3 +81,7 @@ svg.active_dropdown, svg.inactive_dropdown {
 // .inactive > div{	
 // 	height: 0px;
 // }
+
+#delete_el {
+	float: right;
+}
