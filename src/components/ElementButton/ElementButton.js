@@ -12,7 +12,7 @@ export default (props) => {
 
 	const handleClick = () => {
 		let id = require("randomstring").generate();
-		let active_element_name = activeElement?.name;
+		let active_element_name = activeElement?.name
 		let default_string = `new ${name}`;
 		let el = newElement({
 			name : id,
@@ -20,14 +20,14 @@ export default (props) => {
 			wrapper_element : name,
 			attributes : {},
 			children : [],
+			position : activeElement?.children.length,
 			innerHTML : default_string,
 			styles : ``,
 			component_name : activeComponent?.name,
 			is_component : false,
 			text_content : default_string
 		})
-		let m = {}
-		m[id] = el;
+		
 		
 		let new_elements = {...elements}
 		
