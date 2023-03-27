@@ -44,6 +44,7 @@ export default () => {
 			<div className={styles.container}>
 				<div className={styles.bar}>
 					<div className={styles.left}>
+						<img src="/component.svg"/>
 						<span>{activeComponent?.name}</span>
 						<div className={styles.tabs}>
 							<span onClick={() => set_tab("MAIN")} className={tab==="MAIN" && styles.active}>MAIN</span>
