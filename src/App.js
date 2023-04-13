@@ -8,23 +8,24 @@ import persistStore from 'redux-persist/es/persistStore';
 import SidebarLeft from './components/SidebarLeft/SidebarLeft';
 import CSSEdit from './components/CSSEdit/CSSEdit';
 import BottomBar from './components/BottomBar/BottomBar';
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { setActiveComponent } from './Redux/Project/Project';
 import { setActiveElement } from './Redux/ActiveElement';
 
 export default () => {
-
+	const {project : {elementContainer}, activeElement} = useSelector(s => s)
 	return (
-		// <PersistGate persistor={persistStore(Store)}>
-			<Provider store={Store}>
-				<div className='app'>
-					{/* <SidebarLeft/> */}
-					<iframe src="http://localhost:3006" style={{width : "100%", height : "100%"}}>
-					</iframe>
-					{/* <CSSEdit/> */}
-					<BottomBar/>
-				</div>
-			</Provider>
-		// </PersistGate>
+		<Fragment>
+			<div className='app'>
+				{/* <SidebarLeft/> */}
+				{(activeElement && activeElement != "body")
+				 && <div id="selection-box" style={elementContainer ? {...elementContainer, top : elementContainer.top - 5, left : elementContainer.left -5} : {}}></div>}
+				<iframe src="http://localhost:3006" style={{width : "100%", height : "100%"}}>
+				</iframe>
+				{/* <CSSEdit/> */}
+				<BottomBar/>
+			</div>
+		</Fragment>
+
 	)
 }

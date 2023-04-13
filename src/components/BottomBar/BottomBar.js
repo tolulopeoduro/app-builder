@@ -4,7 +4,7 @@ import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MainTab from "../MainTab/MainTab";
 import {io} from "socket.io-client"		
-import { setActiveComponent } from "../../Redux/Project/Project";
+import { setActiveComponent, set_dimension } from "../../Redux/Project/Project";
 import { setActiveElement } from "../../Redux/ActiveElement";
 import ElementsMenu from "../ElementsMenu/ElementsMenu";
 
@@ -31,6 +31,11 @@ export default () => {
 		socket.on("send_selection", (data) => {	
 			dispatch(setActiveElement(elements[data || activeElement]))
 		})
+
+		socket.on("send_selection_dimension", (data) => {
+			dispatch(set_dimension(data))
+		})
+
 	}, [socket, elements])
 
 	useEffect(() => {
