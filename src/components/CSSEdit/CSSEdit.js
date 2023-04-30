@@ -31,6 +31,7 @@ export default () => {
 		let updated_element = {...activeComponent};
 		updated_element.style= val
 		new_elements[activeComponent?.name] = updated_element;
+		console.log(elements)
 		console.log(new_elements)
 		dispatch(setElements(new_elements))	
 	}

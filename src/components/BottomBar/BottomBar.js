@@ -7,6 +7,8 @@ import {io} from "socket.io-client"
 import { setActiveComponent, set_dimension } from "../../Redux/Project/Project";
 import { setActiveElement } from "../../Redux/ActiveElement";
 import ElementsMenu from "../ElementsMenu/ElementsMenu";
+import * as $ from "jquery"
+import { click } from "@testing-library/user-event/dist/click";
 
 const socket = io.connect("http://localhost:3007")
 
@@ -21,11 +23,16 @@ export default () => {
 
 	useEffect(() => {
 		dispatch(setActiveComponent(elements["App"]));
-	}, [elements])
+	}, [])
+
+	useEffect(() => {
+		socket.emit("get_selection_dimension", activeElement?.name)
+	}, [activeElement])
+
 
 	useEffect(() => {
 		socket.emit("send_project", project)
-	}, [project])
+	}, [project.elements])
 
 	useEffect(() => {
 		socket.on("send_selection", (data) => {	
@@ -38,11 +45,12 @@ export default () => {
 
 	}, [socket, elements])
 
+
 	useEffect(() => {
 		const active_com = elements[activeElement?.component_name]
 		dispatch(setActiveComponent(active_com));
 		set_name(active_com?.name)
-	}, [activeElement, elements])
+	}, [activeElement])
 
 	return (
 		<Fragment>

@@ -20,7 +20,7 @@ export default () => {
 				{/* <SidebarLeft/> */}
 				{(activeElement && activeElement != "body")
 				 && <div id="selection-box" style={elementContainer ? {...elementContainer, top : elementContainer.top, left : elementContainer.left -5} : {}}></div>}
-				<iframe src="http://localhost:3006" style={{width : "100%", height : "100%"}}>
+				<iframe id='view' src="http://localhost:3006" style={{width : "100%", height : "100%"}}>
 				</iframe>
 				{/* <CSSEdit/> */}
 				<BottomBar/>
