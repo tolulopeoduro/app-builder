@@ -1,5 +1,5 @@
 import { trimEnd, trimStart } from "lodash"
-import { setElements, setProject } from "./Redux/Project/Project"
+import { setElements, setProject, set_modal } from "./Redux/Project/Project"
 import Store from "./Redux/Store"
 
 
@@ -24,6 +24,7 @@ export const create_element = (el, parent_id, id) => {
 	new_elements[parent_id] = c;
 
 	Store.dispatch(setElements(new_elements));
+	Store.dispatch(set_modal(null));
 	
 }
 

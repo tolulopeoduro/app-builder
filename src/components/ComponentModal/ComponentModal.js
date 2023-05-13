@@ -2,12 +2,14 @@ import { useState } from "react"
 import StateItem from "../StateItem/StateItem"
 import classes from "./ComponentModal.module.scss"
 import { create_component } from "../../utils";
+import { useDispatch } from "react-redux";
+import { set_modal } from "../../Redux/Project/Project";
 
 export default () => {
 
 	const [component_name, set_component_name] = useState("");
 	const [component_states, update_component_states] = useState([]);
-		
+	const dispatch = useDispatch();
 	
 	const handle_create_component = () => {
 			// Verify Component naming
@@ -28,7 +30,7 @@ export default () => {
 				location : `src/${component_name}`,
 				component_name,
 			})
-			
+			dispatch(set_modal(null))
 	}
 
 	return (
