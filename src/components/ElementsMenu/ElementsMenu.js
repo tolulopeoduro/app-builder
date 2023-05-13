@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import styles from "./ElementsMenu.module.scss"
 import ClickAwayListener from "react-click-away-listener";
 import { useDispatch, useSelector } from "react-redux";
-import { set_element_menu } from "../../Redux/Project/Project";
+import { set_element_menu, set_modal } from "../../Redux/Project/Project";
 
 
 export default () => {
@@ -28,7 +28,14 @@ export default () => {
 					ADD ELEMENT
 				</span>
 				<div className={styles.list}>
-				{["p", "div", "h1", "h2", "h3", "span", "button"].map((el, index) => <ElementButton name ={el}/>)}
+					{["p", "div", "h1", "h2", "h3", "span", "button"].map((el, index) => <ElementButton name ={el}/>)}
+					<br/>
+					<div className = {styles.new_component_button} 
+					onClick={() => dispatch(set_modal("new_component"))}
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11 19v-6H5v-2h6V5h2v6h6v2h-6v6Z"/></svg>
+						New component
+					</div>
 				</div>
 			</div>
 		</ClickAwayListener>

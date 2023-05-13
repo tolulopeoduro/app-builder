@@ -11,18 +11,22 @@ import BottomBar from './components/BottomBar/BottomBar';
 import { Fragment, useEffect } from 'react';
 import { setActiveComponent } from './Redux/Project/Project';
 import { setActiveElement } from './Redux/ActiveElement';
+import Backdrop from './components/Backdrop/Backdrop';
+import ComponentModal from './components/ComponentModal/ComponentModal';
 
 export default () => {
-	const {project : {elementContainer}, activeElement} = useSelector(s => s)
+	const {project : {elementContainer}, activeElement, project : {modal}} = useSelector(s => s)
 	return (
 		<Fragment>
 			<div className='app'>
-				{/* <SidebarLeft/> */}
-				{(activeElement && activeElement != "body")
-				 && <div id="selection-box" style={elementContainer ? {...elementContainer, top : elementContainer.top, left : elementContainer.left -5} : {}}></div>}
-				<iframe id='view' src="http://localhost:3006" style={{width : "100%", height : "100%"}}>
-				</iframe>
-				{/* <CSSEdit/> */}
+				{
+					modal === "new_component" && 
+					<Backdrop child = {<ComponentModal/>}/>
+				}
+				{(activeElement && activeElement != "body") &&
+					<div id="selection-box" style={elementContainer ? {...elementContainer, top: elementContainer.top, left: elementContainer.left -5} : {}}></div>
+				}
+				<iframe id='view' src="http://localhost:3006" style={{width : "100%", height : "100%"}}></iframe>
 				<BottomBar/>
 			</div>
 		</Fragment>

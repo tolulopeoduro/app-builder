@@ -52,6 +52,12 @@ export default () => {
 		set_name(active_com?.name)
 	}, [activeElement])
 
+	useEffect(() => {
+		if (!activeElement) return;
+		let {name, parent, wrapper_element} = activeElement;
+		console.log(name, parent, wrapper_element)
+	}, [activeElement])
+
 	return (
 		<Fragment>
 			<div className={styles.container}>

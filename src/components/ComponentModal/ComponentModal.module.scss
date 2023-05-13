@@ -1,0 +1,77 @@
+.container 
+{
+	width: 20rem;
+	background-color: #474747;
+	border-radius: 0.25rem;
+}
+
+.header
+{
+	font-size: 1rem;
+	height: 2rem;
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	border-bottom: 1px solid #7c7c7c;
+	width: 100%;
+	padding: 0px 1rem;
+}
+
+.component_name
+{
+	height: 2rem;
+	display: flex;
+	width: 100%;
+	align-items: center;
+	flex-direction: row;
+	border: none;
+	outline: none;
+	background-color: #3c3c3c;
+	padding-left: 0.3rem ;
+	color: #fff;
+	padding: 0px 1rem;
+}
+
+.state, .props
+{
+	width: 100%;
+	height: 8rem;
+	background-color: #3c3c3c;
+}
+
+.props
+{
+	height: 5rem;
+}
+
+.footer
+{
+	width: 100%;
+	display: flex;
+	background-color: #474747;
+	justify-content: flex-end;
+	border-bottom-left-radius: 0.25rem;
+	border-bottom-right-radius: 0.25rem;
+	border-top: 1px solid #7c7c7c;
+	
+	> span
+	{
+		padding: 0.4rem;
+		border-radius: 0.25rem;
+		font-family: Inter;
+		height: 100%;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		border-bottom-left-radius: 0.25rem;
+		border-bottom-right-radius: 0.25rem;
+		justify-content: center;
+		transition : all 200ms;
+	}
+
+	>span:hover 
+	{
+		background-color: #7c7c7c;
+	}
+
+}

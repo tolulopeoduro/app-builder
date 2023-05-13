@@ -11,10 +11,16 @@
 
 .right {
 	display: none;
-	opacity: 0.3;
+	>svg {
+		opacity: 0.3;
+	}
 }
 
 .right:hover {
+	display: auto;
+}
+
+.right>svg:hover{
 	opacity: 1;
 }
 

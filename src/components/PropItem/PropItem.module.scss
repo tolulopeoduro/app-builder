@@ -1,0 +1,18 @@
+.PropItem {
+	border : 1px solid #d9d9d9;
+	border-radius : 0.25rem;
+	display : flex;
+	align-items : center;
+	justify-content : center;
+	background-color : #d9d9d9;
+	
+	> span {
+		color : #1e1d1d;
+	}
+
+	> span:nth-child(2):hover {
+		background-color: #fff;
+		border-radius: 0.25rem;
+		transition: all 200ms;
+	}
+}

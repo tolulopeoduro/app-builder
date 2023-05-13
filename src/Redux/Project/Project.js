@@ -24,7 +24,7 @@ const baseComponent = {
 	inlineStyle : ``
 }
 
-const base = create_component(baseComponent)
+const base = baseComponent
 
 const initialState = JSON.parse(localStorage.getItem("project")) || {
 	elements : {
@@ -32,7 +32,8 @@ const initialState = JSON.parse(localStorage.getItem("project")) || {
 	},
 	element_menu : false,
 	activeComponent : {...base},
-	elementContainer : null
+	elementContainer : null,
+	modal : null
 }
 const project =  createSlice({
 	name : "project",
@@ -57,10 +58,13 @@ const project =  createSlice({
 		},
 		set_dimension : (state, action) => {
 			return {...state, elementContainer : action.payload}
+		},
+		set_modal : (state, action) => {
+			return {...state, modal : action.payload	}
 		}
 	}
 })
 
 export default project.reducer;
 
-export const {setProject, updateText, setActiveComponent, setElements, set_element_menu, set_dimension} = project.actions
+export const {setProject, updateText, setActiveComponent, setElements, set_element_menu, set_dimension, set_modal} = project.actions
