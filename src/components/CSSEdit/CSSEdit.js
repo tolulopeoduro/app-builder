@@ -27,15 +27,12 @@ export default () => {
 	}, [activeComponent])
 
 	const update_content = () => {
-
-		const reg1 = /<div><br><\/div>/g
-		const reg2 = /<div>/g
-		const reg3 = /s<\/div>/g
-		
 		let new_elements = {...elements};
 		let updated_element = {...activeComponent};
-		updated_element.style= val.replace(reg1, "<br/>").replace(reg2, "<br/>").replace("</div>", "").replace(/<br>/g, "</br>").split("</div>").join("")
+		updated_element.style= val
 		new_elements[activeComponent?.name] = updated_element;
+		console.log(elements)
+		console.log(new_elements)
 		dispatch(setElements(new_elements))	
 	}
 	
@@ -50,16 +47,17 @@ export default () => {
 			<div className={styles.container}>
 				<ReactCodeMirror
 				lang={css}
-				height="15rem"
+				height="100%"
 				width={"100%"}
 				theme={dracula}
 				extensions = {[basicSetup, css()]}
 				value ={val}
+				onChange={(e) => set_val(e)}
 				/>
 			</div>
-			{/* <div className={styles.button}>		
+			<div className={styles.button}>		
 				<button onClick={() => update_content()}>UPDATE</button>
-			</div> */}
+			</div>
 		</Fragment>	
 	)
 }

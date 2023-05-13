@@ -28,8 +28,6 @@ export default () => {
 
 	useEffect(() => {
 		const active_com = elements[activeElement?.component_name]
-		dispatch(setActiveComponent(active_com));
-		setName(active_com?.name)
 	}, [activeElement, elements])
 
 	const [name, setName] = useState("")

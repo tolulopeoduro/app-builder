@@ -9,14 +9,16 @@ export default (props) => {
 	const {name} = props
 	const {activeElement, project : {activeComponent, elements}} = useSelector(s => s);
 	const dispatch = useDispatch();
-
 	const handleClick = () => {
+		let is_container = activeElement?.wrapper_element === "div";
+		let parent_id = is_container ? activeElement?.name : activeElement.parent
 		let id = require("randomstring").generate();
-		let active_element_name = activeElement?.name
+		
+		console.log(parent_id)
 		let default_string = `new ${name}`;
 		let el = newElement({
 			name : id,
-			parent : elements[active_element_name]?.wrapper_element === "div" ? active_element_name : elements[active_element_name],
+			parent : parent_id,
 			wrapper_element : name,
 			attributes : {},
 			children : [],
@@ -31,11 +33,13 @@ export default (props) => {
 		
 		let new_elements = {...elements}
 		
-		let c = {...new_elements[el.parent]};
+		let c = {...new_elements[parent_id]};
 		let ar = [...c.children, el?.name]
 		c.children = ar;
 		new_elements[id] = el
-		new_elements[el.parent] = c
+		new_elements[parent_id] = c;
+
+
 		
 		dispatch(setElements(new_elements))
 

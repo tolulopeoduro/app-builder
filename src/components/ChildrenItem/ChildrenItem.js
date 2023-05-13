@@ -26,7 +26,7 @@ const ChildrenItem = (props) => {
 	}
 
 	const handle_delete = () => {
-		const {name, position, parent, is_component, children} = element_data;
+		const {name, parent, is_component, children} = element_data;
 		if (is_component && name === "App") {
 			alert("Cannot delete base component")
 		};
@@ -37,7 +37,8 @@ const ChildrenItem = (props) => {
 
 		let new_parent = {...new_elements[parent]}
 		let new_children = [...new_parent?.children]
-		new_children.splice(0, 1)
+		let position = new_children.indexOf(name)
+		new_children.splice(position, 1)
 		new_parent = {...new_parent, children : new_children}
 		delete new_elements[name];
 		new_elements[parent] = new_parent;

@@ -31,7 +31,8 @@ const initialState = JSON.parse(localStorage.getItem("project")) || {
 		"App" : base
 	},
 	element_menu : false,
-	activeComponent : {...base}
+	activeComponent : {...base},
+	elementContainer : null
 }
 const project =  createSlice({
 	name : "project",
@@ -53,10 +54,13 @@ const project =  createSlice({
 		},
 		set_element_menu : (state, action) => {
 			return {...state, element_menu : action.payload}
+		},
+		set_dimension : (state, action) => {
+			return {...state, elementContainer : action.payload}
 		}
 	}
 })
 
 export default project.reducer;
 
-export const {setProject, updateText, setActiveComponent, setElements, set_element_menu} = project.actions
+export const {setProject, updateText, setActiveComponent, setElements, set_element_menu, set_dimension} = project.actions
