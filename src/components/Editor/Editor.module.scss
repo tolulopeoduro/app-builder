@@ -1,0 +1,16 @@
+.Editor {
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.frame {
+	border: 1px solid #7c7b7b;
+
+	> iframe {
+		width: 100%;
+		height: 100%;
+	}
+}
