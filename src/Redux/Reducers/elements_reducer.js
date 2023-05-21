@@ -7,10 +7,11 @@ const baseComponent = {
 	component_name : "App",
 	children : [],
 	innerHTML : "",
-	text_content : "",
-	wrapper_element : 'div',
-	attributes : {className : "styles.App"},
-	style : {"color" : "#000"}
+	text : "Hello",
+	tag : 'p',
+	attributes : {className : "styles.App", "data-builder_id" : "App"},
+	style : {"color" : "#000"},
+	css : ""
 }
 
 

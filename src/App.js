@@ -3,10 +3,14 @@ import styles from "./App.module.scss";
 import { Router, RouterProvider } from 'react-router';
 import { createBrowserRouter } from 'react-router-dom';
 import Editor from './components/Editor/Editor';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import Store from './Redux/Store';
+import RenderElement from './components/RenderElement/RenderElement';
 
 const App = () => {
+
+	const App = useSelector(s => s.elements)["App"]
+
   return (
 		<Provider store = {Store}>
 			<div className={styles.App} >
@@ -21,7 +25,7 @@ const App = () => {
 					},
 					{
 						path: "/frame",
-						element: <div><p>Fram</p></div>
+						element: <RenderElement {...App}/>
 					}
 				])}
 				/>
