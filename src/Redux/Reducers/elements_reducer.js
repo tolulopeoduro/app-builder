@@ -8,10 +8,13 @@ const baseComponent = {
 	children : [],
 	innerHTML : "",
 	text : "Hello",
-	tag : 'p',
-	attributes : {className : "styles.App", "data-builder_id" : "App"},
-	style : {"color" : "#000"},
-	css : ""
+	tag : 'div',
+	children : [],
+	attributes : {
+		className : "App", "data-builder_id" : "App",
+		css : "height : 100vh; width : 100vw;"
+	},
+	style : {},
 }
 
 
@@ -25,7 +28,6 @@ const element_reducer = createSlice({
 			return action.payload
 		}
 	}
-
 })
 
 export default element_reducer.reducer;
