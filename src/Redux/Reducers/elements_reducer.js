@@ -7,10 +7,17 @@ const baseComponent = {
 	component_name : "App",
 	children : [],
 	innerHTML : "",
-	text_content : "",
-	wrapper_element : 'div',
-	attributes : {className : "styles.App"},
-	style : {"color" : "#000"}
+	text : "Hello",
+	tag : 'div',
+	parent : null,
+	attributes : {
+		className : "App", "data-builder_id" : "App",
+		css : {
+			height: '100vh',
+			width: '100vw' 
+		}
+	},
+	style : {},
 }
 
 
@@ -24,7 +31,6 @@ const element_reducer = createSlice({
 			return action.payload
 		}
 	}
-
 })
 
 export default element_reducer.reducer;
