@@ -77,6 +77,18 @@
 	}
 }
 
+.header {
+	display: flex;
+	color: #fff;
+	align-items:baseline;
+	justify-content: flex-start;
+
+	> span {
+		font-size: 9px;
+		margin-left: 0.4rem;
+	}
+}
+
 .border {
 	> .color_input {
 		> input:nth-child(2) {

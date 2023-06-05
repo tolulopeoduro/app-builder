@@ -1,20 +1,21 @@
-import { trimEnd, trimStart } from "lodash"
-import { setElements, setProject, set_modal } from "./Redux/Project/Project"
-import Store from "./Redux/Store"
+import { trimEnd, trimStart, update } from "lodash"
+import { store as Store, store } from "./Redux/Store"
+import { update_elements } from "./Redux/Reducers/elements_reducer"
+import { update_modals } from "./Redux/Reducers/modals"
 
 
-export const updateText = (text) => {
-	const {activeElement, project} = Store.getState(s => s)
-	let temp = {...project}
-	temp[activeElement] = {...temp[activeElement], children : text }
-	Store.dispatch(setProject(temp))
-}
+// export const updateText = (text) => {
+// 	const {activeElement, project} = Store.getState(s => s)
+// 	let temp = {...project}
+// 	temp[activeElement] = {...temp[activeElement], children : text }
+// 	Store.dispatch(setProject(temp))
+// }
 
 export const create_element = (el, parent_id, id) => {
 
-	const state = Store.getState()
+	const {elements} = Store.getState()
 
-	const new_elements = {...state?.project?.elements};
+	const new_elements = {...elements};
 	
 	
 	let c = {...new_elements[parent_id]};
@@ -23,18 +24,14 @@ export const create_element = (el, parent_id, id) => {
 	new_elements[id] = el
 	new_elements[parent_id] = c;
 
-	Store.dispatch(setElements(new_elements));
-	Store.dispatch(set_modal(null));
-	
+	Store.dispatch(update_elements(new_elements));
+	Store.dispatch(update_modals({new_element : false}));
 }
 
-export const create_component = (component) => {
-	const state = Store.getState();
-	
-	const new_elements = {...state?.project?.elements};
-	new_elements[component?.name] = component;
-	
-	Store.dispatch(setElements(new_elements));
+export const edit_element = (element) => {
+	const new_elements = {...store.getState(s => s).elements}
+	new_elements[element?.name] = element;
+	store.dispatch(update_elements(new_elements))
 }
 
 

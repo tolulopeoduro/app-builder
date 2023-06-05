@@ -9,10 +9,13 @@ const baseComponent = {
 	innerHTML : "",
 	text : "Hello",
 	tag : 'div',
-	children : [],
+	parent : null,
 	attributes : {
 		className : "App", "data-builder_id" : "App",
-		css : "height : 100vh; width : 100vw;"
+		css : {
+			height: '100vh',
+			width: '100vw' 
+		}
 	},
 	style : {},
 }

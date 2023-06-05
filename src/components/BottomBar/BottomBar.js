@@ -1,11 +1,23 @@
 import React from 'react'
 import styles from "./BottomBar.module.scss"
 import TextEditor from './TextEditor/TextEditor'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import ContainerEditor from '../ContainerEditor/ContainerEditor'
+import { update_modals } from '../../Redux/Reducers/modals'
 
 const BottomBar = () => {
-	const {active_element} = useSelector(s => s);
+
+	const {active_element, modals : {new_element}} = useSelector(s => s);
+	const dispatch = useDispatch();
+
+	const toggle_element_list=() => {
+		dispatch(
+			update_modals(
+				{new_element : new_element ? false : true}
+			)
+		)
+	}
+
 	return (
 		<div className = {styles.bottom_bar_container}>
 			<div className={styles.left}>
@@ -21,7 +33,7 @@ const BottomBar = () => {
 			</div>
 			<div className={styles.right}>
 					<div className={styles.actions}>
-						<div className={styles.option_button}>
+						<div onClick={toggle_element_list} className={styles.option_button}>
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 								<path fill="white" d="M18 12.998h-5v5a1 1 0 0
 								 1-2 0v-5H6a1 1 0 0 1 0-2h5v-5a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2z"/>

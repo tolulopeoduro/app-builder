@@ -14,6 +14,8 @@
 .options {
 	display: flex;
 	justify-content: flex-start;
+	margin-left: 0.5rem;
+	box-sizing: border-box;
 
 	> div {
 		background-color: rgba($color: #fff, $alpha: 0.3);
@@ -28,5 +30,6 @@
 		padding: 0.4rem;
 		box-sizing: border-box;
 		border-radius: 0.25rem;
+		cursor: pointer;
 	}
 }
