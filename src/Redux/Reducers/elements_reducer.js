@@ -14,7 +14,13 @@ const baseComponent = {
 		className : "App", "data-builder_id" : "App",
 		css : {
 			height: '100vh',
-			width: '100vw' 
+			width: '100vw',
+			"background-color": {value: "#000", alpha: 0.5},
+			border: {
+				size : "1px",
+				style: "solid",
+				color: "#fff",
+			}
 		}
 	},
 	style : {},

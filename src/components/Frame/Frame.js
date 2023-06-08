@@ -11,7 +11,7 @@ const Frame = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		let rect = document.querySelector	(`[data-builder_id='${active_element?.name}']`).getBoundingClientRect();
+		let rect = document.querySelector	(`[data-builder_id='${active_element?.name}']`)?.getBoundingClientRect();
 		console.log(rect)
 		window.top.postMessage({message_type : "active_element_dimension", message : rect}, "http://localhost:3000/editor");	
 	}, [elements])
