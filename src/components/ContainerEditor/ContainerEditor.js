@@ -4,6 +4,10 @@ import Dropdown from '../BottomBar/Dropdown/Dropdown';
 import { useEffect, useState } from 'react';
 import { update_elements } from '../../Redux/Reducers/elements_reducer';
 import { edit_element } from '../../utils';
+import Dimensions from '../Dimensions/Dimensions';
+import Color from '../Color/Color';
+import Border from '../Border/Border';
+import hexRgb from 'hex-rgb';
 
 const ContainerEditor = () => {
 
@@ -18,8 +22,8 @@ const ContainerEditor = () => {
 
 	const edit_style = (data) => {
 		const new_style = {
-		...element_style,
-		...data
+			...element_style,
+			...data
 		}
 		set_element_style(new_style)
 
@@ -30,12 +34,8 @@ const ContainerEditor = () => {
 				css : new_style
 			}
 		}
-		edit_element(element);
+		edit_element(element)
 	}
-
-	useEffect(() => {
-		console.log(attributes?.css);
-	}, [attributes])	
 
 	return (
 		<div className={styles.container}>
@@ -43,45 +43,12 @@ const ContainerEditor = () => {
 				<h1>{tag}</h1>
 				<span>{name}</span>
 			</div>
-			<div className={styles.dimensions}>
-				<div tabIndex={0} className={styles.height}>
-					<p>H</p>
-					<input type = "text" value={element_style?.height} 
-					onChange={(e) => edit_style({height : e.target.value	})}/>
-				</div>
-				<div tabIndex={0} className={styles.height}>
-					<p>W</p>
-					<input type = "text" value={100}/>
-				</div>
-			</div>
-			<h2 className={styles.sub_header}>
-				BACKGROUND
-			</h2>
-			<div className={styles.background}>
-				<div className={styles.color_display} style={{backgroundColor: "#000000"}}>
-				</div>
-				<span className={styles.color_input} >
-					#
-					<input type='text' value="000000"/>
-					<input type="number" value={100}/>
-				</span>
-				<span className={styles.color_alpha}>
-
-				</span>
-			</div>
-			<h2 className={styles.sub_header}>
-				BORDER
-			</h2>
-			<div className={styles.border}>
-				<div className={styles.color_display} style={{backgroundColor: "#000000"}}>
-				</div>
-				<span className={styles.color_input} >
-					#
-					<input type='text' value="000000"/>
-					<input type="number" value={1}/>
-				</span>
-				<Dropdown options ={["dotted"]}/>
-			</div>
+			<Dimensions {...element_style} edit_style = {edit_style}/>
+			<Color {...element_style} type = {"background-color"} edit_style = {edit_style}/>
+			<Border border_data={element_style?.border} edit_style={edit_style}/>
+			<svg className='add_style' xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+			viewBox="0 0 24 24"><path fill="white" 
+			d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"/></svg>
 		</div>
 	)
 }

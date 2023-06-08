@@ -81,3 +81,13 @@ table {
 		border-color: blue;
 	}
 }
+
+.add_style {
+	border-radius: 0.25rem;
+	margin-left: 0.4rem;
+	margin-top: 0.3rem;
+}
+
+.add_style:hover {
+	background-color: rgba($color: #000000, $alpha: 0.3);	
+}

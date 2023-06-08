@@ -2,21 +2,16 @@ import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { set_active_element } from "../../Redux/Reducers/active_element";
+import hexRgb from "hex-rgb";
+import { obj_to_css } from "../../utils";
 
-const obj_to_css = (object) => {
-	let str = ""
-	Object.keys(object).map(key => {
-		str += (`${key}: ${object[key]};\n`)
-	})
-	return str;
-}
 
 
 const H1 =  styled.h1`${props => props?.css}`
 const H2 =  styled.h2`${props => props?.css}`
 const P =  styled.p`${props => props?.css}`
 const SPAN =  styled.span`${props => props?.css}`
-const Div = styled.div`${props => `height : 3rem; width : 100%; ${obj_to_css(props.css)}`}`
+const Div = styled.div`${props => obj_to_css(props.css)}`
 
 
 const RenderElement = (props) => {
@@ -39,7 +34,7 @@ const RenderElement = (props) => {
 			return <H1  {...attributes}></H1>
 			break;
 		case "p":
-			return <P {...attributes}>jj</P>
+			return <P {...attributes}></P>
 			break;
 		default:
 			return <SPAN {...attributes}></SPAN>

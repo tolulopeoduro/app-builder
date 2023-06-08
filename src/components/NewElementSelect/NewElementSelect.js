@@ -5,12 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import ClickAwayListener from 'react-click-away-listener';
 import { create_element } from '../../utils';
 import randomstring from "randomstring"
+import default_styles from "../../default_styles.json"
 
 const NewElementSelect = () => {
 	
 	const {modals, elements, active_element} = useSelector(s => s)
-	const dispatch = useDispatch();
-
 	// Animation styles for components
 	const initial = {
 		opacity: 0,
@@ -38,7 +37,7 @@ const NewElementSelect = () => {
 			parent : parent,
 			attributes : {
 				className : name, "data-builder_id" : name,
-				css : ""
+				css : default_styles[tag]
 			},
 			style : {},
 		}
