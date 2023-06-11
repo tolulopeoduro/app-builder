@@ -46,11 +46,6 @@ export const trim_text_content = (str) => {
 	return str;
 }
 
-
-const process_color_value = (value) => {
-	console.log(value);
-}
-
 export const obj_to_css = (object) => {
 	let str = ""
 	Object.keys(object).map(key => {

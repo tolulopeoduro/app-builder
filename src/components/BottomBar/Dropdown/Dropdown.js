@@ -30,7 +30,7 @@ const Dropdown = (props) => {
 								<ClickAwayListener onClickAway = {() => set_active(false)}>
 									<motion.div initial={{height: 0, opacity: 0}} animate={{opacity: 1, height: "auto"}} exit={{height : 0, opacity : 0}} className = {styles.options}>
 										{
-											options.map((option) => {
+											[value, ...options.filter(e => e !== value)].map((option) => {
 												return (
 													<div className = {styles.option} onClick={() => handle_change(option)}>
 														{option}

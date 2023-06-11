@@ -45,7 +45,7 @@ const ContainerEditor = () => {
 			</div>
 			<Dimensions {...element_style} edit_style = {edit_style}/>
 			<Color {...element_style} type = {"background-color"} edit_style = {edit_style}/>
-			<Border border_data={element_style?.border} edit_style={edit_style}/>
+			{element_style?.border && <Border border_data={element_style?.border} edit_style={edit_style}/>}
 			<svg className='add_style' xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
 			viewBox="0 0 24 24"><path fill="white" 
 			d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"/></svg>
