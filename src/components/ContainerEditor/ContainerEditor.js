@@ -8,6 +8,7 @@ import Dimensions from '../Dimensions/Dimensions';
 import Color from '../Color/Color';
 import Border from '../Border/Border';
 import hexRgb from 'hex-rgb';
+import { HexColorPicker } from 'react-colorful';
 
 const ContainerEditor = () => {
 
@@ -15,6 +16,7 @@ const ContainerEditor = () => {
 	const {name, tag, attributes, css} = active_element;
 	const {height, width} = attributes.css;
 	const [element_style, set_element_style] = useState(null);
+	const [color_picker, toggle_color_picker] = useState(null);
 
 	useEffect(() => {
 		set_element_style(active_element?.attributes?.css);
