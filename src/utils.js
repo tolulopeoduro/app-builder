@@ -46,13 +46,9 @@ export const trim_text_content = (str) => {
 	return str;
 }
 
-
-const process_color_value = (value) => {
-	console.log(value);
-}
-
 export const obj_to_css = (object) => {
 	let str = ""
+	str+="transition: all 200ms;"
 	Object.keys(object).map(key => {
 		if (key === "background-color") {
 			const background = object[key];
@@ -67,4 +63,13 @@ export const obj_to_css = (object) => {
 
 	})
 	return str;
+}
+
+export const hex_to_rgb_object = (hex) => {
+	if (!hex) return;
+	let rgb = hex2rgb(hex.value).rgb;
+	const obj = {
+		r: rgb[0], g: rgb[1], b: rgb[2], a: parseFloat(hex.alpha)
+	}
+	return obj
 }

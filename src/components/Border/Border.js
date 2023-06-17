@@ -12,7 +12,6 @@ const Border = (props) => {
 	}, [border_data]);
 
 	const change_dropdown_value = (value) => {
-		console.log(value)
 		edit_border({...border, style: value})
 	}
 	
@@ -28,6 +27,8 @@ const Border = (props) => {
 		}
 	}, [border])
 
+	const options  = ["solid", "dotted", "dashed", "double", "inset", "outset"]
+
 	return (
 		<Fragment>
 			<h2 className={styles.sub_header}>
@@ -40,7 +41,8 @@ const Border = (props) => {
 					<input type='text' onChange={(e) => change_val("color", e.target.value)} value={border?.color}/>
 					<input type="text" onChange={(e) => change_val("size", e.target.value)} value={border?.size}/>
 				</span>
-				<Dropdown handle_change={change_dropdown_value} value={border?.style} options ={["solid", "dotted"]}/>
+				<Dropdown handle_change={change_dropdown_value} value={border?.style} 
+				options ={options}/>
 			</div>
 		</Fragment>
 	)

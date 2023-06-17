@@ -50,6 +50,7 @@ table {
 
 * {
 	font-family: Inter, sans-serif;
+	box-sizing: border-box;
 }
 
 .app {
@@ -90,4 +91,12 @@ table {
 
 .add_style:hover {
 	background-color: rgba($color: #000000, $alpha: 0.3);	
+}
+
+
+.react-colorful {
+	overflow: hidden;
+	>div {
+		border-radius: 0!important;
+	}
 }

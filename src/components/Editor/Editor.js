@@ -6,6 +6,7 @@ import NewElementSelect from '../NewElementSelect/NewElementSelect';
 import active_element, { set_active_element } from '../../Redux/Reducers/active_element';
 import { update_dimensions } from '../../Redux/Reducers/active_element_dimensions';
 import Active_Element_Box from '../Active_Element_Box/Active_Element_Box';
+import Color_picker from '../Color/Color_picker/Color_picker';
 
 const Editor = () => {
 
@@ -27,8 +28,10 @@ const Editor = () => {
 
 	useEffect(() => {
 		window.onmessage = e => {
+			if (!e.data?.message) return;
 			if (e.origin !== "http://localhost:3000") return;
-			const {message_type, message} = e.data;
+			let {message_type, message} = e.data;
+			message = JSON.parse(JSON.stringify(message))
 			message_type === "active_element" && dispatch(set_active_element(message))
 			message_type === "active_element_dimension" && dispatch(update_dimensions(message))
 		}
@@ -46,5 +49,6 @@ const Editor = () => {
 		</div>
 	)
 }
+
 
 export default Editor
