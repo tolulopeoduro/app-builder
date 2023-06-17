@@ -20,11 +20,8 @@ const Color_picker = (props) => {
 
 	const handle_change = debounce((value) => {
 		const {r,g,b,a} = value;
-		let v = rgb2hex(`rgb(${r}, ${g}, ${b})`);
-		v = {...v, value : v.hex, alpha: a}
-		delete(v.hex)
-		props.handle_change(v);
-	}, 50)
+		props.handle_change({value : rgb2hex(`rgb(${r}, ${g}, ${b})`).hex , alpha : a})
+	}, 100)
 
 	return (
 		<ClickAwayListener onClickAway={props.close_modal}>
