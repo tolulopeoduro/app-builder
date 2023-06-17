@@ -27,12 +27,11 @@ const Color = (props) => {
 	}, [background])
 
 	const update = (e) => {
-		console.log(e)
 		edit_style({'background-color' : e});
 	}
 
 	return (
-		<Fragment>
+		<div>
 			<h2 className={styles.sub_header}>
 				BACKGROUND
 			</h2>
@@ -54,10 +53,10 @@ const Color = (props) => {
 				{
 					show_color_picker &&
 						<Color_picker handle_change={update} initial_value={color}  parent_box={props.type}
-						close_modal={() => toggle_color_picker(false) }/>
+						close_modal={() => toggle_color_picker(false)}/>
 				}
 			</div>
-		</Fragment>
+		</div>
 	)
 }
 
