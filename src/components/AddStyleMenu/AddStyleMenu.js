@@ -8,10 +8,7 @@ const AddStyleMenu = (props) => {
 	const [show_menu, toggle_menu] = useState(false);
 	const {attributes, edit_style} = props;
 
-	console.log(defaults)
-
 	return attributes.length > 0 &&
-
 		<div style={{display:"flex", marginTop:"0.5rem"}}>
 			<div onClick={() => toggle_menu(true)} 
 			style={{backgroundColor : show_menu && "rgba(0,0,0,0.3)"}} className={styles.add_style_button}>
@@ -22,7 +19,7 @@ const AddStyleMenu = (props) => {
 			{
 				show_menu &&
 				<ClickAwayListener onClickAway={() => toggle_menu(false)}>
-					<div style={{height: `${1.5 * attributes.length}rem`}} className={styles.available_style_list}>
+					<div onClick={() => toggle_menu(false)} style={{height: `${1.5 * attributes.length}rem`}} className={styles.available_style_list}>
 						<div>
 							{
 								attributes?.map(attribute => {

@@ -1,0 +1,19 @@
+.container {
+	display: flex;
+	align-items: flex-end;
+
+
+	> svg {
+		margin-left: 0.5rem;
+		> path {
+			stroke: rgba($color: #000000, $alpha: 0);
+			transition: all 200ms;
+		}
+	}
+	
+}
+.container:hover {
+	> svg > path {
+		stroke: rgba($color: #fff, $alpha: 0.6);;
+	}
+}

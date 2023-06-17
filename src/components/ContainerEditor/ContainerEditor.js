@@ -1,11 +1,12 @@
 import { useSelector } from 'react-redux';
 import styles from "./ContainerEditor.module.scss"
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { edit_element } from '../../utils';
 import Dimensions from '../Dimensions/Dimensions';
 import Color from '../Color/Color';
 import Border from '../Border/Border';
 import AddStyleMenu from '../AddStyleMenu/AddStyleMenu';
+import RemoveStyleHOC from '../RemoveStyleHOC/RemoveStyleHOC';
 
 const ContainerEditor = () => {
 
@@ -17,8 +18,10 @@ const ContainerEditor = () => {
 		set_element_style(active_element?.attributes?.css);
 	}, [active_element])
 
-	const edit_style = (data) => {
-		const new_style = {
+	const edit_style = (data, replace) => {
+		const new_style = 
+		replace ? data :
+		{
 			...element_style,
 			...data
 		}
@@ -32,6 +35,12 @@ const ContainerEditor = () => {
 			}
 		}
 		edit_element(element)
+	}
+
+	const remove_attribute = (attribute) => {
+		let st = {...element_style};
+		delete st[attribute];
+		edit_style(st, true)
 	}
 
 	const [list, set_list] = useState([])
@@ -61,8 +70,19 @@ const ContainerEditor = () => {
 				<span>{name}</span>
 			</div>
 			<Dimensions {...element_style} edit_style = {edit_style}/>
-			<Color {...element_style} type = {"background-color"} edit_style = {edit_style}/>
-			{element_style?.border && <Border border_data={element_style?.border} edit_style={edit_style}/>}
+			{
+				element_style?.["background-color"] &&
+				<RemoveStyleHOC child={(<Color {...element_style} type = {"background-color"} edit_style={edit_style}/>)}
+					handle_delete = {() => remove_attribute("background-color")}
+				/>
+			}
+			{
+				element_style?.border && 
+				<RemoveStyleHOC child=
+				{(<Border border_data={element_style?.border} edit_style={edit_style}/>)}
+					handle_delete = {() => remove_attribute("border")}
+				/>
+			}
 			<AddStyleMenu attributes={list} edit_style={edit_style}/>
 		</div>
 	)

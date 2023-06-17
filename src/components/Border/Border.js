@@ -30,7 +30,7 @@ const Border = (props) => {
 	const options  = ["solid", "dotted", "dashed", "double", "inset", "outset"]
 
 	return (
-		<Fragment>
+		<div>
 			<h2 className={styles.sub_header}>
 				BORDER
 			</h2>
@@ -44,7 +44,7 @@ const Border = (props) => {
 				<Dropdown handle_change={change_dropdown_value} value={border?.style} 
 				options ={options}/>
 			</div>
-		</Fragment>
+		</div>
 	)
 }
 

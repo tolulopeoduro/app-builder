@@ -25,6 +25,7 @@
 	max-height: 6rem;
 	position: absolute;
 	left: 2.2rem;
+	
 
 	> div {
 		overflow: scroll;
@@ -39,6 +40,7 @@
 			min-width: 7rem;
 			color: #fff;
 			font-size: 0.7rem;
+			cursor: pointer;
 		}
 	
 		> div:nth-child(odd) {
