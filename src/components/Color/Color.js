@@ -52,7 +52,7 @@ const Color = (props) => {
 				</span>
 				{
 					show_color_picker &&
-						<Color_picker handle_change={update} initial_value={color}  parent_box={props.type}
+						<Color_picker handle_change={update} initial_value={color}  attribute={props.type}
 						close_modal={() => toggle_color_picker(false)}/>
 				}
 			</div>

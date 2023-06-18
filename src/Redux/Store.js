@@ -7,12 +7,14 @@ import modals from "./Reducers/modals";
 import persistStore from "redux-persist/es/persistStore";
 import active_element from "./Reducers/active_element";
 import active_element_dimensions from "./Reducers/active_element_dimensions";
+import colors_reducer from "./Reducers/colors_reducer";
 
 const reducers = combineReducers({
 	elements : elements_reducer,
 	modals : modals,
 	active_element : active_element,
-	active_element_dimension : active_element_dimensions
+	active_element_dimension : active_element_dimensions,
+	colors: colors_reducer
 })
 
 
