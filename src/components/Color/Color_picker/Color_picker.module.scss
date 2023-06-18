@@ -3,14 +3,33 @@
 	z-index: 7;
 	top: 0px;
 	background-color: rgba($color: #000000, $alpha: 0.6);
-	min-width: 200px;
+	width: 216px;
 	backdrop-filter: blur(2px);
-	padding: 0.5rem;
+	padding: 0rem 0.5rem 0.5rem;
 	border-radius: 0.35rem;
+}
+
+.header {
+	text-transform: uppercase;
+	height: 1.5rem;
+	display: flex;
+	align-items: center;
+	font-size: 0.8rem;
+	font-weight: bold;
 }
 
 .alpha_input {
 	height: 1.3rem;
 	width: 100%;
 	background-color: #fff;
+}
+
+.color_list {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	>div {
+
+		margin: 3px;
+	}
 }
