@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from  "./AddStyleMenu.module.scss";
 import ClickAwayListener from 'react-click-away-listener';
-import defaults from "../../default_attribute_value.json"
+import defaults from "../../attributes_data.json"
 
 const AddStyleMenu = (props) => {
 

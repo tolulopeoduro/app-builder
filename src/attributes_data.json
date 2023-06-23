@@ -1,0 +1,16 @@
+{
+	"background-color" : {
+		"hex" : "#000",
+		"alpha" : 0
+	},
+	"border" : 	{
+		"size" : "1px",
+		"style" : "solid",
+		"color" : "#000000",
+		"available_styles" : ["solid", "dotted", "dashed", "inset", "outset"]
+	},
+	"display" : {
+		"value" : "auto",
+		"available_options": ["auto", "inline", "block", "inline-block", "flex", "inline-flex"]
+	}
+}

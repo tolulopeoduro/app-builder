@@ -7,6 +7,8 @@ import Color from '../Color/Color';
 import AddStyleMenu from '../AddStyleMenu/AddStyleMenu';
 import Attribute from '../RemoveStyleHOC/Attribute';
 import Border from "../Border/Border"
+import css_attributes_data from "../../attributes_data.json"
+import Display from '../Display/Display';
 
 const ContainerEditor = () => {
 
@@ -47,7 +49,7 @@ const ContainerEditor = () => {
 
 	useEffect(() => {
 		if (!element_style) return;
-		const list = ["background-color", "border"].map(e => {
+		const list = Object.keys(css_attributes_data).map(e => {
 			let a = true
 			let d = Object.keys(element_style)
 			
@@ -78,13 +80,11 @@ const ContainerEditor = () => {
 						<Color type="background-color" initial_value={element_style?.["background-color"]} 
 						get_value={(color) => edit_style({"background-color" : color})}/>
 					</div>
-				)}
-				/>
-				{
-				element_style?.border && 
+				)}/>
 				<Attribute exists = {element_style?.border} type="border" handle_delete={remove_attribute} 
 				child={(<Border border_data={element_style?.border} edit_style={edit_style}/>)}/>
-			}
+				<Attribute exists = {element_style?.display} 
+				child={(<Display edit_style={edit_style} data={element_style?.display} /> )} /> 
 			<AddStyleMenu attributes={list} edit_style={edit_style}/>
 		</div>
 	)
