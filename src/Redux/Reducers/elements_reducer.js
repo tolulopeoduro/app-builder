@@ -15,11 +15,11 @@ const baseComponent = {
 		css : {
 			height: '100vh',
 			width: '100vw',
-			"background-color": {value: "#000", alpha: 0.5},
+			"background-color": {hex: "#000", alpha: 0.5},
 			border: {
 				size : "1px",
 				style: "solid",
-				color: "#fff",
+				color: {hex: "#fff", alpha: 1},
 			}
 		}
 	},

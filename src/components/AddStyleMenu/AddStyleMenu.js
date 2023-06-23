@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from  "./AddStyleMenu.module.scss";
 import ClickAwayListener from 'react-click-away-listener';
 import defaults from "../../default_attribute_value.json"

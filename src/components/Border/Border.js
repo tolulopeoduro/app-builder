@@ -1,10 +1,13 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import styles from "./Border.module.scss"
 import Dropdown from '../BottomBar/Dropdown/Dropdown'
+import Color_picker from '../Color/Color_picker/Color_picker';
+import Color from '../Color/Color';
 
 const Border = (props) => {
 
 	const [border, edit_border] = useState(null);
+	const [show_color_picker, toggle_color_picker] = useState(false);
 	const {border_data, edit_style} = props;
 
 	useEffect(() => {
@@ -20,9 +23,11 @@ const Border = (props) => {
 	}
 
 	useEffect(() => {
-		if (!border) return;	
+		if (!border) return;
+		console.log(border)
 		const {color} = border;
-		if (color.match(/^#[A-F0-9]/i) && (color.length === 7 || color.length === 4) ) {
+		if (color?.hex.match(/^#[A-F0-9]/i) && (color?.hex.length === 7 || color?.hex.length === 4) ) {
+			console.log("hh")
 			edit_style({'border' : border});
 		}
 	}, [border])
@@ -34,11 +39,10 @@ const Border = (props) => {
 			<h2 className={styles.sub_header}>
 				BORDER
 			</h2>
+				<Color type="border-color" initial_value={border?.color} get_value={(val) => change_val("color", val)}/>
 			<div className={styles.border}>
-				<div className={styles.color_display} style={{backgroundColor: border_data?.color}}>
-				</div>
-				<span className={styles.color_input} >	
-					<input type='text' onChange={(e) => change_val("color", e.target.value)} value={border?.color}/>
+				<br/>
+				<span className={styles.color_input}>	
 					<input type="text" onChange={(e) => change_val("size", e.target.value)} value={border?.size}/>
 				</span>
 				<Dropdown handle_change={change_dropdown_value} value={border?.style} 

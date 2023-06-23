@@ -52,11 +52,11 @@ export const obj_to_css = (object) => {
 	Object.keys(object).map(key => {
 		if (key === "background-color") {
 			const background = object[key];
-			str+= `background-color: ${hex2rgba(background?.value, background.alpha)};`
+			str+= `background-color: ${hex2rgba(background?.hex	, background.alpha)};`
 		} 
 		if (key === "border") {
 			const {size, style, color}  = object[key];
-			str+= `border: ${size} ${style}  ${hex2rgba(color)};`
+			str+= `border: ${size} ${style}  ${hex2rgba(color?.hex, color?.alpha)};`
 		} 
 		else
 			str += (`${key}: ${object[key]};\n`);
@@ -65,11 +65,11 @@ export const obj_to_css = (object) => {
 	return str;
 }
 
-export const hex_to_rgb_object = (hex) => {
-	if (!hex) return;
-	let rgb = hex2rgb(hex.value).rgb;
+export const hex_to_rgb_object = (color) => {
+	if (!color) return;
+	let rgb = hex2rgb(color?.hex).rgb;
 	const obj = {
-		r: rgb[0], g: rgb[1], b: rgb[2], a: parseFloat(hex.alpha)
+		r: rgb[0], g: rgb[1], b: rgb[2], a: parseFloat(color.alpha)
 	}
 	return obj
 }
