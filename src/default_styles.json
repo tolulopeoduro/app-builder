@@ -3,7 +3,7 @@
 		"height" : "3rem",
 		"width" : "100%",
 		"background-color" : {
-			"value" : "#000",
+			"hex" : "#000",
 			"alpha" : "0"
 		}
 	}

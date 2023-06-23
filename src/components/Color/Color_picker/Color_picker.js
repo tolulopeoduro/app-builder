@@ -24,7 +24,7 @@ const Color_picker = (props) => {
 
 	const handle_change = debounce((value) => {
 		const {r,g,b,a} = value;
-		props.handle_change({value : rgb2hex(`rgb(${r}, ${g}, ${b})`).hex , alpha : a})
+		props.handle_change({hex : rgb2hex(`rgb(${r}, ${g}, ${b})`).hex , alpha : a})
 	}, 100)
 
 	const add_color = (color) => {
@@ -55,9 +55,9 @@ const Color_picker = (props) => {
 								colors?.map
 								((color, index) =>
 									<div key = {index} onClick={() => props.handle_change(color)} style={{height:"1.4rem", width:"1.4rem", display:"flex"}}	>
-										<div style={{height:"100%", width:"50%", backgroundColor:color?.value}}>
+										<div style={{height:"100%", width:"50%", backgroundColor:color?.hex}}>
 										</div>
-										<div style={{height:"100%", width:"50%", backgroundColor:color?.value, opacity: color?.alpha}}>
+										<div style={{height:"100%", width:"50%", backgroundColor:color?.hex, opacity: color?.alpha}}>
 										</div>
 									</div>
 								)

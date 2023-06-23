@@ -4,9 +4,9 @@ import { Fragment, useEffect, useState } from 'react';
 import { edit_element } from '../../utils';
 import Dimensions from '../Dimensions/Dimensions';
 import Color from '../Color/Color';
-import Border from '../Border/Border';
 import AddStyleMenu from '../AddStyleMenu/AddStyleMenu';
-import RemoveStyleHOC from '../RemoveStyleHOC/RemoveStyleHOC';
+import Attribute from '../RemoveStyleHOC/Attribute';
+import Border from "../Border/Border"
 
 const ContainerEditor = () => {
 
@@ -62,7 +62,6 @@ const ContainerEditor = () => {
 		set_list(list.filter(e => e));
 	}, [element_style])
 
-
 	return (
 		<div className={styles.container}>
 			<div className={styles.header}>
@@ -70,18 +69,21 @@ const ContainerEditor = () => {
 				<span>{name}</span>
 			</div>
 			<Dimensions {...element_style} edit_style = {edit_style}/>
-			{
-				element_style?.["background-color"] &&
-				<RemoveStyleHOC child={(<Color {...element_style} type = {"background-color"} edit_style={edit_style}/>)}
-					handle_delete = {() => remove_attribute("background-color")}
+				<Attribute exists = {element_style?.["background-color"]} handle_delete = {remove_attribute} type="background-color"
+				child={(
+					<div>
+						<h2 className={styles.sub_header}>
+							BACKGROUND
+						</h2>
+						<Color type="background-color" initial_value={element_style?.["background-color"]} 
+						get_value={(color) => edit_style({"background-color" : color})}/>
+					</div>
+				)}
 				/>
-			}
-			{
+				{
 				element_style?.border && 
-				<RemoveStyleHOC child=
-				{(<Border border_data={element_style?.border} edit_style={edit_style}/>)}
-					handle_delete = {() => remove_attribute("border")}
-				/>
+				<Attribute exists = {element_style?.border} type="border" handle_delete={remove_attribute} 
+				child={(<Border border_data={element_style?.border} edit_style={edit_style}/>)}/>
 			}
 			<AddStyleMenu attributes={list} edit_style={edit_style}/>
 		</div>
