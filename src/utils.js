@@ -59,9 +59,10 @@ export const obj_to_css = (object) => {
 			str+= `border: ${size} ${style}  ${hex2rgba(color?.hex, color?.alpha)};`
 		} 
 		else
-			str += (`${key}: ${object[key]};\n`);
+			str += (`${key}: ${object[key].value || object[key]};\n`);
 
 	})
+	console.log(str)
 	return str;
 }
 

@@ -32,7 +32,7 @@ const NewElementSelect = () => {
 			name: name,
 			children : [],
 			innerHTML : `new ${type}`,
-			type: "text",
+			type: type,
 			tag : tag,
 			parent : parent,
 			attributes : {
