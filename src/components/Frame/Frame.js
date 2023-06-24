@@ -22,7 +22,11 @@ const Frame = () => {
 			if (message_type === "elements") {
 				dispatch(update_elements(message))
 			}
+			if (message_type === "active_element") {
+				dispatch(set_active_element(message))
+			}
 		}
+
 	}, [])
 	
 	useEffect(() => {

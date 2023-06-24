@@ -24,10 +24,8 @@ const Border = (props) => {
 
 	useEffect(() => {
 		if (!border) return;
-		console.log(border)
 		const {color} = border;
 		if (color?.hex.match(/^#[A-F0-9]/i) && (color?.hex.length === 7 || color?.hex.length === 4) ) {
-			console.log("hh")
 			edit_style({'border' : border});
 		}
 	}, [border])

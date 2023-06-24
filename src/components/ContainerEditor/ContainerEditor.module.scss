@@ -114,3 +114,14 @@
 	}
 
 }
+
+.path_container {
+	display: inline-flex;
+	align-items: center;
+
+	>span:hover {
+		text-decoration: underline;
+		cursor: pointer;
+	}
+
+}
