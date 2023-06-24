@@ -25,6 +25,10 @@ const Editor = () => {
 		document.getElementById('result').contentWindow.postMessage({message_type : "elements", message: elements}, "http://localhost:3000/frame")
 	}, [elements])
 	
+	useEffect(() => {
+		document.getElementById('result').contentWindow.postMessage({message_type : "active_element", message: active_element}, "http://localhost:3000/frame")
+	}, [active_element])
+	
 
 	useEffect(() => {
 		window.onmessage = e => {

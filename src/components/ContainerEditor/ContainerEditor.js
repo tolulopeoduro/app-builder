@@ -9,10 +9,11 @@ import Attribute from '../RemoveStyleHOC/Attribute';
 import Border from "../Border/Border"
 import css_attributes_data from "../../attributes_data.json"
 import Display from '../Display/Display';
+import PathDisplay from '../PathDisplay/PathDisplay';
 
 const ContainerEditor = () => {
 
-	const {active_element} = useSelector(s => s);
+	const {active_element, elements} = useSelector(s => s);
 	const {name, tag, attributes} = active_element;
 	const [element_style, set_element_style] = useState(null);
 
@@ -68,7 +69,9 @@ const ContainerEditor = () => {
 		<div className={styles.container}>
 			<div className={styles.header}>
 				<h1>{tag}</h1>
-				<span>{name}</span>
+				<span className={styles.path_container}>
+					<PathDisplay elements={elements} element = {active_element}/>
+				</span>
 			</div>
 			<Dimensions {...element_style} edit_style = {edit_style}/>
 				<Attribute exists = {element_style?.["background-color"]} handle_delete = {remove_attribute} type="background-color"

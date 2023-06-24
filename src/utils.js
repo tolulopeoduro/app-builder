@@ -62,7 +62,6 @@ export const obj_to_css = (object) => {
 			str += (`${key}: ${object[key].value || object[key]};\n`);
 
 	})
-	console.log(str)
 	return str;
 }
 
