@@ -28,7 +28,7 @@ export const create_element = (el, parent_id, id) => {
 	new_elements[parent_id] = c;
 
 	Store.dispatch(update_elements(new_elements));
-	Store.dispatch(update_modals({new_element : false}));
+	// Store.dispatch(update_modals({new_element : false}));
 }
 
 export const edit_element = (element) => {

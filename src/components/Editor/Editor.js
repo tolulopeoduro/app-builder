@@ -49,7 +49,6 @@ const Editor = () => {
 			<NewElementSelect/>
 			{ active_element 	&& <BottomBar/> }
 			{ (active_element && active_element_dimension) 	&& <Active_Element_Box/>}
-
 		</div>
 	)
 }
