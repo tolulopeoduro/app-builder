@@ -16,7 +16,7 @@ const Dropdown = (props) => {
 	return (
 		<Fragment>
 			<div className = {styles.box}>
-				<div className = {styles.dropdown} onClick={() => set_active(true)}>
+				<div style={{height : height}} className = {styles.dropdown} onClick={() => set_active(true)}>
 					<div className = {styles.value}>
 						{value}
 					</div>
@@ -32,7 +32,7 @@ const Dropdown = (props) => {
 										{
 											[value, ...options.filter(e => e !== value)].map((option) => {
 												return (
-													<div className = {styles.option} onClick={() => handle_change(option)}>
+													<div style={{height : height}} className = {styles.option} onClick={() => handle_change(option)}>
 														{option}
 													</div>
 												)

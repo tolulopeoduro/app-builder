@@ -21,10 +21,6 @@ const PathDisplay = (props) => {
 	const {parent} = element;
 	const sibling = parent?.children
 
-	useEffect(() => {
-		console.log(sibling)
-	}, [])
-
 	const select_sibling = (el) => {
 		dispatch(set_active_element(el));
 		toggle_dropdown(false);

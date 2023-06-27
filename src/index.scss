@@ -159,3 +159,7 @@ table {
 .dropdown_main_text , .dropdown_small_text {
 	margin-bottom: 0.1rem;
 }
+
+.flip {
+	transform: rotateX(180deg);
+}
