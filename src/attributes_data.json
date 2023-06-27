@@ -1,5 +1,9 @@
 {
 	"background-color" : {
+		"type": {
+			"value" : "solid",
+			"available_options" : ["solid", "gradient", "image"]
+		},
 		"hex" : "#000",
 		"alpha" : 0
 	},
