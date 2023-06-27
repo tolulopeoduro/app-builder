@@ -10,12 +10,15 @@ import Border from "../Border/Border"
 import css_attributes_data from "../../attributes_data.json"
 import Display from '../Display/Display';
 import PathDisplay from '../PathDisplay/PathDisplay';
+import FlexLayoutEditor from '../FlexLayoutEditor/FlexLayoutEditor';
 
 const ContainerEditor = () => {
 
 	const {active_element, elements} = useSelector(s => s);
 	const {name, tag, attributes} = active_element;
 	const [element_style, set_element_style] = useState(null);
+
+	const flex_attributes = ["flex-direction", "justify-content", "flex-wrap", "align-items", "align-content"]
 
 	useEffect(() => {
 		set_element_style(active_element?.attributes?.css);
@@ -28,6 +31,7 @@ const ContainerEditor = () => {
 			...element_style,
 			...data
 		}
+		console.log(new_style)
 		set_element_style(new_style)
 
 		const element = {
@@ -65,6 +69,16 @@ const ContainerEditor = () => {
 		set_list(list.filter(e => e));
 	}, [element_style])
 
+	useEffect(() => {
+		if (element_style?.display?.value === "flex") {
+			Object.keys(css_attributes_data?.flex_settings)
+			.forEach(key => {
+				if (!element_style[key])
+					edit_style({[key] : css_attributes_data.flex_settings[key]});
+			})
+		}
+	}, [element_style])
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.header}>
@@ -88,9 +102,13 @@ const ContainerEditor = () => {
 				child={(<Border border_data={element_style?.border} edit_style={edit_style}/>)}/>
 				<Attribute exists = {element_style?.display} 
 				child={(<Display edit_style={edit_style} data={element_style?.display} /> )} /> 
+				{
+					element_style?.display?.value === "flex" &&
+					<FlexLayoutEditor edit_style={edit_style} element_style={element_style}/>
+				}
 			<AddStyleMenu attributes={list} edit_style={edit_style}/>
 		</div>
 	)
 }
 
-export default ContainerEditor
+export default ContainerEditor;

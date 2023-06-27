@@ -1,0 +1,32 @@
+.container {
+
+}
+
+.heading {
+	display: flex;
+	align-items: flex-end;
+	cursor: pointer;
+	width: fit-content;
+
+	> svg {
+		margin-left : 0.3rem;
+	}
+}
+
+.style_input {
+	display: flex;
+	align-items: center;
+	margin-top: 0.3rem;
+
+	> span {
+		color: #fff;
+		font-size: 0.7rem;
+		padding-left: 1rem;
+		margin-right: 0.5rem;
+	}
+}
+
+.flex_toolbox {
+	display: flex;
+	flex-wrap: wrap;
+}
