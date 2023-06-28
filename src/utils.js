@@ -48,11 +48,24 @@ export const trim_text_content = (str) => {
 
 export const obj_to_css = (object) => {
 	let str = ""
-	str+="transition: all 200ms;"
+	str+="transition: all 100ms;"
 	Object.keys(object).map(key => {
-		if (key === "background-color") {
-			const background = object[key];
-			str+= `background-color: ${hex2rgba(background?.hex	, background.alpha)};`
+		if (key === "background") {
+			const {colors, type, direction}  = object[key];
+
+			switch (type.value) {
+				case "solid":
+					let color =  colors[0];
+					str+= `background-color: ${hex2rgba(color?.hex	, color.alpha)};`
+					break;
+
+				case "gradient":
+					const list = colors.map(color => hex2rgba(color?.hex	, color.alpha))
+					str+= `background-image: linear-gradient(to ${direction?.value.split("-")[2]}, ${list});`
+					break
+				default:
+					break;
+			}
 		} 
 		if (key === "border") {
 			const {size, style, color}  = object[key];
@@ -60,7 +73,6 @@ export const obj_to_css = (object) => {
 		} 
 		else
 			str += (`${key}: ${object[key].value || object[key]};\n`);
-
 	})
 	return str;
 }

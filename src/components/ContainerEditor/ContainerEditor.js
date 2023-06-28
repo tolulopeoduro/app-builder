@@ -11,6 +11,8 @@ import css_attributes_data from "../../attributes_data.json"
 import Display from '../Display/Display';
 import PathDisplay from '../PathDisplay/PathDisplay';
 import FlexLayoutEditor from '../FlexLayoutEditor/FlexLayoutEditor';
+import Dropdown from '../BottomBar/Dropdown/Dropdown';
+import BackgroundColor from '../BackgroundColor/BackgroundColor';
 
 const ContainerEditor = () => {
 
@@ -31,7 +33,7 @@ const ContainerEditor = () => {
 			...element_style,
 			...data
 		}
-		console.log(new_style)
+
 		set_element_style(new_style)
 
 		const element = {
@@ -88,16 +90,8 @@ const ContainerEditor = () => {
 				</span>
 			</div>
 			<Dimensions {...element_style} edit_style = {edit_style}/>
-				<Attribute exists = {element_style?.["background-color"]} handle_delete = {remove_attribute} type="background-color"
-				child={(
-					<div>
-						<h2 className={styles.sub_header}>
-							BACKGROUND
-						</h2>
-						<Color type="background-color" initial_value={element_style?.["background-color"]} 
-						get_value={(color) => edit_style({"background-color" : color})}/>
-					</div>
-				)}/>
+				<Attribute exists = {element_style?.background} handle_delete = {remove_attribute} type="background"
+				child={(<BackgroundColor edit_style={edit_style} background={element_style?.background}/>)}/>
 				<Attribute exists = {element_style?.border} type="border" handle_delete={remove_attribute} 
 				child={(<Border border_data={element_style?.border} edit_style={edit_style}/>)}/>
 				<Attribute exists = {element_style?.display} 
