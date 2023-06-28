@@ -1,7 +1,23 @@
 {
-	"background-color" : {
-		"hex" : "#000",
-		"alpha" : 0
+	"background" : {
+		"type": {
+			"value" : "solid",
+			"available_options" : ["solid", "gradient", "image"]
+		},
+		"direction" : {
+			"value" : "left-to-right",
+			"available_options" : ["left-to-right", "top-to-bottom", "right-to-left", "bottom-to-top"]	
+		},
+		"colors" :[
+			{
+			"hex" : "#000",
+			"alpha" : 0.5
+			},
+			{
+			"hex" : "#000",
+			"alpha" : 1
+			}
+		]
 	},
 	"border" : 	{
 		"size" : "1px",

@@ -5,7 +5,7 @@ import {motion, AnimatePresence} from "framer-motion"
 
 const Dropdown = (props) => {
 	
-	const {width, height, options, handle_change, value} = props;
+	const {width, height, options, handle_change, value, style} = props;
 
 	const [active, set_active] = useState(false);
 
@@ -15,8 +15,8 @@ const Dropdown = (props) => {
 
 	return (
 		<Fragment>
-			<div className = {styles.box}>
-				<div style={{height : height}} className = {styles.dropdown} onClick={() => set_active(true)}>
+			<div style={{height: height}} className = {styles.box}>
+				<div style={{height : height, ...style}} className = {styles.dropdown} onClick={() => set_active(true)}>
 					<div className = {styles.value}>
 						{value}
 					</div>
@@ -28,11 +28,12 @@ const Dropdown = (props) => {
 							{
 								active &&
 								<ClickAwayListener onClickAway = {() => set_active(false)}>
-									<motion.div initial={{height: 0, opacity: 0.1}} animate={{opacity: 1, height: "auto"}} exit={{height : 0, opacity: 0.5}} className = {styles.options}>
+									<motion.div style={{...style}} initial={{height: 0, opacity: 0.1}} animate={{opacity: 1, height: "auto"}} 
+									exit={{height : 0, opacity: 0.5}} className = {styles.options}>
 										{
 											[value, ...options.filter(e => e !== value)].map((option) => {
 												return (
-													<div style={{height : height}} className = {styles.option} onClick={() => handle_change(option)}>
+													<div style={{height : height,}} className = {styles.option} onClick={() => handle_change(option)}>
 														{option}
 													</div>
 												)
