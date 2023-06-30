@@ -4,6 +4,11 @@
 			"value" : "solid",
 			"available_options" : ["solid", "gradient", "image"]
 		},
+		"gradient_type" : {
+			"value" : "linear",
+			"repeating": false,
+			"available_options" : ["linear", "radial", "conic"]
+		},
 		"direction" : {
 			"value" : "left-to-right",
 			"available_options" : ["left-to-right", "top-to-bottom", "right-to-left", "bottom-to-top"]	

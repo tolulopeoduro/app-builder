@@ -51,7 +51,7 @@ export const obj_to_css = (object) => {
 	str+="transition: all 100ms;"
 	Object.keys(object).map(key => {
 		if (key === "background") {
-			const {colors, type, direction}  = object[key];
+			const {colors, type, direction, gradient_type}  = object[key];
 
 			switch (type.value) {
 				case "solid":
@@ -61,7 +61,17 @@ export const obj_to_css = (object) => {
 
 				case "gradient":
 					const list = colors.map(color => hex2rgba(color?.hex	, color.alpha))
-					str+= `background-image: linear-gradient(to ${direction?.value.split("-")[2]}, ${list});`
+						switch (gradient_type?.value) {
+							case "radial":
+									str+= `background-image: ${gradient_type?.repeating ? "repeating-": ""}radial-gradient(${list});`
+								break;
+							case "conic":
+									str+= `background-image: conic-gradient(${list});`
+								break;
+								default:
+									str+= `background-image: linear-gradient(to ${direction?.value.split("-")[2]}, ${list});`
+								break;
+						}
 					break
 				default:
 					break;
