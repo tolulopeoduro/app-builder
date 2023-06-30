@@ -4,6 +4,7 @@ import TextEditor from './TextEditor/TextEditor'
 import { useDispatch, useSelector } from 'react-redux'
 import ContainerEditor from '../ContainerEditor/ContainerEditor'
 import { update_modals } from '../../Redux/Reducers/modals'
+import { set_active_element } from '../../Redux/Reducers/active_element'
 
 const BottomBar = () => {
 
@@ -46,7 +47,7 @@ const BottomBar = () => {
 						</svg>
 						</div>
 					</div>
-					<div className = {styles.option_button}>
+					<div onClick={() => dispatch(set_active_element(null))} className = {styles.option_button}>
 						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 14">
 							<path fill="none" stroke="white" stroke-linecap="round" 
 							stroke-linejoin="round" 

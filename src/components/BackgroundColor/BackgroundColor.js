@@ -5,7 +5,7 @@ import Color from '../Color/Color'
 
 const BackgroundColor = (props) => {
 
-	const {background : {type, colors, direction}, background, edit_style} = props;
+	const {background : {type, colors, direction, gradient_type}, background, edit_style} = props;
 
 	const change_value = (data) => {
 		edit_style({background : {...background, ...data}})
@@ -30,6 +30,10 @@ const BackgroundColor = (props) => {
 		change_value({colors : new_colors})
 	}
 
+	const toggle_repeat = () => {
+		change_value({})
+	}
+
 	return (
 		<div>
 			<h2 className="sub_header">
@@ -38,13 +42,30 @@ const BackgroundColor = (props) => {
 				<Dropdown value={type?.value} options = {type?.available_options}
 				handle_change = {(d) => change_value({type: {...type, value : d}})}
 				style={{marginLeft: "0.5rem", marginTop: "0.5rem"}}/>
-			<span className={styles.direction_settings} style={{display: "flex"}}>
-				<span>
-					direction
-				</span>
-				<Dropdown height="1.3rem" value={direction?.value} options = {direction?.available_options}
-				handle_change = {(d) => change_value({direction: {...direction, value : d}})}/>
-			</span>
+				{
+				type?.value === "gradient" &&
+				<Fragment>
+					<span className={styles.direction_settings} style={{display: "flex"}}>
+							<span>
+								type
+							</span>
+							<Dropdown height="1.3rem" value={gradient_type?.value} options = {gradient_type?.available_options}
+							handle_change = {(d) => change_value({gradient_type: {...gradient_type, value : d}})}/>
+					</span>
+				</Fragment>
+				}
+				{
+				`${gradient_type?.value}-${type?.value}` === "linear-gradient" &&
+				<Fragment>
+					<span className={styles.direction_settings} style={{display: "flex"}}>
+							<span>
+								direction
+							</span>
+							<Dropdown height="1.3rem" value={direction?.value} options = {direction?.available_options}
+							handle_change = {(d) => change_value({direction: {...direction, value : d}})}/>
+					</span>
+				</Fragment>
+				}
 			{
 				type.value === "solid" &&
 				<Color type="background-color" initial_value={colors[0]} 
