@@ -2,9 +2,11 @@ import { Fragment, useEffect, useState } from "react";
 import styles from "./ElementDescriptionBox.module.scss"
 import PathDisplay from "../PathDisplay/PathDisplay"
 import { useDispatch, useSelector } from "react-redux";
-import { update } from "lodash";
+import { trim, update } from "lodash";
 import { update_modals } from "../../Redux/Reducers/modals";
 import { AnimatePresence, motion } from "framer-motion";
+import win from "global";
+import { trim_text_content } from "../../utils";
 
 const ElementDescriptionBox = (props) => {
 
@@ -22,18 +24,34 @@ const ElementDescriptionBox = (props) => {
 		return () => clearTimeout(myTimeout)
 	}, [])
 
+	const setTop = () => {
+		console.log("hhh")
+		const {bottom, top} = box;
+		let result = bottom ;
+		if (window.innerHeight < bottom + 96) {
+			if (top - 96 < 0) {
+				result =  bottom - 100
+			} else {
+				result =  top - 96
+			}
+		} 
+		console.log(result)
+		return result;
+	}
+
 	return (
 		<Fragment>
 			<AnimatePresence>
 				<motion.div 
 				initial ={{opacity: 0}} animate={{opacity: 1}} exit={{opacity : 0}}
-				className={styles.container} style={{top : `${y+120 > window.innerHeight? y - 120 : y+10}px`, left : `${x+320 > window.innerWidth ? x - 320 : x+10}px`}}>
+				className={styles.container} style={{left : box.left+24,
+				top : `${setTop()}px`}}>
 					<div className={styles.header}>
 						<div className={styles.name}>
 							<span>
 								{data?.tag}
 							</span>
-							{data?.name}
+							{trim_text_content(data?.name)}
 						</div>
 						<div className={styles.dimension}>
 							{box.width} x
@@ -57,6 +75,7 @@ const ElementDescriptionBox = (props) => {
 					</div>
 				</motion.div>
 				<motion.div className={styles.box}
+				initial ={{opacity: 0}} animate={{opacity: 1}} exit={{opacity : 0}}
 				style={{height : box.height, width: box.width, top: box.top, left : box.left	}}>
 
 				</motion.div>
