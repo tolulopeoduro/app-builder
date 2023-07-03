@@ -25,6 +25,7 @@ const BackgroundColor = (props) => {
 	}
 	
 	const remove_from_gradient = (index) => {
+		if (!colors[1]) return;
 		const new_colors = [...colors]
 		new_colors.splice(index, 1);
 		change_value({colors : new_colors})

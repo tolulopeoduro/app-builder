@@ -1,0 +1,71 @@
+.container {
+	height: 6rem;
+	width: 320px;
+	background-color: rgba($color: #000000, $alpha: 0.5);
+	opacity: 0.7;
+	backdrop-filter: blur(2px);
+	position: absolute;
+	border-radius: 0.25rem;
+	box-sizing: border-box;
+	padding: 0.3rem;
+	color: #fff;
+	font-family: inter;
+	font-size: 0.7rem;
+	z-index: 6;
+
+	>.header {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+
+		>.name {	
+			
+			> span:nth-child(1) {
+				font-weight: bold;
+				margin-right: 0.3rem;
+				text-transform: uppercase;
+			}
+	
+		}
+	
+		.dimension {
+			font-size: 0.7rem;
+			font-weight: lighter;
+			margin-top: 0.2rem;
+			margin-left: 0.2rem;
+		}
+	}
+	
+	.details {
+		margin-top: 0.2rem;
+		margin-left: 0.2rem;
+	}
+
+	.details_force_design {
+		font-size: 0.7rem!important;
+		margin-top: 0.2rem;
+		margin-left: 0.2rem;
+		pointer-events: none;
+	}
+}
+
+.box {
+	background-color: rgba($color: #b5e6ff, $alpha: 0.5);
+	height: 200px;
+	width: 200px;
+	position: absolute;
+	box-sizing: border-box;
+	animation: pulse 800ms infinite
+}
+
+@keyframes pulse {
+	from {
+		background-color: rgba($color: #b5e6ff, $alpha: 0.1);
+	}
+	50% {
+		background-color: rgba($color: #b5e6ff, $alpha: 0.5);
+	}
+	to {
+		background-color: rgba($color: #b5e6ff, $alpha: 0.1);
+	}
+}

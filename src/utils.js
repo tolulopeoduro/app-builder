@@ -38,7 +38,6 @@ export const edit_element = (element) => {
 }
 
 
-
 export const trim_text_content = (str) => {
 	if (str.length > 10) {
 		return trimStart(trimEnd(str.substring(0, 10))) + "..."
@@ -51,29 +50,29 @@ export const obj_to_css = (object) => {
 	str+="transition: all 100ms;"
 	Object.keys(object).map(key => {
 		if (key === "background") {
-			const {colors, type, direction, gradient_type}  = object[key];
+			const {colors, type, direction, gradient_type, image_url}  = object[key];
 
 			switch (type.value) {
-				case "solid":
-					let color =  colors[0];
-					str+= `background-color: ${hex2rgba(color?.hex	, color.alpha)};`
+				case "image":
+						str+=`background-image: ${image_url || ""}`
 					break;
-
-				case "gradient":
-					const list = colors.map(color => hex2rgba(color?.hex	, color.alpha))
+					case "gradient":
+						const list = colors.map(color => hex2rgba(color?.hex	, color.alpha))
 						switch (gradient_type?.value) {
 							case "radial":
-									str+= `background-image: ${gradient_type?.repeating ? "repeating-": ""}radial-gradient(${list});`
+								str+= `background-image: ${gradient_type?.repeating ? "repeating-": ""}radial-gradient(${list});`
 								break;
-							case "conic":
+								case "conic":
 									str+= `background-image: conic-gradient(${list});`
-								break;
-								default:
-									str+= `background-image: linear-gradient(to ${direction?.value.split("-")[2]}, ${list});`
-								break;
-						}
-					break
-				default:
+									break;
+									default:
+										str+= `background-image: linear-gradient(to ${direction?.value.split("-")[2]}, ${list});`
+										break;
+									}
+									break
+									default:
+						let color =  colors[0];
+						str+= `background-color: ${hex2rgba(color?.hex	, color.alpha)};`
 					break;
 			}
 		} 
