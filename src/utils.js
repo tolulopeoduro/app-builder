@@ -50,11 +50,16 @@ export const obj_to_css = (object) => {
 	str+="transition: all 100ms;"
 	Object.keys(object).map(key => {
 		if (key === "background") {
-			const {colors, type, direction, gradient_type, image_url}  = object[key];
+			const {colors, type, direction, gradient_type, image}  = object[key];
 
 			switch (type.value) {
 				case "image":
-						str+=`background-image: ${image_url || ""}`
+						str+=`background-image: url(${image?.url || ""});`
+						Object.keys(image).map(key => {
+							if (image[key]?.value === "input custom size") {
+								str+=`${key} : ${image[key]?.custom_value};`
+							} else str+=`${key} : ${image[key]?.value};`
+						})
 					break;
 					case "gradient":
 						const list = colors.map(color => hex2rgba(color?.hex	, color.alpha))
