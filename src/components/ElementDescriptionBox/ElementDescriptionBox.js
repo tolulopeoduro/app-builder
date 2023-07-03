@@ -25,7 +25,6 @@ const ElementDescriptionBox = (props) => {
 	}, [])
 
 	const setTop = () => {
-		console.log("hhh")
 		const {bottom, top} = box;
 		let result = bottom ;
 		if (window.innerHeight < bottom + 96) {
@@ -35,7 +34,6 @@ const ElementDescriptionBox = (props) => {
 				result =  top - 96
 			}
 		} 
-		console.log(result)
 		return result;
 	}
 

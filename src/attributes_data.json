@@ -22,7 +22,22 @@
 			"hex" : "#000",
 			"alpha" : 1
 			}
-		]
+		],
+		"image" : {
+			"url" : "",
+			"background-position" : {
+				"value" : "center",
+				"available_options" : ["top", "bottom", "left", "right", "center"]
+			},
+			"background-repeat" : {
+				"value" : "repeat",
+				"available_options" : ["repeat", "no-repeat", "space", "round", "repeat-x", "space repeat"]
+			},
+			"background-size" : {
+				"value" : "contain",
+				"available_options" : ["contain", "cover", "input custom size"]
+			}
+		}
 	},
 	"border" : 	{
 		"size" : "1px",

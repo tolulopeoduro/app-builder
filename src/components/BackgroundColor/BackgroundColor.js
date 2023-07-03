@@ -5,12 +5,12 @@ import Color from '../Color/Color'
 
 const BackgroundColor = (props) => {
 
-	const {background : {type, colors, direction, gradient_type}, background, edit_style} = props;
+	const {background : {type, colors, direction, gradient_type, image}, background, edit_style} = props;
 
 	const change_value = (data) => {
 		edit_style({background : {...background, ...data}})
 	}
-	
+
 	const change_color = (index, data) => {
 		let new_colors = [...colors]
 		new_colors.splice(index, 1, data);
@@ -31,8 +31,10 @@ const BackgroundColor = (props) => {
 		change_value({colors : new_colors})
 	}
 
-	const toggle_repeat = () => {
-		change_value({})
+	const handle_custom_value = (e, key) => {
+		let new_val = {...image[key]}
+		new_val.custom_value = e.target.value;
+		change_value({image : {...image, [key] : new_val}})
 	}
 
 	return (
@@ -90,6 +92,36 @@ const BackgroundColor = (props) => {
 							4l-6 6m0-6l6 6"/></svg>
 					</div>
 				))
+			}
+			{
+				type.value === "image" && 
+				<div className={styles.url}>
+					<input placeholder='url' type='text' onChange={(e) => change_value({image : { ...image, url : e.target.value}})} value={image.url}/>
+					<div className={styles.image_settings}>
+						{
+							Object.keys(image).map(key => {
+								if (key !== "url" && key !== "repeat	") 
+								return (
+									<Fragment>
+										<div className={styles.input}>
+											<span>{key}: </span>
+											<Dropdown height="1.3rem" value={image?.[key]?.value}
+											options = {image?.[key]?.available_options}
+											handle_change = {v => change_value({image : {...image, [key] : {...image[key], value : v}}})} />
+										</div>
+										{
+											(image[key].value === "input custom size") &&
+											<div className={styles.custom_value_input}>
+												<span>custom value</span>
+												<input  placeholder='url' type='text' onChange={(e) => handle_custom_value(e, key)} value={image[key]?.custom_value}/>
+											</div>
+										}
+									</Fragment>
+								)
+							})
+						}
+					</div>
+				</div>
 			}
 		</div>
 	)
