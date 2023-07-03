@@ -27,6 +27,8 @@
     "hex2rgba": "^0.0.1",
     "jquery": "^3.6.4",
     "lodash": "^4.17.21",
+    "mmouse": "^3.1.1",
+    "pointer-tracker": "^2.5.3",
     "randomstring": "^1.2.3",
     "react": "^18.2.0",
     "react-click-away-listener": "^2.2.3",
