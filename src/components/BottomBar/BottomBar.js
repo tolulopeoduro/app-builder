@@ -21,7 +21,7 @@ const BottomBar = (props) => {
 	}
 
 	return (
-		<motion.div initial={{top : window.innerHeight + 10}} animate={{opacity:1, top: "auto"}} exit={{ top : window.innerHeight + 10}} className = {styles.bottom_bar_container}>
+		<motion.div initial={{top : window.innerHeight + 10}} animate={{opacity:1, top: "50%"}} exit={{ top : window.innerHeight + 10}} className = {styles.bottom_bar_container}>
 			<div className={styles.left}>
 				<div className = {styles.body}>
 					{
