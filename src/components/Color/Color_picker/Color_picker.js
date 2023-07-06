@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import styles from "./Color_picker.module.scss"
-import { HexAlphaColorPicker, HexColorPicker, RgbaColorPicker } from 'react-colorful'
+import { RgbaColorPicker } from 'react-colorful'
 import ClickAwayListener from 'react-click-away-listener';
-import hex2rgb from 'hex2rgb';
-import hex2rgba from 'hex2rgba';
-import { hex_to_rgb_object, hex_to_rgbobject } from '../../../utils';
+import { hex_to_rgb_object } from '../../../utils';
 import rgb2hex from 'rgb2hex';
 import { debounce } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { update_pallete } from '../../../Redux/Reducers/colors_reducer';
+
+import {motion} from "framer-motion"
 
 const Color_picker = (props) => {
 
@@ -35,7 +35,7 @@ const Color_picker = (props) => {
 
 	return (
 		<ClickAwayListener onClickAway={props.close_modal}>
-			<div className={styles.container} 
+			<motion.div className={styles.container} 
 			style={{
 				position: "absolute",
 				left: `${-220}px`,
@@ -69,7 +69,7 @@ const Color_picker = (props) => {
 							</div>
 						</div>
 				</div>
-			</div>
+			</motion.div>
 		</ClickAwayListener>
 	)
 }

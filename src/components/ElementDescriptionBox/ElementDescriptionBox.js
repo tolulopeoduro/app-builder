@@ -75,7 +75,6 @@ const ElementDescriptionBox = (props) => {
 				<motion.div className={styles.box}
 				initial ={{opacity: 0}} animate={{opacity: 1}} exit={{opacity : 0}}
 				style={{height : box.height, width: box.width, top: box.top, left : box.left	}}>
-
 				</motion.div>
 			</AnimatePresence>
 		</Fragment>

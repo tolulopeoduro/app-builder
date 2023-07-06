@@ -94,7 +94,8 @@ const ContainerEditor = () => {
 				child={(<BackgroundColor edit_style={edit_style} background={element_style?.background}/>)}/>
 				<Attribute exists = {element_style?.border} type="border" handle_delete={remove_attribute} 
 				child={(<Border border_data={element_style?.border} edit_style={edit_style}/>)}/>
-				<Attribute exists = {element_style?.display} 
+				<Attribute exists = {element_style?.display} type="display"
+				handle_delete={remove_attribute}
 				child={(<Display edit_style={edit_style} data={element_style?.display} /> )} /> 
 				{
 					element_style?.display?.value === "flex" &&

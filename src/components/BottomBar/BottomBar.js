@@ -5,10 +5,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import ContainerEditor from '../ContainerEditor/ContainerEditor'
 import { update_modals } from '../../Redux/Reducers/modals'
 import { set_active_element } from '../../Redux/Reducers/active_element'
+import {AnimatePresence, motion} from "framer-motion";
 
-const BottomBar = () => {
+const BottomBar = (props) => {
 
-	const {active_element, modals : {new_element}} = useSelector(s => s);
+	const {active_element, active_element_dimension, modals : {new_element}} = useSelector(s => s);
 	const dispatch = useDispatch();
 
 	const toggle_element_list=() => {
@@ -20,11 +21,11 @@ const BottomBar = () => {
 	}
 
 	return (
-		<div className = {styles.bottom_bar_container}>
+		<motion.div initial={{top : window.innerHeight + 10}} animate={{opacity:1, top: "auto"}} exit={{ top : window.innerHeight + 10}} className = {styles.bottom_bar_container}>
 			<div className={styles.left}>
 				<div className = {styles.body}>
 					{
-						active_element.tag !== "div" ? 
+						active_element?.tag !== "div" ? 
 						<TextEditor/> :
 						<ContainerEditor/>
 					}
@@ -47,15 +48,11 @@ const BottomBar = () => {
 						</svg>
 						</div>
 					</div>
-					<div onClick={() => dispatch(set_active_element(null))} className = {styles.option_button}>
-						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 14">
-							<path fill="none" stroke="white" stroke-linecap="round" 
-							stroke-linejoin="round" 
-							d="m13.5 13.5l-5-5m4 0h-4v4M.5.5l5 5m-4 0h4v-4"/>
-						</svg>
+					<div onClick={() => props.hide_editor()} className = {styles.option_button}>
+						<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024"><path fill="white" d="M831.872 340.864L512 652.672L192.128 340.864a30.592 30.592 0 0 0-42.752 0a29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728a30.592 30.592 0 0 0-42.752 0z"/></svg>
 					</div>
 				</div>
-			</div>
+			</motion.div>
 	)
 }
 
