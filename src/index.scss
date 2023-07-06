@@ -107,6 +107,16 @@ table {
 	padding-left: 0.5rem;
 	margin-top: 0.5rem;
 	font-size: 0.6rem;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	text-transform: uppercase;
+
+	>.dropdown {
+		height: 1rem;
+		cursor: pointer;
+	}
+
 }
 
 .basic_dropdown {

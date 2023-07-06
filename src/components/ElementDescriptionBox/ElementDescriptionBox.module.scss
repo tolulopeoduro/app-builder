@@ -55,7 +55,8 @@
 	width: 200px;
 	position: absolute;
 	box-sizing: border-box;
-	animation: pulse 800ms infinite
+	animation: pulse 800ms infinite;
+	pointer-events: none;
 }
 
 @keyframes pulse {
