@@ -20,7 +20,7 @@ const NewElementSelect = () => {
 		height: "auto",
 		width: "auto",
 		opacity: 1,
-		bottom: "430px"
+		bottom: "51%"
 	}
 
 

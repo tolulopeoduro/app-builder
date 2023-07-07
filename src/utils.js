@@ -1,10 +1,11 @@
-import { trimEnd, trimStart, update } from "lodash"
+import { forEach, trimEnd, trimStart, update } from "lodash"
 import { store as Store, store } from "./Redux/Store"
 import { update_elements } from "./Redux/Reducers/elements_reducer"
 import { update_modals } from "./Redux/Reducers/modals"
 import rgb2hex from "rgb2hex"
 import hex2rgb from "hex2rgb"
 import hex2rgba from "hex2rgba"
+import { set_active_element } from "./Redux/Reducers/active_element"
 
 
 // export const updateText = (text) => {
@@ -19,7 +20,6 @@ export const create_element = (el, parent_id, id) => {
 	const {elements} = Store.getState()
 
 	const new_elements = {...elements};
-	
 	
 	let c = {...new_elements[parent_id]};
 	let ar = [...c.children, el?.name]
@@ -98,4 +98,24 @@ export const hex_to_rgb_object = (color) => {
 		r: rgb[0], g: rgb[1], b: rgb[2], a: parseFloat(color.alpha)
 	}
 	return obj
+}
+
+const run_through = (new_elements, elements, el) => {
+	for(let i = el.children.length-1; i >= 0; i--) {
+		let id = el.children[i]
+		run_through(new_elements, elements, elements[id])
+	}
+	delete new_elements[el?.name]
+}
+
+export const delete_element = (id) => {
+	if (id === "App") {
+		alert("Can't delete base component")
+	};
+	const {elements} = Store.getState(s => s);
+
+	let new_elements = {...elements};
+	run_through(new_elements, elements, elements[id])
+	Store.dispatch(set_active_element(elements[elements[id].parent]))
+	Store.dispatch(update_elements(new_elements))
 }

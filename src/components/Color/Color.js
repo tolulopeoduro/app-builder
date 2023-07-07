@@ -40,11 +40,13 @@ const Color = (props) => {
 					</span>
 					<span className={styles.color_alpha}>
 					</span>
-					{
-						show_color_picker &&
-							<Color_picker handle_change={(val) => get_value(val)} initial_value={color}  attribute={props.type}
-							close_modal={() => toggle_color_picker(false)}/>
-					}
+					<AnimatePresence>
+						{
+							show_color_picker &&
+								<Color_picker handle_change={(val) => get_value(val)} initial_value={color}  attribute={props.type}
+								close_modal={() => toggle_color_picker(false)}/>
+						}
+					</AnimatePresence>
 				</div>
 			</motion.div>
 		</AnimatePresence>

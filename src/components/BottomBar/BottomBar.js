@@ -6,10 +6,11 @@ import ContainerEditor from '../ContainerEditor/ContainerEditor'
 import { update_modals } from '../../Redux/Reducers/modals'
 import { set_active_element } from '../../Redux/Reducers/active_element'
 import {AnimatePresence, motion} from "framer-motion";
+import { delete_element } from '../../utils'
 
 const BottomBar = (props) => {
 
-	const {active_element, active_element_dimension, modals : {new_element}} = useSelector(s => s);
+	const {active_element, modals : {new_element}} = useSelector(s => s);
 	const dispatch = useDispatch();
 
 	const toggle_element_list=() => {
@@ -21,7 +22,7 @@ const BottomBar = (props) => {
 	}
 
 	return (
-		<motion.div initial={{top : window.innerHeight + 10}} animate={{opacity:1, top: "auto"}} exit={{ top : window.innerHeight + 10}} className = {styles.bottom_bar_container}>
+		<motion.div initial={{top : window.innerHeight + 10}} animate={{opacity:1, top: "50%"}} exit={{ top : window.innerHeight + 10}} className = {styles.bottom_bar_container}>
 			<div className={styles.left}>
 				<div className = {styles.body}>
 					{
@@ -41,7 +42,7 @@ const BottomBar = (props) => {
 								 1-2 0v-5H6a1 1 0 0 1 0-2h5v-5a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2z"/>
 							</svg>
 						</div>
-						<div className={styles.option_button}>
+						<div onClick={() => delete_element(active_element?.name)} className={styles.option_button}>
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 							<path fill="white" d="M7 21q-.825 0-1.413-.588T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.588 1.413T17
 							 21H7ZM17 6H7v13h10V6ZM9 17h2V8H9v9Zm4 0h2V8h-2v9ZM7 6v13V6Z"/>
