@@ -25,11 +25,7 @@ const BottomBar = (props) => {
 		<motion.div initial={{top : window.innerHeight + 10}} animate={{opacity:1, top: "50%"}} exit={{ top : window.innerHeight + 10}} className = {styles.bottom_bar_container}>
 			<div className={styles.left}>
 				<div className = {styles.body}>
-					{
-						active_element?.tag !== "div" ? 
-						<TextEditor/> :
-						<ContainerEditor/>
-					}
+					<ContainerEditor/>
 				</div>
 				<div className = {styles.footer}>
 				</div>
