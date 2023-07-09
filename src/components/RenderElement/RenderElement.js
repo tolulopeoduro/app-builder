@@ -4,40 +4,52 @@ import styled from "styled-components";
 import { set_active_element } from "../../Redux/Reducers/active_element";
 import hexRgb from "hex-rgb";
 import { obj_to_css } from "../../utils";
+import default_styles from "../../default_styles.json"
 
+const process_css = (tag, css) => {
+	return obj_to_css({...default_styles?.[tag], ...css})
+}
 
-
-const H1 =  styled.h1`${props => props?.css}`
-const H2 =  styled.h2`${props => props?.css}`
-const P =  styled.p`${props => props?.css}`
-const SPAN =  styled.span`${props => props?.css}`
-const Div = styled.div`${props => obj_to_css(props.css)}`
+const H1 =  styled.h1`${props => process_css("h1", props.css)}`
+const H2 =  styled.h2`${props => process_css("h2", props.css)}`
+const P =  styled.p`${props => process_css("p", props.css)}`
+const SPAN =  styled.span`${props => process_css("span", props.css)}`
+const Div = styled.div`${props => process_css("div", props.css)}`
 
 
 const RenderElement = (props) => {
-	let {children, id, text, tag, name} = props;
+	let {children, builder_id, text, tag, name, innerHTML, type} = props;
 
 	const {elements} = useSelector(s => s)
 
 	const attributes = {...props.attributes, id : name}
 
+	useEffect(() => {
+		if (type === "text") {
+			document.getElementById(name).innerHTML = innerHTML;
+		}
+	}, [props])
+
 	switch (tag) {
 		case "div" : {
 			return (
 				<Div {...attributes}>
-					{children?.map(child => <RenderElement key={elements[child]?.name} {...elements[child]}/>)}
+					{children?.map(child => <RenderElement key= {elements[child]?.name} {...elements[child]}/>)}
 				</Div>
 			)
 		}
 		break;
-		case "h1":
-			return <H1  {...attributes}></H1>
+		case "h2":
+			return <H2  {...attributes}></H2>
 			break;
+		case "h1":
+				return <H1 {...attributes}></H1>
+				break;
 		case "p":
 			return <P {...attributes}></P>
 			break;
 		default:
-			return <SPAN {...attributes}></SPAN>
+			return <SPAN 	{...attributes}></SPAN>
 			break;
 	}
 }

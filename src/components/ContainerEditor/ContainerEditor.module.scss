@@ -124,3 +124,8 @@
 		cursor: pointer;
 	}
 }
+
+.body {
+	overflow: auto;
+	max-height: 20rem;
+}

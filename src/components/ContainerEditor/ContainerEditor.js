@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from "./ContainerEditor.module.scss"
 import { Fragment, useEffect, useState } from 'react';
 import { edit_element } from '../../utils';
@@ -13,12 +13,15 @@ import PathDisplay from '../PathDisplay/PathDisplay';
 import FlexLayoutEditor from '../FlexLayoutEditor/FlexLayoutEditor';
 import Dropdown from '../BottomBar/Dropdown/Dropdown';
 import BackgroundColor from '../BackgroundColor/BackgroundColor';
+import { update_elements } from '../../Redux/Reducers/elements_reducer';
+import TextEditBox from '../TextEditBox/TextEditBox';
 
 const ContainerEditor = () => {
 
 	const {active_element, elements} = useSelector(s => s);
 	const {name, tag, attributes} = active_element;
 	const [element_style, set_element_style] = useState(null);
+	const dispatch = (useDispatch());
 
 	const flex_attributes = ["flex-direction", "justify-content", "flex-wrap", "align-items", "align-content"]
 
@@ -53,6 +56,7 @@ const ContainerEditor = () => {
 	}
 
 	const [list, set_list] = useState([])
+	const element = elements?.[active_element?.name]
 
 	useEffect(() => {
 		if (!element_style) return;
@@ -81,6 +85,12 @@ const ContainerEditor = () => {
 		}
 	}, [element_style])
 
+	const change_value = (key, val) => {
+		const new_elements = {...elements};
+		new_elements[active_element?.name] = {...elements[active_element?.name], [key] : val}
+		dispatch(update_elements(new_elements));
+	}
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.header}>
@@ -89,19 +99,25 @@ const ContainerEditor = () => {
 					<PathDisplay elements={elements} element = {active_element}/>
 				</span>
 			</div>
-			<Dimensions {...element_style} edit_style = {edit_style}/>
-				<Attribute exists = {element_style?.background} handle_delete = {remove_attribute} type="background"
-				child={(<BackgroundColor edit_style={edit_style} background={element_style?.background}/>)}/>
-				<Attribute exists = {element_style?.border} type="border" handle_delete={remove_attribute} 
-				child={(<Border border_data={element_style?.border} edit_style={edit_style}/>)}/>
-				<Attribute exists = {element_style?.display} type="display"
-				handle_delete={remove_attribute}
-				child={(<Display edit_style={edit_style} data={element_style?.display} /> )} /> 
+			<div className={styles.body}>
 				{
-					element_style?.display?.value === "flex" &&
-					<FlexLayoutEditor edit_style={edit_style} element_style={element_style}/>
+					tag !== "div" &&
+					<TextEditBox active_element={active_element} change_value = {change_value} element = {elements?.[active_element?.name]}/>
 				}
-			<AddStyleMenu attributes={list} edit_style={edit_style}/>
+				<Dimensions {...element_style} edit_style = {edit_style}/>
+					<Attribute exists = {element_style?.background} handle_delete = {remove_attribute} type="background"
+					child={(<BackgroundColor edit_style={edit_style} background={element_style?.background}/>)}/>
+					<Attribute exists = {element_style?.border} type="border" handle_delete={remove_attribute} 
+					child={(<Border border_data={element_style?.border} edit_style={edit_style}/>)}/>
+					<Attribute exists = {element_style?.display} type="display"
+					handle_delete={remove_attribute}
+					child={(<Display edit_style={edit_style} data={element_style?.display} /> )} /> 
+					{
+						element_style?.display?.value === "flex" &&
+						<FlexLayoutEditor edit_style={edit_style} element_style={element_style}/>
+					}
+				<AddStyleMenu attributes={list} edit_style={edit_style}/>
+			</div>
 		</div>
 	)
 }
