@@ -27,8 +27,8 @@ const BottomBar = (props) => {
 				<div className = {styles.body}>
 					<ContainerEditor/>
 				</div>
-				<div className = {styles.footer}>
-				</div>
+				{/* <div className = {styles.footer}>
+				</div> */}
 			</div>
 			<div className={styles.right}>
 					<div className={styles.actions}>

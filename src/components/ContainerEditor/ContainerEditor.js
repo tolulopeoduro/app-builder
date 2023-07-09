@@ -99,23 +99,25 @@ const ContainerEditor = () => {
 					<PathDisplay elements={elements} element = {active_element}/>
 				</span>
 			</div>
-			{
-				tag !== "div" &&
-				<TextEditBox active_element={active_element} change_value = {change_value} element = {elements?.[active_element?.name]}/>
-			}
-			<Dimensions {...element_style} edit_style = {edit_style}/>
-				<Attribute exists = {element_style?.background} handle_delete = {remove_attribute} type="background"
-				child={(<BackgroundColor edit_style={edit_style} background={element_style?.background}/>)}/>
-				<Attribute exists = {element_style?.border} type="border" handle_delete={remove_attribute} 
-				child={(<Border border_data={element_style?.border} edit_style={edit_style}/>)}/>
-				<Attribute exists = {element_style?.display} type="display"
-				handle_delete={remove_attribute}
-				child={(<Display edit_style={edit_style} data={element_style?.display} /> )} /> 
+			<div className={styles.body}>
 				{
-					element_style?.display?.value === "flex" &&
-					<FlexLayoutEditor edit_style={edit_style} element_style={element_style}/>
+					tag !== "div" &&
+					<TextEditBox active_element={active_element} change_value = {change_value} element = {elements?.[active_element?.name]}/>
 				}
-			<AddStyleMenu attributes={list} edit_style={edit_style}/>
+				<Dimensions {...element_style} edit_style = {edit_style}/>
+					<Attribute exists = {element_style?.background} handle_delete = {remove_attribute} type="background"
+					child={(<BackgroundColor edit_style={edit_style} background={element_style?.background}/>)}/>
+					<Attribute exists = {element_style?.border} type="border" handle_delete={remove_attribute} 
+					child={(<Border border_data={element_style?.border} edit_style={edit_style}/>)}/>
+					<Attribute exists = {element_style?.display} type="display"
+					handle_delete={remove_attribute}
+					child={(<Display edit_style={edit_style} data={element_style?.display} /> )} /> 
+					{
+						element_style?.display?.value === "flex" &&
+						<FlexLayoutEditor edit_style={edit_style} element_style={element_style}/>
+					}
+				<AddStyleMenu attributes={list} edit_style={edit_style}/>
+			</div>
 		</div>
 	)
 }
