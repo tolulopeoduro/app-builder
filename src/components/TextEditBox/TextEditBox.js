@@ -33,7 +33,7 @@ const TextEditBox = (props) => {
 				value = {element?.tag} 
 				options = {["h1", "h2", "p", "span"]} handle_change = {(v) => change_value("tag", v)}/>
 			</div>
-			<div style={{height : !show_textbox && "1.5rem" }} className={styles.text_content_editor}>
+			<div style={{height : !show_textbox && "40px" }} className={styles.text_content_editor}>
 				<div>
 					<svg style={{transform : !show_textbox && "rotateX(180deg)"}} onClick={() => toggle_textbox(show_textbox ? false : true)} xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
 						<g transform="rotate(180 512 512)">

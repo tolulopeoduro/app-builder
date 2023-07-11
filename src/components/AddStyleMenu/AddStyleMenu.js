@@ -8,6 +8,10 @@ const AddStyleMenu = (props) => {
 	const [show_menu, toggle_menu] = useState(false);
 	const {attributes, edit_style} = props;
 
+	useEffect(() => {
+		attributes.splice(attributes.indexOf("flex_settings"), 0);
+	},[])
+
 	return attributes.length > 0 &&
 		<div style={{display:"flex", marginTop:"0.5rem"}}>
 			<div onClick={() => toggle_menu(true)} 

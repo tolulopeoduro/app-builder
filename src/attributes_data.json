@@ -70,5 +70,6 @@
 			"value" : "flex-start",
 			"available_options" : ["flex-start", "flex-end", "center", "space-between", "space-around", "stretch"]
 		}
-	}
+	},
+	"color" : {"hex" : "#000", "alpha" : 1}
 }
