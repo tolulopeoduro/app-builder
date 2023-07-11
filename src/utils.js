@@ -86,7 +86,6 @@ export const obj_to_css = (object) => {
 			str+= `border: ${size} ${style}  ${hex2rgba(color?.hex, color?.alpha)};`
 		} 
 		if (key === "color") {
-			console.log(object?.color)
 			str+= `color: ${hex2rgba(object?.color?.hex, object?.color.alpha)};`
 		}
 		else
