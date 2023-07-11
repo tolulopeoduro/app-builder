@@ -61,7 +61,7 @@ const ContainerEditor = () => {
 	useEffect(() => {
 		if (!element_style) return;
 		const list = Object.keys(css_attributes_data).map(e => {
-			let a = true
+			let a = e !== "flex_settings"
 			let d = Object.keys(element_style)
 			
 			for (let i = 0; i < d.length; i++) {
@@ -104,7 +104,8 @@ const ContainerEditor = () => {
 					tag !== "div" &&
 					<TextEditBox active_element={active_element} change_value = {change_value} element = {elements?.[active_element?.name]}/>
 				}
-				<Dimensions {...element_style} edit_style = {edit_style}/>
+					<Attribute exists edit_style={edit_style} type="dimensions "
+					child= {(<Dimensions {...element_style} edit_style = {edit_style}/>)}/>
 					<Attribute exists = {element_style?.background} handle_delete = {remove_attribute} type="background"
 					child={(<BackgroundColor edit_style={edit_style} background={element_style?.background}/>)}/>
 					<Attribute exists = {element_style?.border} type="border" handle_delete={remove_attribute} 
@@ -116,6 +117,8 @@ const ContainerEditor = () => {
 						element_style?.display?.value === "flex" &&
 						<FlexLayoutEditor edit_style={edit_style} element_style={element_style}/>
 					}
+					<Attribute exists = {element_style?.color} edit_style={edit_style} type="color" handle_delete={remove_attribute}
+					child={(<Color type="Color" initial_value={element_style?.color} get_value={(v) => edit_style({"color" : v})}/>)}/>
 				<AddStyleMenu attributes={list} edit_style={edit_style}/>
 			</div>
 		</div>

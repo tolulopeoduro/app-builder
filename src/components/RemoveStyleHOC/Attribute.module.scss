@@ -1,10 +1,11 @@
 .container {
 	display: flex;
-	align-items: flex-end;
 	margin-bottom: 0.5rem;
 	width: fit-content;
-	padding-bottom: 1rem;
+	// padding-bottom: 1rem;
 	overflow: hidden;
+	min-height: 40px;
+
 
 	> svg {
 		margin-left: 0.5rem;

@@ -39,7 +39,7 @@ export const edit_element = (element) => {
 
 
 export const trim_text_content = (str) => {
-	if (str.length > 10) {
+	if (str?.length > 10) {
 		return trimStart(trimEnd(str.substring(0, 10))) + "..."
 	}
 	return str;
@@ -78,13 +78,17 @@ export const obj_to_css = (object) => {
 									default:
 						let color =  colors[0];
 						str+= `background-color: ${hex2rgba(color?.hex	, color.alpha)};`
-					break;
-			}
-		} 
+						break;
+					}
+				} 
 		if (key === "border") {
 			const {size, style, color}  = object[key];
 			str+= `border: ${size} ${style}  ${hex2rgba(color?.hex, color?.alpha)};`
 		} 
+		if (key === "color") {
+			console.log(object?.color)
+			str+= `color: ${hex2rgba(object?.color?.hex, object?.color.alpha)};`
+		}
 		else
 			str += (`${key}: ${object[key].value || object[key]};\n`);
 	})

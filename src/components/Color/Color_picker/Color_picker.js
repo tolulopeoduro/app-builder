@@ -35,7 +35,7 @@ const Color_picker = (props) => {
 
 	return (
 		<ClickAwayListener onClickAway={props.close_modal}>
-			<motion.div className={styles.container} initial={{opacity: 0}} animate={{opacity:1}} exit={{opacity:0}}
+			<motion.div className={styles.container} 
 			style={{
 				position: "absolute",
 				left: `${-220}px`,
