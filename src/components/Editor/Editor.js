@@ -3,25 +3,19 @@ import styles from "./Editor.module.scss"
 import { useDispatch, useSelector } from 'react-redux'
 import BottomBar from '../BottomBar/BottomBar';
 import NewElementSelect from '../NewElementSelect/NewElementSelect';
-import active_element, { set_active_element } from '../../Redux/Reducers/active_element';
+import { set_active_element } from '../../Redux/Reducers/active_element';
 import { update_dimensions } from '../../Redux/Reducers/active_element_dimensions';
 import Active_Element_Box from '../Active_Element_Box/Active_Element_Box';
-import Color_picker from '../Color/Color_picker/Color_picker';
 import { view_element } from '../../Redux/Reducers/viewed_element';
 import ElementDescriptionBox from '../ElementDescriptionBox/ElementDescriptionBox';
 import { update_modals } from '../../Redux/Reducers/modals';
 import { AnimatePresence, motion } from 'framer-motion';
-import Dropdown from '../BottomBar/Dropdown/Dropdown';
 import DropdownOptions from '../DropdownOptions/DropdownOptions';
 
 const Editor = () => {
-
-	const dispatch = useDispatch();
-
-	const {elements, modals, active_element, active_element_dimension, viewed_element} = useSelector(s => s);
-	const [show_editor, toggle_editor] = useState(false)
 	
-	const frame = document.getElementById("result");
+	const dispatch = useDispatch();
+	const {elements, modals, active_element, active_element_dimension, viewed_element} = useSelector(s => s);
 
 	useEffect(() => {
 		window.addEventListener("contextmenu",(e) => {
