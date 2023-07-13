@@ -21,7 +21,6 @@ const Dropdown = (props) => {
 		let box = el?.getBoundingClientRect()
 		if (!box) return;
 		let total_height = box?.bottom + (box.height * options?.length);
-		console.log(document.getElementById("container_editor_body").scrollTop)
 		if (total_height > window.innerHeight) {
 			return {bottom : (el.offsetParent?.offsetHeight - el?.offsetTop)+(document.getElementById("container_editor_body").scrollTop + (-box.height))}
 		} 

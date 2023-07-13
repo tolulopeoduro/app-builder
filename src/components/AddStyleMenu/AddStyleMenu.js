@@ -18,7 +18,6 @@ const AddStyleMenu = (props) => {
 		let box = el?.getBoundingClientRect()
 		if(!box) return;
 		let total_height = box?.bottom + (box.height * attributes.length)
-		console.log(total_height > window.innerHeight, total_height)
 		if (total_height > window.innerHeight) {
 			let b = {bottom : (el.offsetParent?.offsetHeight - el?.offsetTop - box.height)+document.getElementById("container_editor_body").scrollTop}
 			return b
@@ -30,8 +29,6 @@ const AddStyleMenu = (props) => {
 		set_position(getPosition())
 		document.getElementById("container_editor_body").style.overflowX = show_menu ? "hidded" : "scroll"
 	}, [show_menu])
-
-	useEffect(() => console.log(position), [position])
 
 	return attributes.length > 0 &&
 		<div id = "add_style" style={{display:"flex", marginTop:"0.5rem"}}>
