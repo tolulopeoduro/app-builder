@@ -11,6 +11,8 @@ import { view_element } from '../../Redux/Reducers/viewed_element';
 import ElementDescriptionBox from '../ElementDescriptionBox/ElementDescriptionBox';
 import { update_modals } from '../../Redux/Reducers/modals';
 import { AnimatePresence, motion } from 'framer-motion';
+import Dropdown from '../BottomBar/Dropdown/Dropdown';
+import DropdownOptions from '../DropdownOptions/DropdownOptions';
 
 const Editor = () => {
 
@@ -83,6 +85,7 @@ const Editor = () => {
 					</motion.div>
 				}
 			</AnimatePresence>
+			{modals?.dropdown && <DropdownOptions/>}
 		</div>
 	)
 }

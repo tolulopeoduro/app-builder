@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import styles from "./ContainerEditor.module.scss"
 import { Fragment, useEffect, useState } from 'react';
-import { edit_element } from '../../utils';
+import { edit_element, font_list } from '../../utils';
 import Dimensions from '../Dimensions/Dimensions';
 import Color from '../Color/Color';
 import AddStyleMenu from '../AddStyleMenu/AddStyleMenu';
@@ -99,7 +99,7 @@ const ContainerEditor = () => {
 					<PathDisplay elements={elements} element = {active_element}/>
 				</span>
 			</div>
-			<div className={styles.body}>
+			<div id ="container_editor_body" className={styles.body}>
 				{
 					tag !== "div" &&
 					<TextEditBox active_element={active_element} change_value = {change_value} element = {elements?.[active_element?.name]}/>
@@ -119,6 +119,14 @@ const ContainerEditor = () => {
 					}
 					<Attribute exists = {element_style?.color} edit_style={edit_style} type="color" handle_delete={remove_attribute}
 					child={(<Color type="Color" initial_value={element_style?.color} get_value={(v) => edit_style({"color" : v})}/>)}/>
+					<Attribute exists = {element_style?.["font-family"]} type = "font-family" handle_delete={remove_attribute}
+					child = {(
+						<div style={{padding: "0.5rem 0 0 0.5rem"}}>
+							<Dropdown id = {`font-family`}  value={element_style?.["font-family"]} 
+							options={[...font_list].filter(e => e)}
+							handle_change={(v) => edit_style({["font-family"] : v})}/>
+						</div>
+					)}/>
 				<AddStyleMenu attributes={list} edit_style={edit_style}/>
 			</div>
 		</div>

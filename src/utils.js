@@ -122,3 +122,9 @@ export const delete_element = (id) => {
 	Store.dispatch(set_active_element(elements[elements[id].parent]))
 	Store.dispatch(update_elements(new_elements))
 }
+
+export const font_list = '&family=Delius&family=Eczar&family=Inter&family=Lora&family=Merriweather&family=Merriweather+Sans&family=Montserrat&family=Noto+Serif&family=Open+Sans&family=PT+Serif&family=Roboto&family=Space+Mono&family=Tillana&family=Tinos&family=Work+Sans'
+.split('&family=').map((font_name, index) => {
+	if (index > 0)
+		return font_name.replace("+", " ")
+})	
