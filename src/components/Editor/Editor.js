@@ -6,16 +6,10 @@ import NewElementSelect from '../NewElementSelect/NewElementSelect';
 import active_element, { set_active_element } from '../../Redux/Reducers/active_element';
 import { update_dimensions } from '../../Redux/Reducers/active_element_dimensions';
 import Active_Element_Box from '../Active_Element_Box/Active_Element_Box';
-import Color_picker from '../Color/Color_picker/Color_picker';
 
 const Editor = () => {
 
 	const dispatch = useDispatch();
-	const state = useSelector(s => s);
-
-	useEffect(() => {
-		
-	}, [])
 
 	const {elements, modals, active_element, active_element_dimension} = useSelector(s => s);
 	
@@ -28,7 +22,10 @@ const Editor = () => {
 	useEffect(() => {
 		document.getElementById('result').contentWindow.postMessage({message_type : "active_element", message: active_element}, "http://localhost:3000/frame")
 	}, [active_element])
-	
+
+	useEffect(() => {
+		frame.contentEditable.location.reload()
+	}, [elements])
 
 	useEffect(() => {
 		window.onmessage = e => {
