@@ -114,7 +114,7 @@ const ContainerEditor = () => {
 					handle_delete={remove_attribute}
 					child={(<Display edit_style={edit_style} data={element_style?.display} /> )} /> 
 					{
-						element_style?.display?.value === "flex" &&
+						(element_style?.display?.value === "flex" || element_style?.display?.value === "inline-flex") &&
 						<FlexLayoutEditor edit_style={edit_style} element_style={element_style}/>
 					}
 					<Attribute exists = {element_style?.color} edit_style={edit_style} type="color" handle_delete={remove_attribute}
@@ -122,7 +122,7 @@ const ContainerEditor = () => {
 					<Attribute exists = {element_style?.["font-family"]} type = "font-family" handle_delete={remove_attribute}
 					child = {(
 						<div style={{padding: "0.5rem 0 0 0.5rem"}}>
-							<Dropdown id = {`font-family`}  value={element_style?.["font-family"]} 
+							<Dropdown id = {`font-family`}  value={element_style?.["font-family"]}
 							options={[...font_list].filter(e => e)}
 							handle_change={(v) => edit_style({["font-family"] : v})}/>
 						</div>
