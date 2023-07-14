@@ -1,10 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import styles from "./Color.module.scss"
-import rgb2hex from 'rgb2hex';
-import hexRgb from 'hex-rgb';
-import { HexAlphaColorPicker } from 'react-colorful';
+import {AnimatePresence, motion} from "framer-motion"
 import Color_picker from './Color_picker/Color_picker';
-import ClickAwayListener from 'react-click-away-listener';
 
 const Color = (props) => {
 
@@ -26,29 +23,33 @@ const Color = (props) => {
 	}, [initial_value])
 
 	return (
-		<div>
-			<div id={props.type} className={styles.background}>
-				<div  className={styles.color_display} style={{backgroundColor: "white"}}
-				onClick={() => toggle_color_picker(true)}>
-					<div style={{height:"100%", width:"50%", backgroundColor:`${initial_value?.hex}`}}>
+		<AnimatePresence>
+			<motion.div initial={{opacity : 0}} animate={{opacity: 1}} exit={{opacity: 1}}>
+				<div id={props.type} className={styles.background}>
+					<div  className={styles.color_display} style={{backgroundColor: "white"}}
+					onClick={() => toggle_color_picker(true)}>
+						<div style={{height:"100%", width:"50%", backgroundColor:`${initial_value?.hex}`}}>
+						</div>
+						<div style={{height:"100%", width:"50%", backgroundColor:initial_value?.hex, opacity: initial_value?.alpha}}>
+						</div>
 					</div>
-					<div style={{height:"100%", width:"50%", backgroundColor:initial_value?.hex, opacity: initial_value?.alpha}}>
-					</div>
+					<span className={styles.color_input} >
+						<input type='text' onChange={(e) => handle_color_change("hex", e?.target.value)} 
+						value = {color?.hex}/>
+						<input type="text" value={color?.alpha} onChange={(e) => handle_color_change("alpha", e?.target.value)}/>
+					</span>
+					<span className={styles.color_alpha}>
+					</span>
+					<AnimatePresence>
+						{
+							show_color_picker &&
+								<Color_picker handle_change={(val) => get_value(val)} initial_value={color}  attribute={props.type}
+								close_modal={() => toggle_color_picker(false)}/>
+						}
+					</AnimatePresence>
 				</div>
-				<span className={styles.color_input} >
-					<input type='text' onChange={(e) => handle_color_change("hex", e?.target.value)} 
-					value = {color?.hex}/>
-					<input type="text" value={color?.alpha} onChange={(e) => handle_color_change("alpha", e?.target.value)}/>
-				</span>
-				<span className={styles.color_alpha}>
-				</span>
-				{
-					show_color_picker &&
-						<Color_picker handle_change={(val) => get_value(val)} initial_value={color}  attribute={props.type}
-						close_modal={() => toggle_color_picker(false)}/>
-				}
-			</div>
-		</div>
+			</motion.div>
+		</AnimatePresence>
 	)
 }
 

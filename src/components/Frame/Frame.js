@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import RenderElement from '../RenderElement/RenderElement';
 import { set_active_element } from '../../Redux/Reducers/active_element';
 import { update_elements } from '../../Redux/Reducers/elements_reducer';
+import { debounce } from 'lodash';
 
 const Frame = () => {
 	
@@ -28,6 +29,8 @@ const Frame = () => {
 		}
 
 	}, [])
+
+	const [els, setels] = useState([]);
 	
 	useEffect(() => {
 		let all_el = document.querySelectorAll("[data-builder_id]");
@@ -41,7 +44,18 @@ const Frame = () => {
 
 				dispatch(set_active_element(element));
 				e.stopPropagation();
+			});
+
+			el.addEventListener("contextmenu", e => {
+				e.preventDefault();
+				const id = e.target?.dataset?.builder_id;
+				let element = elements[el?.dataset?.builder_id];
+				let rect = document.querySelector	(`[data-builder_id='${id}']`).getBoundingClientRect();
+				let c = {box : rect, data : element, cursor : {x : e.clientX, y : e?.clientY}};
+				window.top.postMessage({message_type : "view_element", message : c}, "http://localhost:3000/editor");	
+				e.stopPropagation();
 			})
+
 		})
 	}, [elements])
 

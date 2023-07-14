@@ -1,10 +1,11 @@
-import { trimEnd, trimStart, update } from "lodash"
+import { forEach, trimEnd, trimStart, update } from "lodash"
 import { store as Store, store } from "./Redux/Store"
 import { update_elements } from "./Redux/Reducers/elements_reducer"
 import { update_modals } from "./Redux/Reducers/modals"
 import rgb2hex from "rgb2hex"
 import hex2rgb from "hex2rgb"
 import hex2rgba from "hex2rgba"
+import { set_active_element } from "./Redux/Reducers/active_element"
 
 
 // export const updateText = (text) => {
@@ -19,7 +20,6 @@ export const create_element = (el, parent_id, id) => {
 	const {elements} = Store.getState()
 
 	const new_elements = {...elements};
-	
 	
 	let c = {...new_elements[parent_id]};
 	let ar = [...c.children, el?.name]
@@ -38,9 +38,8 @@ export const edit_element = (element) => {
 }
 
 
-
 export const trim_text_content = (str) => {
-	if (str.length > 10) {
+	if (str?.length > 10) {
 		return trimStart(trimEnd(str.substring(0, 10))) + "..."
 	}
 	return str;
@@ -48,19 +47,49 @@ export const trim_text_content = (str) => {
 
 export const obj_to_css = (object) => {
 	let str = ""
-	str+="transition: all 200ms;"
+	str+="transition: all 100ms;"
 	Object.keys(object).map(key => {
-		if (key === "background-color") {
-			const background = object[key];
-			str+= `background-color: ${hex2rgba(background?.hex	, background.alpha)};`
-		} 
+		if (key === "background") {
+			const {colors, type, direction, gradient_type, image}  = object[key];
+
+			switch (type.value) {
+				case "image":
+						str+=`background-image: url(${image?.url || ""});`
+						Object.keys(image).map(key => {
+							if (image[key]?.value === "input custom size") {
+								str+=`${key} : ${image[key]?.custom_value};`
+							} else str+=`${key} : ${image[key]?.value};`
+						})
+					break;
+					case "gradient":
+						const list = colors.map(color => hex2rgba(color?.hex	, color.alpha))
+						switch (gradient_type?.value) {
+							case "radial":
+								str+= `background-image: ${gradient_type?.repeating ? "repeating-": ""}radial-gradient(${list});`
+								break;
+								case "conic":
+									str+= `background-image: conic-gradient(${list});`
+									break;
+									default:
+										str+= `background-image: linear-gradient(to ${direction?.value.split("-")[2]}, ${list});`
+										break;
+									}
+									break
+									default:
+						let color =  colors[0];
+						str+= `background-color: ${hex2rgba(color?.hex	, color.alpha)};`
+						break;
+					}
+				} 
 		if (key === "border") {
 			const {size, style, color}  = object[key];
 			str+= `border: ${size} ${style}  ${hex2rgba(color?.hex, color?.alpha)};`
 		} 
+		if (key === "color") {
+			str+= `color: ${hex2rgba(object?.color?.hex, object?.color.alpha)};`
+		}
 		else
 			str += (`${key}: ${object[key].value || object[key]};\n`);
-
 	})
 	return str;
 }
@@ -73,3 +102,29 @@ export const hex_to_rgb_object = (color) => {
 	}
 	return obj
 }
+
+const run_through = (new_elements, elements, el) => {
+	for(let i = el.children.length-1; i >= 0; i--) {
+		let id = el.children[i]
+		run_through(new_elements, elements, elements[id])
+	}
+	delete new_elements[el?.name]
+}
+
+export const delete_element = (id) => {
+	if (id === "App") {
+		alert("Can't delete base component")
+	};
+	const {elements} = Store.getState(s => s);
+
+	let new_elements = {...elements};
+	run_through(new_elements, elements, elements[id])
+	Store.dispatch(set_active_element(elements[elements[id].parent]))
+	Store.dispatch(update_elements(new_elements))
+}
+
+export const font_list = '&family=Delius&family=Eczar&family=Inter&family=Lora&family=Merriweather&family=Merriweather+Sans&family=Montserrat&family=Noto+Serif&family=Open+Sans&family=PT+Serif&family=Roboto&family=Space+Mono&family=Tillana&family=Tinos&family=Work+Sans'
+.split('&family=').map((font_name, index) => {
+	if (index > 0)
+		return font_name.replace("+", " ")
+})	

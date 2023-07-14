@@ -1,16 +1,76 @@
 {
-	"background-color" : {
-		"hex" : "#000",
-		"alpha" : 0
+	"background" : {
+		"type": {
+			"value" : "solid",
+			"available_options" : ["solid", "gradient", "image"]
+		},
+		"gradient_type" : {
+			"value" : "linear",
+			"repeating": false,
+			"available_options" : ["linear", "radial", "conic"]
+		},
+		"direction" : {
+			"value" : "left-to-right",
+			"available_options" : ["left-to-right", "top-to-bottom", "right-to-left", "bottom-to-top"]	
+		},
+		"colors" :[
+			{
+			"hex" : "#000",
+			"alpha" : 0.5
+			},
+			{
+			"hex" : "#000",
+			"alpha" : 1
+			}
+		],
+		"image" : {
+			"url" : "",
+			"background-position" : {
+				"value" : "center",
+				"available_options" : ["top", "bottom", "left", "right", "center"]
+			},
+			"background-repeat" : {
+				"value" : "repeat",
+				"available_options" : ["repeat", "no-repeat", "space", "round", "repeat-x", "space repeat"]
+			},
+			"background-size" : {
+				"value" : "contain",
+				"available_options" : ["contain", "cover", "input custom size"]
+			}
+		}
 	},
 	"border" : 	{
 		"size" : "1px",
 		"style" : "solid",
-		"color" : "#000000",
+		"color" : {"hex" : "#000", "alpha" : 1},
 		"available_styles" : ["solid", "dotted", "dashed", "inset", "outset"]
 	},
 	"display" : {
 		"value" : "auto",
 		"available_options": ["auto", "inline", "block", "inline-block", "flex", "inline-flex"]
-	}
+	},
+	"flex_settings" : {
+		"flex-direction" : {
+			"value" : "auto",
+			"available_options" : ["auto", "row", "column", "row-reverse", "column-reverse"]
+		},
+		"flex-wrap" : {
+			"value" : "no-wrap",
+			"available_options" : ["no-wrap", "wrap", "wrap-reverse"]
+		},
+		"justify-content": {
+			"value" : "auto",
+			"available_options" : ["flex-start", "flex-end", "center", "space-between", "space-around", "space-evenly"]	
+		},
+		"align-items" : {
+			"value" : "flex-start",
+			"available_options" : ["flex-start", "flex-end", "center", "baseline", "stretch"]
+		},
+		"align-content" : {
+			"value" : "flex-start",
+			"available_options" : ["flex-start", "flex-end", "center", "space-between", "space-around", "stretch"]
+		}
+	},
+	"color" : {"hex" : "#000", "alpha" : 1},
+	"font-family" : "Inter"
 }

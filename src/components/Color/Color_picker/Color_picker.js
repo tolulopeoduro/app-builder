@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import styles from "./Color_picker.module.scss"
-import { HexAlphaColorPicker, HexColorPicker, RgbaColorPicker } from 'react-colorful'
+import { RgbaColorPicker } from 'react-colorful'
 import ClickAwayListener from 'react-click-away-listener';
-import hex2rgb from 'hex2rgb';
-import hex2rgba from 'hex2rgba';
-import { hex_to_rgb_object, hex_to_rgbobject } from '../../../utils';
+import { hex_to_rgb_object } from '../../../utils';
 import rgb2hex from 'rgb2hex';
 import { debounce } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { update_pallete } from '../../../Redux/Reducers/colors_reducer';
+
+import {AnimatePresence, motion} from "framer-motion"
 
 const Color_picker = (props) => {
 
@@ -35,7 +35,7 @@ const Color_picker = (props) => {
 
 	return (
 		<ClickAwayListener onClickAway={props.close_modal}>
-			<div className={styles.container} 
+			<motion.div className={styles.container} 
 			style={{
 				position: "absolute",
 				left: `${-220}px`,
@@ -51,25 +51,28 @@ const Color_picker = (props) => {
 						</span>
 					</div>
 						<div className={styles.color_list}>
-							{
-								colors?.map
-								((color, index) =>
-									<div key = {index} onClick={() => props.handle_change(color)} style={{height:"1.4rem", width:"1.4rem", display:"flex"}}	>
-										<div style={{height:"100%", width:"50%", backgroundColor:color?.hex}}>
-										</div>
-										<div style={{height:"100%", width:"50%", backgroundColor:color?.hex, opacity: color?.alpha}}>
-										</div>
-									</div>
-								)
-							}
-							<div onClick={() => add_color(color)}>
+							<AnimatePresence>
+								{
+									colors?.map
+									((color, index) =>
+										<motion.div initial={{width: 0}} animate={{width: "1.3rem"}} exit={{opacity:0}}
+										key = {index} onClick={() => props.handle_change(color)} style={{backgroundColor: "#fff",height:"1.4rem", width:"1.4rem", display:"flex"}}	>
+											<div style={{height:"100%", width:"50%", backgroundColor:color?.hex}}>
+											</div>
+											<div style={{height:"100%", width:"50%", backgroundColor:color?.hex, opacity: color?.alpha}}>
+											</div>
+										</motion.div>
+									)
+								}
+							</AnimatePresence>
+							<div style={{transition : "all 200ms"}} onClick={() => add_color(color)}>
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
 								viewBox="0 0 24 24"><path fill="white" 
 								d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"/></svg>
 							</div>
 						</div>
 				</div>
-			</div>
+			</motion.div>
 		</ClickAwayListener>
 	)
 }

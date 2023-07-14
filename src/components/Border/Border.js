@@ -34,10 +34,7 @@ const Border = (props) => {
 
 	return (
 		<div>
-			<h2 className={styles.sub_header}>
-				BORDER
-			</h2>
-				<Color type="border-color" initial_value={border?.color} get_value={(val) => change_val("color", val)}/>
+			<Color type="border-color" initial_value={border?.color} get_value={(val) => change_val("color", val)}/>
 			<div className={styles.border}>
 				<br/>
 				<span className={styles.color_input}>	
