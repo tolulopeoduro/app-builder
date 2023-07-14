@@ -20,7 +20,7 @@ const NewElementSelect = () => {
 		height: "auto",
 		width: "auto",
 		opacity: 1,
-		bottom: "430px"
+		bottom: "51%"
 	}
 
 
@@ -37,7 +37,7 @@ const NewElementSelect = () => {
 			parent : parent,
 			attributes : {
 				className : name, "data-builder_id" : name,
-				css : default_styles[tag]
+				css : {height: "auto", width: "auto",  ...default_styles[tag]}
 			},
 			style : {},
 		}
@@ -58,7 +58,7 @@ const NewElementSelect = () => {
 							<div onClick={() => handle_element_creation("container", "div")}>
 								container
 							</div>
-							<div>
+							<div onClick={() => handle_element_creation("text", "p")}>
 								Text
 							</div>
 							<div>

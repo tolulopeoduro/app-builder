@@ -44,13 +44,15 @@
 
 .header {
 	display: flex;
+	flex-direction: column;
 	color: #fff;
-	align-items:baseline;
-	justify-content: flex-start;
+	justify-content: space-around;
+	height: 40px;
+	padding-left: 0.5rem;
 
-	> span {
-		font-size: 9px;
-		margin-left: 0.4rem;
+	> h1 {
+		text-transform: uppercase;
+		font-weight: bold;
 	}
 }
 
@@ -123,5 +125,9 @@
 		text-decoration: underline;
 		cursor: pointer;
 	}
+}
 
+.body {
+	overflow-x: auto;
+	max-height: 20rem;
 }

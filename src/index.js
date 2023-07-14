@@ -4,14 +4,13 @@ import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import {persistor, store} from './Redux/Store';
-import { PersistGate } from 'redux-persist/lib/integration/react';
-
+import { trackMovement } from 'mmouse';
+import { store } from './Redux/Store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 		// <PersistGate persistor={persistor}>
-			<Provider store={store}>
+			<Provider store={store}>	
 				<App/>
 			</Provider>
 		// </PersistGate>

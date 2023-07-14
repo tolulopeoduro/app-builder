@@ -2,22 +2,41 @@ import React, { Fragment, useEffect, useState } from 'react'
 import styles from "./Dropdown.module.scss"
 import ClickAwayListener from 'react-click-away-listener';
 import {motion, AnimatePresence} from "framer-motion"
+import { act } from 'react-dom/test-utils';
 
 const Dropdown = (props) => {
 	
-	const {width, height, options, handle_change, value} = props;
+	const {width, height, options, handle_change, value, style, id} = props;
 
 	const [active, set_active] = useState(false);
+	const [position , set_position] = useState({})
 
 	useEffect(() => {
 		set_active(false)
 	}, [value])
 
+	
+	const getPosition = () => {
+		let el = document.getElementById(value)
+		let box = el?.getBoundingClientRect()
+		if (!box) return;
+		let total_height = box?.bottom + (box.height * options?.length);
+		if (total_height > window.innerHeight) {
+			return {bottom : (el.offsetParent?.offsetHeight - el?.offsetTop)+(document.getElementById("container_editor_body").scrollTop + (-box.height))}
+		} 
+		return{top: el.offsetTop - box?.height}
+	}
+
+	useEffect(() => {
+		set_position(getPosition())
+		document.getElementById("container_editor_body").style.overflowX = active ?  "hidden" : "scroll"
+	}, [active])
+
 	return (
 		<Fragment>
-			<div className = {styles.box}>
-				<div className = {styles.dropdown} onClick={() => set_active(true)}>
-					<div className = {styles.value}>
+			<div id = {value} style={{height: height}} className = {styles.box}>
+				<div style={{height : height, ...style}} className = {styles.dropdown} onClick={() => set_active(true)}>
+					<div style={{fontFamily : id  === "font-family" && value}} className = {styles.value}>
 						{value}
 					</div>
 					<div className = {styles.button}>
@@ -28,11 +47,12 @@ const Dropdown = (props) => {
 							{
 								active &&
 								<ClickAwayListener onClickAway = {() => set_active(false)}>
-									<motion.div initial={{height: 0, opacity: 0.1}} animate={{opacity: 1, height: "auto"}} exit={{height : 0, opacity: 0.5}} className = {styles.options}>
+									<motion.div style={{...style, ...position}} initial={{height: 0, opacity: 0.1}} animate={{opacity: 1, height: "auto"}} 
+									exit={{height : 0, opacity: 0.5}} className = {styles.options}>
 										{
 											[value, ...options.filter(e => e !== value)].map((option) => {
 												return (
-													<div className = {styles.option} onClick={() => handle_change(option)}>
+													<div style={{height : height, fontFamily: id === "font-family" && option}} className = {styles.option} onClick={() => handle_change(option)}>
 														{option}
 													</div>
 												)

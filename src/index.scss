@@ -6,9 +6,7 @@
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
+del, dfn, em, img, ins, kbd, q, s, samp,center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
@@ -107,6 +105,16 @@ table {
 	padding-left: 0.5rem;
 	margin-top: 0.5rem;
 	font-size: 0.6rem;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	text-transform: uppercase;
+
+	>.dropdown {
+		height: 1rem;
+		cursor: pointer;
+	}
+
 }
 
 .basic_dropdown {
@@ -158,4 +166,8 @@ table {
 
 .dropdown_main_text , .dropdown_small_text {
 	margin-bottom: 0.1rem;
+}
+
+.flip {
+	transform: rotateX(180deg);
 }
