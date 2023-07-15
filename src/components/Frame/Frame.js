@@ -13,7 +13,7 @@ const Frame = () => {
 
 	useEffect(() => {
 		let rect = document.querySelector	(`[data-builder_id='${active_element?.name}']`)?.getBoundingClientRect();
-		window.top.postMessage({message_type : "active_element_dimension", message : rect}, "http://localhost:3000/editor");	
+		window.top.postMessage({message_type : "active_element_dimension", message : rect}, `${window.location.origin}/editor`);	
 	}, [elements, active_element])
 
 	useEffect(() => {
@@ -39,8 +39,8 @@ const Frame = () => {
 				const id = el?.dataset?.builder_id;
 				let element = elements[el?.dataset?.builder_id];
 				let rect = document.querySelector	(`[data-builder_id='${id}']`).getBoundingClientRect();
-				window.top.postMessage({message_type : "active_element", message : element}, "http://localhost:3000/editor");	
-				window.top.postMessage({message_type : "active_element_dimension", message : rect}, "http://localhost:3000/editor");	
+				window.top.postMessage({message_type : "active_element", message : element}, `${window.location.origin}/editor`);	
+				window.top.postMessage({message_type : "active_element_dimension", message : rect}, `${window.location.origin}/editor`);	
 
 				dispatch(set_active_element(element));
 				e.stopPropagation();
@@ -52,7 +52,7 @@ const Frame = () => {
 				let element = elements[el?.dataset?.builder_id];
 				let rect = document.querySelector	(`[data-builder_id='${id}']`).getBoundingClientRect();
 				let c = {box : rect, data : element, cursor : {x : e.clientX, y : e?.clientY}};
-				window.top.postMessage({message_type : "view_element", message : c}, "http://localhost:3000/editor");	
+				window.top.postMessage({message_type : "view_element", message : c}, `${window.location.origin}/editor`);	
 				e.stopPropagation();
 			})
 
