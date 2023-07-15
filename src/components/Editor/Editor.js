@@ -17,6 +17,7 @@ const Editor = () => {
 	const {elements, modals, active_element, active_element_dimension, viewed_element} = useSelector(s => s);
 
 	useEffect(() => {
+		console.log(window.location.origin)
 		window.addEventListener("contextmenu",(e) => {
 			e.preventDefault();
 		})
