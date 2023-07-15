@@ -17,7 +17,6 @@ const Editor = () => {
 	const {elements, modals, active_element, active_element_dimension, viewed_element} = useSelector(s => s);
 
 	useEffect(() => {
-		console.log(window.location.origin)
 		window.addEventListener("contextmenu",(e) => {
 			e.preventDefault();
 		})
@@ -42,7 +41,7 @@ const Editor = () => {
 	useEffect(() => {
 		window.onmessage = e => {
 			if (!e.data?.message) return;
-			if (e.origin !== "http://localhost:3000") return;
+			if (e.origin !== window.location.origin) return;
 			let {message_type, message} = e.data;
 			message = JSON.parse(JSON.stringify(message))
 			message_type === "active_element" && dispatch(set_active_element(message))
