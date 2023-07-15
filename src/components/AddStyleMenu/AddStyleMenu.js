@@ -31,7 +31,7 @@ const AddStyleMenu = (props) => {
 	}, [show_menu])
 
 	return attributes.length > 0 &&
-		<div id = "add_style" style={{display:"flex", marginTop:"0.5rem"}}>
+		<div order={props.order} id = "add_style" style={{display:"flex", marginTop:"0.5rem"}}>
 			<div onClick={() => toggle_menu(true)} 
 			style={{backgroundColor : show_menu && "rgba(0,0,0,0.3)"}} className={styles.add_style_button}>
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 

@@ -56,7 +56,13 @@ const ContainerEditor = () => {
 	}
 
 	const [list, set_list] = useState([])
-	const element = elements?.[active_element?.name]
+	const [element_array, set_element_array] = useState([])
+
+	useEffect(() => {
+		if (!element_style) return
+		const v = Object.keys(element_style)
+		v && set_element_array(v);
+	}, [element_style])
 
 	useEffect(() => {
 		if (!element_style) return;
@@ -91,6 +97,8 @@ const ContainerEditor = () => {
 		dispatch(update_elements(new_elements));
 	}
 
+
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.header}>
@@ -104,22 +112,22 @@ const ContainerEditor = () => {
 					tag !== "div" &&
 					<TextEditBox active_element={active_element} change_value = {change_value} element = {elements?.[active_element?.name]}/>
 				}
-					<Attribute exists edit_style={edit_style} type="dimensions "
+					<Attribute order = {1} exists edit_style={edit_style} type="dimensions"
 					child= {(<Dimensions {...element_style} edit_style = {edit_style}/>)}/>
-					<Attribute exists = {element_style?.background} handle_delete = {remove_attribute} type="background"
+					<Attribute order = {element_array.indexOf("background")} exists = {element_style?.background} handle_delete = {remove_attribute} type="background"
 					child={(<BackgroundColor edit_style={edit_style} background={element_style?.background}/>)}/>
-					<Attribute exists = {element_style?.border} type="border" handle_delete={remove_attribute} 
+					<Attribute order = {element_array.indexOf("border")} exists = {element_style?.border} type="border" handle_delete={remove_attribute} 
 					child={(<Border border_data={element_style?.border} edit_style={edit_style}/>)}/>
-					<Attribute exists = {element_style?.display} type="display"
+					<Attribute order = {element_array.indexOf("display")} exists = {element_style?.display} type="display"
 					handle_delete={remove_attribute}
 					child={(<Display edit_style={edit_style} data={element_style?.display} /> )} /> 
 					{
 						(element_style?.display?.value === "flex" || element_style?.display?.value === "inline-flex") &&
 						<FlexLayoutEditor edit_style={edit_style} element_style={element_style}/>
 					}
-					<Attribute exists = {element_style?.color} edit_style={edit_style} type="color" handle_delete={remove_attribute}
+					<Attribute order = {element_array.indexOf("color")} exists = {element_style?.color} edit_style={edit_style} type="color" handle_delete={remove_attribute}
 					child={(<Color type="Color" initial_value={element_style?.color} get_value={(v) => edit_style({"color" : v})}/>)}/>
-					<Attribute exists = {element_style?.["font-family"]} type = "font-family" handle_delete={remove_attribute}
+					<Attribute order = {element_array.indexOf("font-family")} exists = {element_style?.["font-family"]} type = "font-family" handle_delete={remove_attribute}
 					child = {(
 						<div style={{padding: "0.5rem 0 0 0.5rem"}}>
 							<Dropdown id = {`font-family`}  value={element_style?.["font-family"]}
@@ -127,8 +135,8 @@ const ContainerEditor = () => {
 							handle_change={(v) => edit_style({["font-family"] : v})}/>
 						</div>
 					)}/>
-				<AddStyleMenu attributes={list} edit_style={edit_style}/>
 			</div>
+			<AddStyleMenu order={element_array.length-2} attributes={list} edit_style={edit_style}/>
 		</div>
 	)
 }

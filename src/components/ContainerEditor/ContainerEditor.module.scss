@@ -130,4 +130,6 @@
 .body {
 	overflow-x: auto;
 	max-height: 20rem;
+	display: flex;
+	flex-direction: column;
 }

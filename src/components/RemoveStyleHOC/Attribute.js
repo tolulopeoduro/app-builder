@@ -9,8 +9,8 @@ const Attribute = (props) => {
 	return (
 		<Fragment>
 			{
-				exists &&
-				<Fragment>
+				(exists && props.order) &&
+				<div style={{order : props.order}}>
 					<h2 className={styles.sub_header}>
 						{type}
 						<span>
@@ -32,7 +32,7 @@ const Attribute = (props) => {
 							</motion.div>
 						}
 					</AnimatePresence>
-				</Fragment>
+				</div>
 			}
 		</Fragment>
 	)
