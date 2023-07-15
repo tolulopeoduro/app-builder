@@ -10,9 +10,10 @@
 	pointer-events: none;
 	border: 3px solid rgba($color: #000000, $alpha: 0.1);
 	animation: box_animate 2s infinite;
-	transition: all 300ms;
+	transition: all 100ms;
 	
 	> div {
+		transition: all 200ms;
 		height: 5px;
 		width: 5px;
 		background-color: #fff;

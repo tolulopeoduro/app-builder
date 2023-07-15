@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 
 const Active_Element_Box = () => {
 	const {active_element_dimension} = useSelector(s => s);
-	const [frame_dimension, set_frame_dimension] = useState(null)
 	const {top, left, height, width} = active_element_dimension;
 
 	const measure_box  = () => {

@@ -16,9 +16,11 @@ const Frame = () => {
 		window.top.postMessage({message_type : "active_element_dimension", message : rect}, `${window.location.origin}/editor`);	
 	}, [elements, active_element])
 
+
 	useEffect(() => {
+		console.log("ehllo")
 		window.onmessage = e => {
-			if (e.origin !== "http://localhost:3000") return;
+			if (e.origin !== window.location.origin) return;
 			const {message_type, message} = e.data;
 			if (message_type === "elements") {
 				dispatch(update_elements(message))
