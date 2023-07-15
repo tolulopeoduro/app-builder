@@ -18,7 +18,6 @@ const Frame = () => {
 
 
 	useEffect(() => {
-		console.log("ehllo")
 		window.onmessage = e => {
 			if (e.origin !== window.location.origin) return;
 			const {message_type, message} = e.data;

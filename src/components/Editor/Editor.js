@@ -23,10 +23,6 @@ const Editor = () => {
 	}, [])
 
 	useEffect(() => {
-		document.getElementById("result").contentWindow.location = `${window.location.origin}/frame`;
-	}, [elements])
-
-	useEffect(() => {
 		document.getElementById('result').contentWindow.postMessage({message_type : "elements", message: elements}, `${window.location.origin}/frame`)
 	}, [elements])
 	
