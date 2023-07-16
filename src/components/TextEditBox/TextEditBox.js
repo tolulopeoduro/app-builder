@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import styles from "./TextEditBox.module.scss"
 import Dropdown from '../BottomBar/Dropdown/Dropdown'
 import { AnimatePresence, motion } from 'framer-motion'
+import available_options from "../../css_available_options.json"
 
 const TextEditBox = (props) => {
 
-	const {change_value, element, active_element} = props;
+	const {change_value, element, active_element, element_style, edit_style} = props;
 	const [show_textbox, toggle_textbox] = useState(true);
 
 	useEffect(() => {
@@ -57,6 +58,27 @@ const TextEditBox = (props) => {
 					</motion.span>
 				}
 				</AnimatePresence>
+			</div>
+			<div>
+				<div className={styles.style_input}>
+					<span>font size</span>
+					<input type='text' value = {element_style?.["font-size"]} onChange={(e) => edit_style({["font-size"] : e.target.value})}/>
+				</div>
+				<div className={styles.style_input}>
+					<span>font weight</span>
+					<Dropdown id = "text_font_weight" height = "1.5rem" value = {element_style?.["font-weight"]} 
+					options ={available_options?.["font-weight"]} handle_change={(value) => edit_style({["font-weight"] : value}) } />
+				</div>
+				<div className={styles.style_input}>
+					<span>text-align</span>
+					<Dropdown id = "text_text_align" height = "1.5rem" value = {element_style?.["text-align"]} 
+					options ={available_options?.["text-align"]} handle_change={(value) => edit_style({["text-align"] : value}) } />
+				</div>
+				<div className={styles.style_input}>
+					<span>text-decoration</span>
+					<Dropdown id = "text_text_align" height = "1.5rem" value = {element_style?.["text-decoration"]} 
+					options ={available_options?.["text-decoration"]} handle_change={(value) => edit_style({["text-decoration"] : value}) } />
+				</div>
 			</div>
 		</div>
 	)

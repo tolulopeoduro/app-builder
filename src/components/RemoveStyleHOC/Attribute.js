@@ -7,7 +7,7 @@ const Attribute = (props) => {
 	const [minimize, toggle_minimize] = useState(false);
 
 	return (
-		<Fragment>
+		<AnimatePresence>
 			{
 				(exists && props.order) &&
 				<div style={{order : props.order}}>
@@ -23,7 +23,6 @@ const Attribute = (props) => {
 							</svg>
 						</span>
 					</h2>
-					<AnimatePresence>
 						{
 							!minimize &&
 							<motion.div initial={{height: 0, opacity: 0}} animate={{height: "auto", opacity: 1}} exit={{height : 0, opacity: 0}} className={styles.container}>
@@ -31,10 +30,9 @@ const Attribute = (props) => {
 								
 							</motion.div>
 						}
-					</AnimatePresence>
 				</div>
 			}
-		</Fragment>
+		</AnimatePresence>
 	)
 }
 

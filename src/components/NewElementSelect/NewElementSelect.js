@@ -58,7 +58,7 @@ const NewElementSelect = () => {
 							<div onClick={() => handle_element_creation("container", "div")}>
 								container
 							</div>
-							<div onClick={() => handle_element_creation("text", "p")}>
+							<div onClick={() => handle_element_creation("text", "span")}>
 								Text
 							</div>
 						</div>

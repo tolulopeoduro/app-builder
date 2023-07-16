@@ -1,0 +1,11 @@
+{
+	"font-weight" : [
+		"unset", "bold", "bolder", "light", "lighter", "regular"
+	],
+	"text-align" : [
+		"left", "right", "center", "justify", "unset"
+	],
+	"text-decoration" : [
+		"line-through", "overline", "underline", "none"
+	]
+}
