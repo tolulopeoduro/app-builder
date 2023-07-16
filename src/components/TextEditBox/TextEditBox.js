@@ -27,8 +27,6 @@ const TextEditBox = (props) => {
 		}
 	}, [active_element?.innerHTML, element?.innerHTML, show_textbox])
 
-	useEffect(() => console.log(element_style), [element_style])
-
 	return (
 		<div order="-1" style={{position: "relative"}}>
 			<div className={styles.attribute_box}>
