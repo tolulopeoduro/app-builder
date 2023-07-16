@@ -18,16 +18,14 @@ import TextEditBox from '../TextEditBox/TextEditBox';
 
 const ContainerEditor = () => {
 
-	const {active_element, elements, modals} = useSelector(s => s);
-	const {name, tag, attributes} = active_element;
-	const [element_style, set_element_style] = useState(null);
+	const state = useSelector(s => s);
+	const {modals, elements} = state;
 	const dispatch = (useDispatch());
 
-	const flex_attributes = ["flex-direction", "justify-content", "flex-wrap", "align-items", "align-content"]
+	const active_element = elements[state.active_element?.name]
 
-	useEffect(() => {
-		set_element_style(elements[active_element?.name]?.attributes?.css);
-	}, [active_element, elements])
+	const element_style = elements[active_element?.name]?.attributes.css
+
 
 	const edit_style = (data, replace) => {
 		const new_style = 
@@ -36,13 +34,12 @@ const ContainerEditor = () => {
 			...elements[active_element?.name]?.attributes?.css,
 			...data
 		}
-		
-		set_element_style(new_style)
+
 
 		const element = {
 			...active_element,
 			attributes : {
-				...attributes,
+				...active_element?.attributes,
 				css : new_style
 			}
 		}
@@ -97,20 +94,22 @@ const ContainerEditor = () => {
 		dispatch(update_elements(new_elements));
 	}
 
-
-
 	return (
 		<div className={styles.container}>
 			<div className={styles.header}>
-				<h1>{tag}</h1>
+				<h1>{active_element?.tag}</h1>
 				<span className={styles.path_container}>
 					<PathDisplay elements={elements} element = {active_element}/>
 				</span>
 			</div>
 			<div style={modals.dropdown ? {overflow : "hidden"} : {}} id ="container_editor_body" className={styles.body}>
 				{
-					tag !== "div" &&
-					<TextEditBox active_element={active_element} change_value = {change_value} element = {elements?.[active_element?.name]}/>
+					active_element?.tag !== "div" && (
+						<Fragment>
+							<TextEditBox active_element={active_element} element_style={elements[active_element.name].attributes.css} edit_style={edit_style}
+							change_value = {change_value} element = {elements?.[active_element?.name]}/>
+						</Fragment>
+					)
 				}
 					<Attribute order = {1} exists edit_style={edit_style} type="dimensions"
 					child= {(<Dimensions {...element_style} edit_style = {edit_style}/>)}/>

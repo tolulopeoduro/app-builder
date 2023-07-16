@@ -12,13 +12,15 @@ export default (props) => {
 	const [position, set_position] = useState();
 
 	const {style, options, value, height, id, box}  = modals.dropdown
+	const [overflow_status, set_overflow_status] = useState(false)
 
 	const calculate_postion = () => {
-		let pos = {top : box.top, left : box.left};
 		if (!box || !options) return;
+		let pos = {top : box.top, left : box.left};
 		if (box.top + (box.height * options.length) >= window.innerHeight) {
 			pos.top = box.top - (box.height * options.length) + box.height;
 			pos.left = box.left;
+			set_overflow_status(true);
 		} else {
 		}
 		return pos
@@ -40,7 +42,7 @@ export default (props) => {
 					<motion.div style={{...style, ...position}} initial={{height: 0, opacity: 0.1}} animate={{opacity: 1, height: "auto"}} 
 					exit={{height : 0, opacity: 0.5}} className = {styles.options}>
 						{
-							[value, ...options.filter(e => e !== value)].map((option, index) => {
+							[...overflow_status ? [...options.filter(e => e !== value), value] : [value, ...options.filter(e => e !== value)]].map((option, index) => {
 								return (
 									<div key={index} style={{height : height, fontFamily: id === "font-family" && option}} className = {styles.option} onClick={() => handle_change(option)}>
 										{option}
