@@ -50,10 +50,10 @@ const PathDisplay = (props) => {
 								<div>
 									{
 										elements[parent]
-										?.children.map(child => {
+										?.children.map((child, index) => {
 											const el = elements[child];
 											return (
-												<div onClick={() => select_sibling(el)}>
+												<div key={index} onClick={() => select_sibling(el)}>
 													<span className='dropdown_main_text'>
 														{el?.tag?.toUpperCase()}
 													</span>

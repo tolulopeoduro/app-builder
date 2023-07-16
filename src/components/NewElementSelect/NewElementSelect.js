@@ -20,7 +20,7 @@ const NewElementSelect = () => {
 		height: "auto",
 		width: "auto",
 		opacity: 1,
-		bottom: "51%"
+		bottom: "56%",
 	}
 
 
@@ -60,9 +60,6 @@ const NewElementSelect = () => {
 							</div>
 							<div onClick={() => handle_element_creation("text", "p")}>
 								Text
-							</div>
-							<div>
-								Button
 							</div>
 						</div>
 					</motion.div>

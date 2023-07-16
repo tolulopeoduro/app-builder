@@ -9,7 +9,7 @@ const Display = (props) => {
 	return (
 		<div>
 			<div className={styles.body}>
-				<Dropdown value={data?.value} options={data?.available_options} 
+				<Dropdown id ="display" value={data?.value} options={data?.available_options} 
 				handle_change={(e) => edit_style({"display" : {...data, value : e}})}/>
 			</div>
 		</div>

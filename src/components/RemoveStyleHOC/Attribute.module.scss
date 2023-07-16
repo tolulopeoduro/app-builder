@@ -2,9 +2,9 @@
 	display: flex;
 	margin-bottom: 0.5rem;
 	width: fit-content;
-	// padding-bottom: 1rem;
 	overflow: hidden;
 	min-height: 40px;
+	transition: all 200ms;
 
 
 	> svg {

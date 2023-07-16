@@ -9,7 +9,12 @@
 	padding: 0.5rem;
 	font-family: Inter;
 	z-index: 6;
-	clip-path: polygon(0% 0%, 100% 0%, 100% 90%, 95% 90%, 93% 100%, 91% 90%, 0% 90%);
+	border-radius: 0.25rem;
+	color: #fff;
+
+	> h1 {
+		padding: 0 0 0.25rem 0.5rem;
+	}
 }
 
 .options {
@@ -17,7 +22,6 @@
 	justify-content: flex-start;
 	margin-left: 0.5rem;
 	box-sizing: border-box;
-	padding-bottom: 1rem;
 
 	> div {
 		background-color: rgba($color: #000, $alpha: 0.6);

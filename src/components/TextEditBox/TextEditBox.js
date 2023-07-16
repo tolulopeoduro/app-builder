@@ -27,9 +27,9 @@ const TextEditBox = (props) => {
 	}, [active_element?.innerHTML, element?.innerHTML, show_textbox])
 
 	return (
-		<div style={{position: "relative"}}>
+		<div order="-1" style={{position: "relative"}}>
 			<div className={styles.attribute_box}>
-				<Dropdown width = "180px" height = "1.5rem"
+				<Dropdown id="position" width = "180px" height = "1.5rem"
 				value = {element?.tag} 
 				options = {["h1", "h2", "p", "span"]} handle_change = {(v) => change_value("tag", v)}/>
 			</div>

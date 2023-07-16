@@ -18,7 +18,7 @@ import TextEditBox from '../TextEditBox/TextEditBox';
 
 const ContainerEditor = () => {
 
-	const {active_element, elements} = useSelector(s => s);
+	const {active_element, elements, modals} = useSelector(s => s);
 	const {name, tag, attributes} = active_element;
 	const [element_style, set_element_style] = useState(null);
 	const dispatch = (useDispatch());
@@ -26,17 +26,17 @@ const ContainerEditor = () => {
 	const flex_attributes = ["flex-direction", "justify-content", "flex-wrap", "align-items", "align-content"]
 
 	useEffect(() => {
-		set_element_style(active_element?.attributes?.css);
-	}, [active_element])
+		set_element_style(elements[active_element?.name]?.attributes?.css);
+	}, [active_element, elements])
 
 	const edit_style = (data, replace) => {
 		const new_style = 
 		replace ? data :
 		{
-			...element_style,
+			...elements[active_element?.name]?.attributes?.css,
 			...data
 		}
-
+		
 		set_element_style(new_style)
 
 		const element = {
@@ -107,7 +107,7 @@ const ContainerEditor = () => {
 					<PathDisplay elements={elements} element = {active_element}/>
 				</span>
 			</div>
-			<div id ="container_editor_body" className={styles.body}>
+			<div style={modals.dropdown ? {overflow : "hidden"} : {}} id ="container_editor_body" className={styles.body}>
 				{
 					tag !== "div" &&
 					<TextEditBox active_element={active_element} change_value = {change_value} element = {elements?.[active_element?.name]}/>
@@ -123,7 +123,7 @@ const ContainerEditor = () => {
 					child={(<Display edit_style={edit_style} data={element_style?.display} /> )} /> 
 					{
 						(element_style?.display?.value === "flex" || element_style?.display?.value === "inline-flex") &&
-						<FlexLayoutEditor edit_style={edit_style} element_style={element_style}/>
+						<FlexLayoutEditor order={element_array.indexOf("display")} edit_style={edit_style} element_style={element_style}/>
 					}
 					<Attribute order = {element_array.indexOf("color")} exists = {element_style?.color} edit_style={edit_style} type="color" handle_delete={remove_attribute}
 					child={(<Color type="Color" initial_value={element_style?.color} get_value={(v) => edit_style({"color" : v})}/>)}/>

@@ -44,9 +44,9 @@ const AddStyleMenu = (props) => {
 					<div id ="available_styles"onClick={() => toggle_menu(false)} style={{height: `${1.5 * attributes.length}rem`, ...position}} className={styles.available_style_list}>
 						<div>
 							{
-								attributes?.map(attribute => {
+								attributes?.map((attribute, index) => {
 									return (
-										<div className={styles.item} onClick={() => edit_style({[attribute] : defaults[attribute]})}>
+										<div key = {index} className={styles.item} onClick={() => edit_style({[attribute] : defaults[attribute]})}>
 											{attribute}
 										</div>
 									)

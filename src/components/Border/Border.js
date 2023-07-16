@@ -7,40 +7,35 @@ import Color from '../Color/Color';
 const Border = (props) => {
 
 	const [border, edit_border] = useState(null);
+
 	const [show_color_picker, toggle_color_picker] = useState(false);
 	const {border_data, edit_style} = props;
-
-	useEffect(() => {
-		edit_border(border_data);
-	}, [border_data]);
-
-	const change_dropdown_value = (value) => {
-		edit_border({...border, style: value})
-	}
 	
 	const change_val = (key, value) => {
-		edit_border({...border, [key]: value})
+		let new_border = {...border_data, [key] : value}
+		edit_style({border : new_border})
 	}
 
-	useEffect(() => {
-		if (!border) return;
-		const {color} = border;
-		if (color?.hex.match(/^#[A-F0-9]/i) && (color?.hex.length === 7 || color?.hex.length === 4) ) {
-			edit_style({'border' : border});
+	const handle_color_change = (value) => {
+		if (!border_data) return;
+		const {hex} = value;
+		if (hex.match(/^#[A-F0-9]/i) && (hex.length === 7 || 	hex.length === 4) ) {
+			change_val("color", value)
 		}
-	}, [border])
+	}
+
 
 	const options  = ["solid", "dotted", "dashed", "double", "inset", "outset"]
 
 	return (
 		<div>
-			<Color type="border-color" initial_value={border?.color} get_value={(val) => change_val("color", val)}/>
+			<Color type="border-color" initial_value={border_data?.color} get_value={(val) => handle_color_change(val)}/>
 			<div className={styles.border}>
 				<br/>
 				<span className={styles.color_input}>	
-					<input type="text" onChange={(e) => change_val("size", e.target.value)} value={border?.size}/>
+					<input type="text" onChange={(e) => change_val("size", e.target.value)} value={border_data?.size}/>
 				</span>
-				<Dropdown handle_change={change_dropdown_value} value={border?.style} 
+				<Dropdown id ={"border_style"} handle_change={(value) => change_val("style", value)} value={border_data?.style} 
 				options ={options}/>
 			</div>
 		</div>

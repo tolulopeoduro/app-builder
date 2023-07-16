@@ -10,19 +10,19 @@ import { delete_element } from '../../utils'
 
 const BottomBar = (props) => {
 
-	const {active_element, modals : {new_element}} = useSelector(s => s);
+	const {active_element, modals } = useSelector(s => s);
 	const dispatch = useDispatch();
 
 	const toggle_element_list=() => {
 		dispatch(
 			update_modals(
-				{new_element : new_element ? false : true}
+				{new_element : modals?.new_element ? false : true}
 			)
 		)
 	}
 
 	return (
-		<motion.div initial={{top : window.innerHeight + 10}} animate={{opacity:1, top: "50%"}} exit={{ top : window.innerHeight + 10}} className = {styles.bottom_bar_container}>
+		<motion.div initial={{top : window.innerHeight + 10}} animate={{opacity:1, top: "47%"}} exit={{ top : window.innerHeight + 10}} className = {styles.bottom_bar_container}>
 			<div className={styles.left}>
 				<div className = {styles.body}>
 					<ContainerEditor/>
@@ -33,7 +33,7 @@ const BottomBar = (props) => {
 			<div className={styles.right}>
 					<div className={styles.actions}>
 						<div onClick={toggle_element_list} className={styles.option_button}>
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+							<svg style={modals?.new_element ? {transform: "rotate(45deg)"} : {}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 								<path fill="white" d="M18 12.998h-5v5a1 1 0 0
 								 1-2 0v-5H6a1 1 0 0 1 0-2h5v-5a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2z"/>
 							</svg>

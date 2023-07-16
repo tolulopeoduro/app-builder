@@ -1,8 +1,6 @@
-import { Fragment, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { set_active_element } from "../../Redux/Reducers/active_element";
-import hexRgb from "hex-rgb";
 import { obj_to_css } from "../../utils";
 import default_styles from "../../default_styles.json"
 
@@ -18,7 +16,7 @@ const Div = styled.div`${props => process_css("div", props.css)}`
 
 
 const RenderElement = (props) => {
-	let {children, builder_id, text, tag, name, innerHTML, type} = props;
+	let {children, tag, name, innerHTML, type} = props;
 
 	const {elements} = useSelector(s => s)
 
@@ -34,7 +32,7 @@ const RenderElement = (props) => {
 		case "div" : {
 			return (
 				<Div {...attributes}>
-					{children?.map(child => <RenderElement key= {elements[child]?.name} {...elements[child]}/>)}
+					{children?.map((child, index) => <RenderElement key= {index} {...elements[child]}/>)}
 				</Div>
 			)
 		}
