@@ -120,11 +120,9 @@ const ContainerEditor = () => {
 					child={(<Border border_data={element_style?.border} edit_style={edit_style}/>)}/>
 					<Attribute order = {element_array.indexOf("display")} exists = {element_style?.display} type="display"
 					handle_delete={remove_attribute}
-					child={(<Display edit_style={edit_style} data={element_style?.display} /> )} /> 
-					{
-						(element_style?.display?.value === "flex" || element_style?.display?.value === "inline-flex") &&
-						<FlexLayoutEditor order={element_array.indexOf("display")} edit_style={edit_style} element_style={element_style}/>
-					}
+					child={(<Display edit_style={edit_style} data={element_style?.display} 
+					element_style = {element_style}  /> )} /> 
+					
 					<Attribute order = {element_array.indexOf("color")} exists = {element_style?.color} edit_style={edit_style} type="color" handle_delete={remove_attribute}
 					child={(<Color type="Color" initial_value={element_style?.color} get_value={(v) => edit_style({"color" : v})}/>)}/>
 					<Attribute order = {element_array.indexOf("font-family")} exists = {element_style?.["font-family"]} type = "font-family" handle_delete={remove_attribute}
