@@ -6,33 +6,20 @@ import available_options from "../../css_available_options.json"
 
 const TextEditBox = (props) => {
 
-	const {change_value, element, active_element, element_style, edit_style} = props;
+	const {change_value, element_data, element_style, edit_style} = props;
 	const [show_textbox, toggle_textbox] = useState(true);
 
 	useEffect(() => {
-		toggle_textbox(true)
-	}, [element?.innerHTML])
-
-	useEffect(() => {
-		let val = active_element?.innerHTML
-		if (document.getElementById("text_box")) {
-			document.getElementById("text_box").innerHTML = val;
-		}
-	}, [active_element?.innerHTML, show_textbox])
-
-	useEffect(() => {
-		let val = element?.innerHTML
-		if (document.getElementById("text")) {
-			document.getElementById("text").innerHTML = val;
-		}
-	}, [active_element?.innerHTML, element?.innerHTML, show_textbox])
+		let val = element_data?.innerHTML
+		document.getElementById("text_box").innerHTML = val;
+	}, [element_data?.name])
 
 	return (
 		<div order="-1" style={{position: "relative"}}>
 			<div className={styles.attribute_box}>
 				<Dropdown id="position" width = "180px" height = "1.5rem"
-				value = {element?.tag} 
-				options = {["h1", "h2", "p", "span"]} handle_change = {(v) => change_value("tag", v)}/>
+				value = {element_data?.tag} 
+				options = {["h1", "h2", "p", "span"]} handle_change = {(v) => change_value(element_data?.name, "tag", v)}/>
 			</div>
 			<div style={{height : !show_textbox && "40px" }} className={styles.text_content_editor}>
 				<div>
@@ -54,7 +41,7 @@ const TextEditBox = (props) => {
 				<AnimatePresence>
 				{
 					show_textbox &&
-					<motion.span initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} id="text_box" contentEditable onKeyUp={(e) => change_value("innerHTML", e?.target.innerHTML)}>
+					<motion.span initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} id="text_box" contentEditable onKeyUp={(e) => change_value(element_data?.name, "innerHTML", e?.target.innerHTML)}>
 					</motion.span>
 				}
 				</AnimatePresence>
@@ -62,22 +49,22 @@ const TextEditBox = (props) => {
 			<div>
 				<div className={styles.style_input}>
 					<span>font size</span>
-					<input type='text' value = {element_style?.["font-size"]} onChange={(e) => edit_style({["font-size"] : e.target.value})}/>
+					<input type='text' value = {element_style?.["font-size"]} onChange={(e) => edit_style(element_data?.name, {["font-size"] : e.target.value})}/>
 				</div>
 				<div className={styles.style_input}>
 					<span>font weight</span>
 					<Dropdown id = "text_font_weight" height = "1.5rem" value = {element_style?.["font-weight"]} 
-					options ={available_options?.["font-weight"]} handle_change={(value) => edit_style({["font-weight"] : value}) } />
+					options ={available_options?.["font-weight"]} handle_change={(value) => edit_style(element_data?.name, {["font-weight"] : value}) } />
 				</div>
 				<div className={styles.style_input}>
 					<span>text-align</span>
 					<Dropdown id = "text_text_align" height = "1.5rem" value = {element_style?.["text-align"]} 
-					options ={available_options?.["text-align"]} handle_change={(value) => edit_style({["text-align"] : value}) } />
+					options ={available_options?.["text-align"]} handle_change={(value) => edit_style(element_data?.name, {["text-align"] : value}) } />
 				</div>
 				<div className={styles.style_input}>
 					<span>text-decoration</span>
-					<Dropdown id = "text_text_align" height = "1.5rem" value = {element_style?.["text-decoration"]} 
-					options ={available_options?.["text-decoration"]} handle_change={(value) => edit_style({["text-decoration"] : value}) } />
+					<Dropdown id = "text_text_decoration" height = "1.5rem" value = {element_style?.["text-decoration"]} 
+					options ={available_options?.["text-decoration"]} handle_change={(value) => edit_style(element_data?.name, {["text-decoration"] : value}) } />
 				</div>
 			</div>
 		</div>

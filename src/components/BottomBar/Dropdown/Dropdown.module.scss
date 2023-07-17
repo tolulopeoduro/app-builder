@@ -1,4 +1,4 @@
-.dropdown {
+.select {
 	background-color: rgba($color: #000000, $alpha: 0.2);
 	display: flex;
 	flex-direction: row;	
@@ -6,6 +6,9 @@
 	width: fit-content;
 	min-width: 6rem;
 	max-width: 10rem;
+	outline: none;
+	padding-left: 0.5rem;
+	color: #fff;
 
 	> .value {
 		width: 100%;

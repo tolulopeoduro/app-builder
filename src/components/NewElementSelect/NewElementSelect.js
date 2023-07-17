@@ -25,7 +25,8 @@ const NewElementSelect = () => {
 
 
 	const handle_element_creation = (type, tag) => {
-		const parent = active_element?.type === "text" ? active_element?.parent : active_element?.name;
+		const element_data = elements[active_element]
+		const parent = element_data?.type === "text" ? element_data?.parent : active_element;
 		const name = randomstring.generate();
 		const element = {
 			is_component : false,
@@ -36,6 +37,7 @@ const NewElementSelect = () => {
 			tag : tag,
 			parent : parent,
 			attributes : {
+				id : name,
 				className : name, "data-builder_id" : name,
 				css : {height: "auto", width: "auto",  ...default_styles[tag]}
 			},
@@ -58,7 +60,7 @@ const NewElementSelect = () => {
 							<div onClick={() => handle_element_creation("container", "div")}>
 								container
 							</div>
-							<div onClick={() => handle_element_creation("text", "span")}>
+							<div onClick={() => handle_element_creation("text", "p")}>
 								Text
 							</div>
 						</div>

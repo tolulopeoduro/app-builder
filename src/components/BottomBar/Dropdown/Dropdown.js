@@ -5,6 +5,7 @@ import {motion, AnimatePresence} from "framer-motion"
 import { act } from 'react-dom/test-utils';
 import { useDispatch } from 'react-redux';
 import { update_modals } from '../../../Redux/Reducers/modals';
+import { edit_style } from '../../../utils';
 
 const Dropdown = (props) => {
 	
@@ -48,7 +49,14 @@ const Dropdown = (props) => {
 
 	return (
 		<Fragment>
-			<div top id = {id} style={{height: height}} className = {styles.box}>
+			<select className={styles.select} value={value} name ="name" onChange={(e) => handle_change(e.target.value)}>
+				{
+					options.map((option, index) =>
+						<option style={{color: "blue"}} value = {option}>{option}</option>
+					)
+				}
+			</select>
+			{/* <div top id = {id} style={{height: height}} className = {styles.box}>
 				<div style={{height : height, ...style}} className = {styles.dropdown} onClick={() => activate()}>
 					<div style={{fontFamily : id  === "font-family" && value}} className = {styles.value}>
 						{value}
@@ -57,7 +65,7 @@ const Dropdown = (props) => {
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="white" d="m7 10l5 5l5-5z"/></svg>
 					</div>
 				</div>
-			</div>
+			</div> */}
 		</Fragment>
 	)
 }

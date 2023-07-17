@@ -6,11 +6,11 @@ import {AnimatePresence, motion} from "framer-motion"
 
 const BackgroundColor = (props) => {
 
-	const {background : {type, colors, direction, gradient_type, image}, background, edit_style} = props;
+	const {background : {type, colors, direction, gradient_type, image}, background, edit_style, element_data} = props;
 	const [show, toggle] = useState(false)
 
 	const change_value = (data) => {
-		edit_style({background : {...background, ...data}})
+		edit_style(element_data?.name, {background : {...background, ...data}})
 	}
 
 	const change_color = (index, data) => {

@@ -9,11 +9,11 @@ const Border = (props) => {
 	const [border, edit_border] = useState(null);
 
 	const [show_color_picker, toggle_color_picker] = useState(false);
-	const {border_data, edit_style} = props;
+	const {border_data, edit_style, element_data} = props;
 	
 	const change_val = (key, value) => {
 		let new_border = {...border_data, [key] : value}
-		edit_style({border : new_border})
+		edit_style(element_data?.name, {border : new_border})
 	}
 
 	const handle_color_change = (value) => {

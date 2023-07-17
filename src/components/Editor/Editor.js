@@ -29,7 +29,7 @@ const Editor = () => {
 	
 	useEffect(() => {
 		document.getElementById('result').contentWindow.postMessage({message_type : "active_element", message: active_element}, `${window.location.origin}/frame`)
-	}, [active_element?.name])
+	}, [active_element, elements[active_element]])
 	
 	useEffect(() => {
 		dispatch(update_modals({editor : true}))
@@ -37,6 +37,7 @@ const Editor = () => {
 
 	useEffect(() => {
 		if (modals?.editor === false && modals.new_element) dispatch(update_modals({new_element : false}))
+		// if (modals?.editor && !elements[active_element]) dispatch(update_modals({editor : false}));
 	}, [modals])
 
 	useEffect(() => {

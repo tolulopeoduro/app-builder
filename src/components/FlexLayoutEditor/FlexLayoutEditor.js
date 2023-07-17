@@ -6,7 +6,7 @@ import win from 'global';
 
 const FlexLayoutEditor = (props) => {
 
-	const {edit_style, element_style} = props;
+	const {edit_style, element_style, element_data} = props;
 
 	return (
 		<AnimatePresence>
@@ -19,7 +19,7 @@ const FlexLayoutEditor = (props) => {
 							return(
 								<motion.span key={index} style={{order : props.order}} className={styles.style_input}>
 									<span>{att} :</span>
-									<Dropdown id={`flex_${att}`} height="1.5rem" handle_change={(option) => edit_style({[att] :{...element_style?.[att], value: option}})} value={element_style?.[att]?.value}
+									<Dropdown id={`flex_${att}`} height="1.5rem" handle_change={(option) => edit_style(element_data?.name, {[att] :{...element_style?.[att], value: option}})} value={element_style?.[att]?.value}
 									options = {element_style?.[att]?.available_options} />
 								</motion.span>
 							)

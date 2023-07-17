@@ -16,6 +16,12 @@ const Frame = () => {
 		window.top.postMessage({message_type : "active_element_dimension", message : rect}, `${window.location.origin}/editor`);	
 	}, [elements, active_element])
 
+	useEffect(() => {
+		document.getElementById("App")?.querySelectorAll("*").forEach(el => {
+			if (!el.dataset.builder_id)	el.remove();
+		})
+	}, [elements])
+
 
 	useEffect(() => {
 		window.onmessage = e => {
@@ -40,13 +46,14 @@ const Frame = () => {
 				const id = el?.dataset?.builder_id;
 				let element = elements[el?.dataset?.builder_id];
 				let rect = document.querySelector	(`[data-builder_id='${id}']`).getBoundingClientRect();
-				window.top.postMessage({message_type : "active_element", message : element}, `${window.location.origin}/editor`);	
+				window.top.postMessage({message_type : "active_element", message : id}, `${window.location.origin}/editor`);	
 				window.top.postMessage({message_type : "active_element_dimension", message : rect}, `${window.location.origin}/editor`);	
 
 				dispatch(set_active_element(element));
 				e.stopPropagation();
 			});
 
+			
 			el.addEventListener("contextmenu", e => {
 				e.preventDefault();
 				const id = e.target?.dataset?.builder_id;
@@ -56,11 +63,12 @@ const Frame = () => {
 				window.top.postMessage({message_type : "view_element", message : c}, `${window.location.origin}/editor`);	
 				e.stopPropagation();
 			})
-
+			
 		})
 	}, [elements])
 
-	return <RenderElement {...elements["App"]}/>
+	
+	return elements["App"] && <RenderElement id = "App"/>
 }
 
 export default Frame

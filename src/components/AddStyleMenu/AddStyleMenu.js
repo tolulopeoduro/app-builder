@@ -7,7 +7,7 @@ const AddStyleMenu = (props) => {
 
 	const [show_menu, toggle_menu] = useState(false);
 	const [position, set_position] = useState({})
-	const {attributes, edit_style} = props;
+	const {attributes, edit_style, element_data} = props;
 
 	useEffect(() => {
 		attributes.splice(attributes.indexOf("flex_settings"), 0);
@@ -46,7 +46,7 @@ const AddStyleMenu = (props) => {
 							{
 								attributes?.map((attribute, index) => {
 									return (
-										<div key = {index} className={styles.item} onClick={() => edit_style({[attribute] : defaults[attribute]})}>
+										<div key = {index} className={styles.item} onClick={() => edit_style(element_data?.name, {[attribute] : defaults[attribute]})}>
 											{attribute}
 										</div>
 									)
