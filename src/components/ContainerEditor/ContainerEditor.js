@@ -141,7 +141,7 @@ const ContainerEditor = () => {
 						</div>
 					)}/>
 			</div>
-			<AddStyleMenu element_data={element_data} order={element_array.length-2} attributes={list} edit_style={edit_style}/>
+			<AddStyleMenu  element_data={element_data} order={element_array?.length} attributes={list} edit_style={edit_style}/>
 		</div>
 	)
 }

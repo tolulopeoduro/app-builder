@@ -19,7 +19,7 @@ const TextEditBox = (props) => {
 			<div className={styles.attribute_box}>
 				<Dropdown id="position" width = "180px" height = "1.5rem"
 				value = {element_data?.tag} 
-				options = {["h1", "h2", "p", "span"]} handle_change = {(v) => change_value(element_data?.name, "tag", v)}/>
+				options = {["h1", "h2", "p"]} handle_change = {(v) => change_value(element_data?.name, "tag", v)}/>
 			</div>
 			<div style={{height : !show_textbox && "40px" }} className={styles.text_content_editor}>
 				<div>
