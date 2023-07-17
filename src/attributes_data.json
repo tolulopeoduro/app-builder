@@ -72,5 +72,7 @@
 		}
 	},
 	"color" : {"hex" : "#000", "alpha" : 1},
-	"font-family" : "Inter"
+	"font-family" : "Inter",
+	"margin" : "0px",
+	"padding" : "0px"
 }
