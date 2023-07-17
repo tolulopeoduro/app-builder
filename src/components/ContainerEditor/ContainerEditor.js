@@ -33,7 +33,6 @@ const ContainerEditor = () => {
 	const element_style = elements[active_element]?.attributes?.css;
 
 	const edit_style = (id, data, replace) => {
-		console.log(id, data, replace)
 		let new_style = element_style
 		if (!replace) {
 			new_style = {...element_style, ...data}
@@ -54,7 +53,6 @@ const ContainerEditor = () => {
 
 	const remove_attribute = (attribute) => {
 		let st = {...element_style};
-		console.log(st)
 		delete st[attribute]
 		edit_style(active_element, st, true)
 	}
