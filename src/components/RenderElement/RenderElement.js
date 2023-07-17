@@ -16,38 +16,35 @@ const Div = styled.div`${props => process_css("div", props.css)}`
 
 
 const RenderElement = (props) => {
-	let {children, tag, name, innerHTML, type} = props;
-
 	const {elements} = useSelector(s => s)
-
-	const attributes = {...props.attributes, id : name}
+	const element_data = elements[props.id]
 
 	useEffect(() => {
-		if (type === "text") {
-			document.getElementById(name).innerHTML = innerHTML;
+		if (element_data?.type === "text") {
+			document.getElementById(element_data?.name).innerHTML = element_data?.innerHTML;
 		}
-	}, [props])
-
-	switch (tag) {
+	}, [element_data])
+	
+	switch (element_data?.tag) {
 		case "div" : {
 			return (
-				<Div {...attributes}>
-					{children?.map((child, index) => <RenderElement key= {index} {...elements[child]}/>)}
+				<Div {...element_data?.attributes}>
+					{element_data.children && element_data?.children?.map((child, index) => child &&  <RenderElement key= {index} 	id ={child} />)}
 				</Div>
 			)
 		}
 		break;
 		case "h2":
-			return <H2  {...attributes}></H2>
+			return <H2  {...element_data?.attributes}></H2>
 			break;
 		case "h1":
-				return <H1 {...attributes}></H1>
+				return <H1 {...element_data?.attributes}></H1>
 				break;
 		case "p":
-			return <P {...attributes}></P>
+			return <P {...element_data?.attributes}></P>
 			break;
 		default:
-			return <SPAN 	{...attributes}></SPAN>
+			return <SPAN 	{...element_data?.attributes}></SPAN>
 			break;
 	}
 }

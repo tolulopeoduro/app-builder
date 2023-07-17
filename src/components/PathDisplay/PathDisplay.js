@@ -18,8 +18,8 @@ const PathDisplay = (props) => {
 		e.preventDefault();
 		toggle_dropdown(true)
 	}
-	const {parent} = element;
-	const sibling = parent?.children
+
+	const sibling = element?.parent?.children
 
 	const select_sibling = (el) => {
 		dispatch(set_active_element(el));
@@ -37,7 +37,7 @@ const PathDisplay = (props) => {
 				</Fragment>
 			}
 			{
-				element.is_component ? 
+				element?.is_component ? 
 				<span onClick={() => select()}>{element.component_name}</span> :
 				<span onContextMenu={e => rightclick(e)} onClick={() => select()}>{element?.tag}</span>
 			}
@@ -49,7 +49,7 @@ const PathDisplay = (props) => {
 							<motion.div initial={{height: 0, opacity: 0, width : 0}} animate={{opacity: 1, height: "auto", width: "auto"}} exit={{height : 0, opacity : 0, width: "auto"}} className="basic_dropdown" style={{height : `${sibling?.length}rem`}}>
 								<div>
 									{
-										elements[parent]
+										elements[element.parent]
 										?.children.map((child, index) => {
 											const el = elements[child];
 											return (

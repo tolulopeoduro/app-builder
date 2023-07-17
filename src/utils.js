@@ -8,6 +8,7 @@ import hex2rgba from "hex2rgba"
 import { set_active_element } from "./Redux/Reducers/active_element"
 
 
+
 // export const updateText = (text) => {
 // 	const {activeElement, project} = Store.getState(s => s)
 // 	let temp = {...project}
@@ -33,7 +34,7 @@ export const create_element = (el, parent_id, id) => {
 
 export const edit_element = (element) => {
 	const new_elements = {...store.getState(s => s).elements}
-	new_elements[element?.name] = element;
+	new_elements[element.name] = element;
 	store.dispatch(update_elements(new_elements))
 }
 
@@ -104,8 +105,9 @@ export const hex_to_rgb_object = (color) => {
 }
 
 const run_through = (new_elements, elements, el) => {
-	for(let i = el.children.length-1; i >= 0; i--) {
-		let id = el.children[i]
+	if (!el) return;
+	for(let i = el.children?.length-1; i >= 0; i--) {
+		let id = el?.children[i]
 		run_through(new_elements, elements, elements[id])
 	}
 	delete new_elements[el?.name]
@@ -119,7 +121,8 @@ export const delete_element = (id) => {
 
 	let new_elements = {...elements};
 	run_through(new_elements, elements, elements[id])
-	Store.dispatch(set_active_element(elements[elements[id].parent]))
+	Store.dispatch(set_active_element(elements[id].parent))
+	document.getElementById("");
 	Store.dispatch(update_elements(new_elements))
 }
 
@@ -128,3 +131,24 @@ export const font_list = '&family=Delius&family=Eczar&family=Inter&family=Lora&f
 	if (index > 0)
 		return font_name.replace("+", " ")
 })	
+
+export const edit_style = (data, replace) => {
+	const {elements, active_element} = Store.getState(s => s);
+	const new_style = 
+	replace ? data :
+	{
+		...elements[active_element]?.attributes?.css,
+		...data
+	}
+	
+	const element = {
+		...elements[active_element],
+		attributes : {
+			...elements[active_element]?.attributes,
+			css : new_style
+		}
+	}
+
+
+	edit_element(element)
+}
