@@ -116,6 +116,7 @@ const run_through = (new_elements, elements, el) => {
 export const delete_element = (id) => {
 	if (id === "App") {
 		alert("Can't delete base component")
+		return;
 	};
 	const {elements} = Store.getState(s => s);
 
