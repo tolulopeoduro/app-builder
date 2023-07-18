@@ -1,0 +1,40 @@
+.margin {
+	padding: 0.5rem 0 0 0.5rem;
+}
+
+.main_input {
+	background-color: rgba($color: #000000, $alpha: 0.2);
+	outline: none;
+	border: none;
+	color: #fff;
+	height: 1.5rem;
+	padding-left: 0.25rem;
+}
+
+.toggle {
+	color: #fff;
+	font-size: 0.8rem;
+	display: flex;
+	align-items: center;
+	
+	> input:checked {
+		 background-color: #585858;
+	}
+}
+
+.edit_sides {
+	display: flex;
+	flex-direction: column;
+	> span {
+		margin-bottom: 0.5rem;
+		display: flex;
+		align-items: center;
+		font-size: 0.7rem;
+		justify-content: space-between;
+
+		color: #fff;
+		> input {
+			margin-left: 0.25rem;
+		}
+	}
+}

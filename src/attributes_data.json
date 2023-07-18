@@ -73,6 +73,12 @@
 	},
 	"color" : {"hex" : "#000", "alpha" : 1},
 	"font-family" : "Inter",
-	"margin" : "0px",
-	"padding" : "0px"
+	"margin" : {
+		"value" : "0px",
+		"set_for_all_sides" : false
+	},
+	"padding" : {
+		"value" : "",
+		"set_for_all_sides" : false
+	}
 }

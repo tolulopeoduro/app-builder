@@ -15,6 +15,7 @@ import Dropdown from '../BottomBar/Dropdown/Dropdown';
 import BackgroundColor from '../BackgroundColor/BackgroundColor';
 import { update_elements } from '../../Redux/Reducers/elements_reducer';
 import TextEditBox from '../TextEditBox/TextEditBox';
+import MarginEditor from '../MarginEditor/MarginEditor';
 
 const ContainerEditor = () => {
 
@@ -141,17 +142,11 @@ const ContainerEditor = () => {
 					)}/>
 					<Attribute order = {element_array.indexOf("margin")} exists = {element_style.margin != null} type = 'margin' handle_delete = {remove_attribute}
 					child = {(
-						<div className={styles.basic_container}>
-							<input placeholder='margin' type="text" className={styles.text_input} value = {element_style["margin"]} 
-							onChange={(e) => edit_style(active_element, {"margin" : e.target.value})}/>
-						</div>
+						<MarginEditor data={element_style["margin"]} edit_style={edit_style} active_element = {active_element} attribute ="margin" />	
 					)}/>
 					<Attribute order = {element_array.indexOf("padding")} exists = {element_style.padding != null} type = 'padding' handle_delete = {remove_attribute}
 					child = {(
-						<div className={styles.basic_container}>
-							<input placeholder='padding' type="text" className={styles.text_input} value = {element_style["padding"]} 
-							onChange={(e) => edit_style(active_element, {"padding" : e.target.value})}/>
-						</div>
+						<MarginEditor data={element_style["padding"]} edit_style={edit_style} active_element = {active_element} attribute ="padding" />	
 					)}/>
 			</div>
 			<AddStyleMenu  element_data={element_data} order={element_array?.length} attributes={list} edit_style={edit_style}/>
