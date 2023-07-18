@@ -1,11 +1,9 @@
 import React from 'react'
 import styles from "./BottomBar.module.scss"
-import TextEditor from './TextEditor/TextEditor'
 import { useDispatch, useSelector } from 'react-redux'
 import ContainerEditor from '../ContainerEditor/ContainerEditor'
 import { update_modals } from '../../Redux/Reducers/modals'
-import { set_active_element } from '../../Redux/Reducers/active_element'
-import {AnimatePresence, motion} from "framer-motion";
+import {motion} from "framer-motion";
 import { delete_element } from '../../utils'
 
 const BottomBar = (props) => {
@@ -27,8 +25,6 @@ const BottomBar = (props) => {
 				<div className = {styles.body}>
 					<ContainerEditor/>
 				</div>
-				{/* <div className = {styles.footer}>
-				</div> */}
 			</div>
 			<div className={styles.right}>
 					<div className={styles.actions}>
