@@ -76,3 +76,27 @@
 		padding-left: 0.5rem;
 	}
 }
+
+.text_align_value {
+	height: 2rem;
+	width: 2rem;
+	border-radius: 0.25rem ;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background-color 400ms;
+
+	> svg {
+		height: 90%;
+		width: 90%;
+		color: #fff;
+	}
+}
+
+.text_decoration, .text-align {
+	padding: 0.5rem 0 0 0.5rem;
+	display: flex;
+	justify-content: space-between;
+	width: 7rem;
+	flex-direction: row;
+}

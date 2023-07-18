@@ -89,6 +89,12 @@ export const obj_to_css = (object) => {
 		if (key === "color") {
 			str+= `color: ${hex2rgba(object?.color?.hex, object?.color.alpha)};`
 		}
+		if (key === "text-decoration") {
+			let ar = object?.["text-decoration"]
+			if (ar) {
+				str+= `text-decoration : ${ar.join(" ")};`
+			}
+		}
 		else
 			str += (`${key}: ${object[key].value || object[key]};\n`);
 	})
