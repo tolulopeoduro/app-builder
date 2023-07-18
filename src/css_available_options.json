@@ -7,5 +7,20 @@
 	],
 	"text-decoration" : [
 		"line-through", "overline", "underline", "none"
+	],
+	"flex-direction" : [
+		"row", "column", "row-reverse", "column-reverse", "unset"
+	],
+	"flex-wrap" : [
+		"unset", "wrap", "no-wrap", "wrap-reverse"
+	],
+	"justify-content" : [
+		"unset", "flex-start", "flex-end", "center", "space-between", "space-around", "space-evenly" 
+	],
+	"align-items" : [
+		"unset", "flex-start", "flex-end", "center", "baseline", "stretch"
+	],
+	"align-content" : [
+		"unset", "flex-start", "flex-end", "center", "space-between", "space-around", "stretch"
 	]
 }

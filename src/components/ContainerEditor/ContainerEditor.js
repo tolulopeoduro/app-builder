@@ -15,6 +15,7 @@ import Dropdown from '../BottomBar/Dropdown/Dropdown';
 import BackgroundColor from '../BackgroundColor/BackgroundColor';
 import { update_elements } from '../../Redux/Reducers/elements_reducer';
 import TextEditBox from '../TextEditBox/TextEditBox';
+import MarginEditor from '../MarginEditor/MarginEditor';
 
 const ContainerEditor = () => {
 
@@ -33,10 +34,11 @@ const ContainerEditor = () => {
 	const element_style = elements[active_element]?.attributes?.css;
 
 	const edit_style = (id, data, replace) => {
-		console.log(id, data)
 		let new_style = element_style
 		if (!replace) {
-			new_style = {...new_style, ...data}
+			new_style = {...element_style, ...data}
+		} else {
+			new_style = data;
 		}
 		const new_element = {...elements[id]}
 		const attributes = new_element.attributes
@@ -44,18 +46,16 @@ const ContainerEditor = () => {
 			...attributes,
 			css : new_style
 		}
-		console.clear()
+
 		let new_elements = {...elements}
-		console.log("prev",new_elements, new_element, elements)
 		new_elements[id] = new_element;
-		console.log("post",new_elements)
 		dispatch(update_elements(new_elements))
 	}
 
 	const remove_attribute = (attribute) => {
 		let st = {...element_style};
-		delete st[attribute];
-		edit_style(st, true)
+		delete st[attribute]
+		edit_style(active_element, st, true)
 	}
 
 	const [list, set_list] = useState([])
@@ -130,7 +130,7 @@ const ContainerEditor = () => {
 					child={(<Display edit_style={edit_style} data={element_style?.display}  element_data={element_data}
 					element_style = {element_style}  /> )} /> 
 					
-					<Attribute order = {element_array.indexOf("color")} exists = {element_style?.color} edit_style={edit_style} type="color" handle_delete={remove_attribute}
+					<Attribute order = {element_array.indexOf("color")} exists = {element_style?.color} type="color" handle_delete={remove_attribute}
 					child={(<Color type="Color" initial_value={element_style?.color} element_data={element_data} get_value={(v) => edit_style(element_data?.name, {"color" : v})}/>)}/>
 					<Attribute order = {element_array.indexOf("font-family")} exists = {element_style?.["font-family"]} type = "font-family" handle_delete={remove_attribute}
 					child = {(
@@ -139,6 +139,14 @@ const ContainerEditor = () => {
 							options={[...font_list].filter(e => e)}
 							handle_change={(v) => edit_style(element_data?.name, {["font-family"] : v})}/>
 						</div>
+					)}/>
+					<Attribute order = {element_array.indexOf("margin")} exists = {element_style.margin != null} type = 'margin' handle_delete = {remove_attribute}
+					child = {(
+						<MarginEditor data={element_style["margin"]} edit_style={edit_style} active_element = {active_element} attribute ="margin" />	
+					)}/>
+					<Attribute order = {element_array.indexOf("padding")} exists = {element_style.padding != null} type = 'padding' handle_delete = {remove_attribute}
+					child = {(
+						<MarginEditor data={element_style["padding"]} edit_style={edit_style} active_element = {active_element} attribute ="padding" />	
 					)}/>
 			</div>
 			<AddStyleMenu  element_data={element_data} order={element_array?.length} attributes={list} edit_style={edit_style}/>
