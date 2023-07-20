@@ -40,7 +40,7 @@ const BackgroundColor = (props) => {
 	}
 
 	return (
-		<div>
+		<div className={styles.container}>
 			<div>
 					<Dropdown id ={"background_color_type"} value={type?.value} options = {type?.available_options}
 					handle_change = {(d) => change_value({type: {...type, value : d}})}

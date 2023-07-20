@@ -103,7 +103,7 @@ const TextEditBox = (props) => {
 				<AnimatePresence>
 				{
 					show_textbox &&
-					<motion.span id ="text_box" contentEditable onKeyUp={(e) => edit_text(e)}>
+					<motion.span style={{height: "100%", width: "100%"}} id ="text_box" contentEditable onKeyUp={(e) => edit_text(e)}>
 					</motion.span>
 				}
 				</AnimatePresence>
