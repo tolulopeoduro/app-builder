@@ -22,7 +22,7 @@ const MarginEditor = (props) => {
 	return (
 		<div className={styles.margin}>
 			<div className={styles.toggle}>
-				same value for all sides
+				Same value for all sides
 				<input type='checkbox' checked={data?.set_for_all_sides} 
 				onChange={() => edit_style(active_element, {[attribute] : {...data, set_for_all_sides : data?.set_for_all_sides ? false : true}})}/>
 			</div>

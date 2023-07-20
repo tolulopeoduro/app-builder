@@ -128,8 +128,8 @@
 }
 
 .body {
-	overflow-x: auto;
-	max-height: 20rem;
+	overflow-x: scroll;
+	max-height: 290px;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;

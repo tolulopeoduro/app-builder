@@ -1,5 +1,5 @@
 .select {
-	background-color: rgba($color: #000000, $alpha: 0.2);
+	background-color: rgba($color: #7e7e7e, $alpha: 0.2);
 	display: flex;
 	flex-direction: row;	
 	height: 1.5rem;
@@ -9,6 +9,7 @@
 	outline: none;
 	padding-left: 0.5rem;
 	color: #fff;
+	border: none;
 
 	> .value {
 		width: 100%;
