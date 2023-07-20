@@ -22,8 +22,8 @@ const Frame = () => {
 		})
 		
 	}, [elements])
-
-
+	
+	
 	useEffect(() => {
 		window.onmessage = e => {
 			if (e.origin !== window.location.origin) return;
@@ -35,26 +35,18 @@ const Frame = () => {
 				dispatch(set_active_element(message))
 			}
 		}
-
+		
 	}, [])
-
+	
 	const [els, setels] = useState([]);
+
+	useEffect(() => {
+		setels(elements)
+	}, [elements])
 	
 	useEffect(() => {
 		let all_el = document.querySelectorAll("[data-builder_id]");
 		all_el.forEach(el => {
-			el.addEventListener("click", (e) => {
-				const id = el?.dataset?.builder_id;
-				let element = elements[el?.dataset?.builder_id];
-				let rect = document.querySelector	(`[data-builder_id='${id}']`).getBoundingClientRect();
-				window.top.postMessage({message_type : "active_element", message : id}, `${window.location.origin}/editor`);	
-				window.top.postMessage({message_type : "active_element_dimension", message : rect}, `${window.location.origin}/editor`);	
-
-				dispatch(set_active_element(element));
-				e.stopPropagation();
-			});
-
-			
 			el.addEventListener("contextmenu", e => {
 				e.preventDefault();
 				const id = e.target?.dataset?.builder_id;
@@ -66,7 +58,7 @@ const Frame = () => {
 			})
 			
 		})
-	}, [elements])
+	}, [els])
 
 	
 	return elements["App"] && <RenderElement id = "App"/>
