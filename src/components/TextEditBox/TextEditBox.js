@@ -6,6 +6,7 @@ import available_options from "../../css_available_options.json"
 import active_element from '../../Redux/Reducers/active_element'
 import { debounce } from 'lodash'
 
+
 const TextEditBox = (props) => {
 
 	const {change_value, element_data, element_style, edit_style} = props;
@@ -36,15 +37,15 @@ const TextEditBox = (props) => {
 	const alignments = [
 		{
 			value : "left",
-			icon : <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"><path fill="currentColor" d="M224 64v8a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-8a8 8 0 0 1 8-8h176a8 8 0 0 1 8 8ZM40 120h128a8 8 0 0 0 8-8v-8a8 8 0 0 0-8-8H40a8 8 0 0 0-8 8v8a8 8 0 0 0 8 8Zm176 16H40a8 8 0 0 0-8 8v8a8 8 0 0 0 8 8h176a8 8 0 0 0 8-8v-8a8 8 0 0 0-8-8Zm-48 40H40a8 8 0 0 0-8 8v8a8 8 0 0 0 8 8h128a8 8 0 0 0 8-8v-8a8 8 0 0 0-8-8Z"/></svg>
+			icon : <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M3 6h18M3 12h10M3 18h15"/></svg>
 		},
 		{
 			value : "center",
-			icon : <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"><path fill="currentColor" d="M224 64v8a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-8a8 8 0 0 1 8-8h176a8 8 0 0 1 8 8Zm-32 56a8 8 0 0 0 8-8v-8a8 8 0 0 0-8-8H64a8 8 0 0 0-8 8v8a8 8 0 0 0 8 8Zm24 16H40a8 8 0 0 0-8 8v8a8 8 0 0 0 8 8h176a8 8 0 0 0 8-8v-8a8 8 0 0 0-8-8Zm-24 40H64a8 8 0 0 0-8 8v8a8 8 0 0 0 8 8h128a8 8 0 0 0 8-8v-8a8 8 0 0 0-8-8Z"/></svg>
+			icon : <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M3 6h18M7 12h10M5 18h14"/></svg>
 		},
 		{
 			value : "right",
-			icon : <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"><path fill="currentColor" d="M224 64v8a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8v-8a8 8 0 0 1 8-8h176a8 8 0 0 1 8 8Zm-8 32H88a8 8 0 0 0-8 8v8a8 8 0 0 0 8 8h128a8 8 0 0 0 8-8v-8a8 8 0 0 0-8-8Zm0 40H40a8 8 0 0 0-8 8v8a8 8 0 0 0 8 8h176a8 8 0 0 0 8-8v-8a8 8 0 0 0-8-8Zm0 40H88a8 8 0 0 0-8 8v8a8 8 0 0 0 8 8h128a8 8 0 0 0 8-8v-8a8 8 0 0 0-8-8Z"/></svg>
+			icon : <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M3 6h18m-10 6h10M6 18h15"/></svg>
 		}
 	]
 
@@ -118,27 +119,29 @@ const TextEditBox = (props) => {
 					<Dropdown id = "text_font_weight" height = "1.5rem" value = {element_style?.["font-weight"]} 
 					options ={available_options?.["font-weight"]} handle_change={(value) => edit_style(element_data?.name, {["font-weight"] : value}) } />
 				</div>
-				<div className={styles.text_decoration}>
-					{
-						alignments.map((option,index) => (
-							<div key={index} style={{backgroundColor : element_style["text-align"] === option.value && "rgba(0,0,0,0.2)"}}
-							onClick = {() => edit_style(element_data?.name, {"text-align" : option.value})}
-							className={styles.text_align_value}>
-								{option.icon}
-							</div>
-						))
-					}
-				</div>
-				<div className={styles.text_decoration}>
-					{
-						decoration.map((option,index) => (
-							<div style={{backgroundColor : element_style["text-decoration"].includes(option.value) && "rgba(0,0,0,0.2)"}} 
-							className={styles.text_align_value} 
-							onClick={() => !element_style["text-decoration"]?.includes(option.value) ? add_decor(option.value) : remove_decor(option.value)} >
-								{option.icon}
-							</div>
-						))
-					}
+				<div style={{display : "flex"}}>
+					<div className={styles.text_align}>
+						{
+							alignments.map((option,index) => (
+								<div key={index} style={{backgroundColor : element_style["text-align"] === option.value && "rgba(0,0,0,0.2)"}}
+								onClick = {() => edit_style(element_data?.name, {"text-align" : option.value})}
+								className={styles.text_align_value}>
+									{option.icon}
+								</div>
+							))
+						}
+					</div>
+					<div className={styles.text_decoration}>
+						{
+							decoration.map((option,index) => (
+								<div style={{backgroundColor : element_style["text-decoration"].includes(option.value) && "rgba(0,0,0,0.2)"}} 
+								className={styles.text_align_value} 
+								onClick={() => !element_style["text-decoration"]?.includes(option.value) ? add_decor(option.value) : remove_decor(option.value)} >
+									{option.icon}
+								</div>
+							))
+						}
+					</div>
 				</div>
 			</div>
 		</div>
