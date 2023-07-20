@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { obj_to_css } from "../../utils";
@@ -17,7 +17,11 @@ const Div = styled.div`${props => process_css("div", props.css)}`
 
 const RenderElement = (props) => {
 	const {elements} = useSelector(s => s)
-	const element_data = elements[props.id]
+	const [element_data, update_data] = useState({})
+
+	useEffect(() => {
+		update_data(elements[props?.id])
+	}, [elements])
 
 	useEffect(() => {
 		if (element_data?.type === "text") {

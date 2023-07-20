@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import styles from "./TextEditBox.module.scss"
 import Dropdown from '../BottomBar/Dropdown/Dropdown'
 import { AnimatePresence, motion } from 'framer-motion'
 import available_options from "../../css_available_options.json"
 import active_element from '../../Redux/Reducers/active_element'
+import { debounce } from 'lodash'
 
 const TextEditBox = (props) => {
 
@@ -14,6 +15,23 @@ const TextEditBox = (props) => {
 		let val = element_data?.innerHTML;
 		document.getElementById("text_box").innerHTML = val;
 	}, [element_data?.name])
+
+	const edit_text = (e) => {
+		setTimeout(() => {
+			handleEnd(e)
+		}, 0)
+	}
+
+	const handleEnd = useMemo(
+		(e) => debounce((e) =>  {
+			const p = e.target.innerHTML;
+			const reg1 = /<div><br><\/div>/g
+			const reg2 = /<div>/g
+			const reg3 = /s<\/div>/g
+			const p2 = p.replace(reg1, "<br/>").replace(reg2, "<br/>").replace("</div>", "").split("</div>").join("")
+			change_value(element_data?.name, "innerHTML", p2)
+		}, 150), []
+	)
 
 	const alignments = [
 		{
@@ -85,7 +103,7 @@ const TextEditBox = (props) => {
 				<AnimatePresence>
 				{
 					show_textbox &&
-					<motion.span initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} id="text_box" contentEditable onKeyUp={(e) => change_value(element_data?.name, "innerHTML", e?.target.innerHTML)}>
+					<motion.span id ="text_box" contentEditable onKeyUp={(e) => edit_text(e)}>
 					</motion.span>
 				}
 				</AnimatePresence>
