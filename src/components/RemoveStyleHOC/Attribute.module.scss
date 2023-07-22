@@ -2,9 +2,9 @@
 	display: flex;
 	margin-bottom: 0.5rem;
 	width: fit-content;
-	// padding-bottom: 1rem;
 	overflow: hidden;
 	min-height: 40px;
+	transition: all 200ms;
 
 
 	> svg {
@@ -32,12 +32,18 @@
 	font-weight: bold;
 	padding-left: 0.5rem;
 	margin-top: 0.5rem;
-	font-size: 0.6rem;
 	display: flex;
 	align-items: flex-end;
 	justify-content: space-between;
 	text-transform: uppercase;
 	max-width: 200px;
+	font-weight: bold;
+	
+	>h2 {
+		font-family: Inter;
+		font-size: 0.6rem;
+		font-weight: bold;
+	}
 
 	>span {
 		display: flex;

@@ -12,13 +12,21 @@ const Frame = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		let rect = document.querySelector	(`[data-builder_id='${active_element?.name}']`)?.getBoundingClientRect();
-		window.top.postMessage({message_type : "active_element_dimension", message : rect}, "http://localhost:3000/editor");	
-	}, [elements, active_element])
-
+		let rect = document.querySelector	(`[data-builder_id='${active_element}']`)?.getBoundingClientRect();
+		window.top.postMessage({message_type : "active_element_dimension", message : rect}, `${window.location.origin}/editor`);	
+	}, [elements, active_element, elements[active_element]])
+	
+	useEffect(() => {
+		document.getElementById("App")?.querySelectorAll("*").forEach(el => {
+			if (!el.dataset.builder_id)	el.remove();
+		})
+		
+	}, [elements])
+	
+	
 	useEffect(() => {
 		window.onmessage = e => {
-			if (e.origin !== "http://localhost:3000") return;
+			if (e.origin !== window.location.origin) return;
 			const {message_type, message} = e.data;
 			if (message_type === "elements") {
 				dispatch(update_elements(message))
@@ -27,39 +35,33 @@ const Frame = () => {
 				dispatch(set_active_element(message))
 			}
 		}
-
+		
 	}, [])
-
+	
 	const [els, setels] = useState([]);
+
+	useEffect(() => {
+		setels(elements)
+	}, [elements])
 	
 	useEffect(() => {
 		let all_el = document.querySelectorAll("[data-builder_id]");
 		all_el.forEach(el => {
-			el.addEventListener("click", (e) => {
-				const id = el?.dataset?.builder_id;
-				let element = elements[el?.dataset?.builder_id];
-				let rect = document.querySelector	(`[data-builder_id='${id}']`).getBoundingClientRect();
-				window.top.postMessage({message_type : "active_element", message : element}, "http://localhost:3000/editor");	
-				window.top.postMessage({message_type : "active_element_dimension", message : rect}, "http://localhost:3000/editor");	
-
-				dispatch(set_active_element(element));
-				e.stopPropagation();
-			});
-
 			el.addEventListener("contextmenu", e => {
 				e.preventDefault();
 				const id = e.target?.dataset?.builder_id;
 				let element = elements[el?.dataset?.builder_id];
 				let rect = document.querySelector	(`[data-builder_id='${id}']`).getBoundingClientRect();
 				let c = {box : rect, data : element, cursor : {x : e.clientX, y : e?.clientY}};
-				window.top.postMessage({message_type : "view_element", message : c}, "http://localhost:3000/editor");	
+				window.top.postMessage({message_type : "view_element", message : c}, `${window.location.origin}/editor`);	
 				e.stopPropagation();
 			})
-
+			
 		})
-	}, [elements])
+	}, [els])
 
-	return <RenderElement {...elements["App"]}/>
+	
+	return elements["App"] && <RenderElement id = "App"/>
 }
 
 export default Frame

@@ -13,13 +13,13 @@ const PathDisplay = (props) => {
 	const dispatch = useDispatch();
 	const [show_dropdown, toggle_dropdown] = useState(false);
 
-	const select = () => dispatch(set_active_element(elements[element.name]));
+	const select = () => dispatch(set_active_element(element.name));
 	const rightclick = (e) => {
 		e.preventDefault();
 		toggle_dropdown(true)
 	}
-	const {parent} = element;
-	const sibling = parent?.children
+
+	const sibling = element?.parent?.children
 
 	const select_sibling = (el) => {
 		dispatch(set_active_element(el));
@@ -37,7 +37,7 @@ const PathDisplay = (props) => {
 				</Fragment>
 			}
 			{
-				element.is_component ? 
+				element?.is_component ? 
 				<span onClick={() => select()}>{element.component_name}</span> :
 				<span onContextMenu={e => rightclick(e)} onClick={() => select()}>{element?.tag}</span>
 			}
@@ -45,15 +45,15 @@ const PathDisplay = (props) => {
 				{
 					show_dropdown &&
 					<ClickAwayListener onClickAway={(() => toggle_dropdown(false))}>
-						<div style={{marginTop : "1rem", marginLeft: "0.5rem"}}>
+						<div style={{marginTop : "1rem", marginLeft: "0.5rem", zIndex : "3"}}>
 							<motion.div initial={{height: 0, opacity: 0, width : 0}} animate={{opacity: 1, height: "auto", width: "auto"}} exit={{height : 0, opacity : 0, width: "auto"}} className="basic_dropdown" style={{height : `${sibling?.length}rem`}}>
 								<div>
 									{
-										elements[parent]
-										?.children.map(child => {
+										elements[element.parent]
+										?.children.map((child, index) => {
 											const el = elements[child];
 											return (
-												<div onClick={() => select_sibling(el)}>
+												<div key={index} onClick={() => select_sibling(el?.name)}>
 													<span className='dropdown_main_text'>
 														{el?.tag?.toUpperCase()}
 													</span>

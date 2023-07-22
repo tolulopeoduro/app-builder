@@ -1,4 +1,4 @@
-.container {
+.flex {
 
 }
 
@@ -16,6 +16,7 @@
 .style_input {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 	margin-top: 0.3rem;
 
 	> span {

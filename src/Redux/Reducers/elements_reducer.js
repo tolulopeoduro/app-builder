@@ -11,6 +11,7 @@ const baseComponent = {
 	tag : 'div',
 	parent : null,
 	attributes : {
+		id : "App",
 		className : "App", "data-builder_id" : "App",
 		css : {
 			height: '100vh',

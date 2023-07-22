@@ -1,8 +1,12 @@
+.container {
+	padding: 0.5rem 0 0 0.5rem ;
+}
+
 .direction_settings {
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
-	padding-left: 1rem;
+	padding-left: 1.5rem;
 	margin-top: 0.3rem;
 
 	>span {

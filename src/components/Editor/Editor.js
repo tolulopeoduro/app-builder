@@ -10,11 +10,13 @@ import { view_element } from '../../Redux/Reducers/viewed_element';
 import ElementDescriptionBox from '../ElementDescriptionBox/ElementDescriptionBox';
 import { update_modals } from '../../Redux/Reducers/modals';
 import { AnimatePresence, motion } from 'framer-motion';
+import DropDownOptions from '../DropdownOptions/DropDownOptions';
+import { update_process } from '../../utils';
 
 const Editor = () => {
 	
 	const dispatch = useDispatch();
-	const {elements, modals, active_element, active_element_dimension, viewed_element} = useSelector(s => s);
+	const {elements, modals, active_element, active_element_dimension, viewed_element, undo_redo} = useSelector(s => s);
 
 	useEffect(() => {
 		window.addEventListener("contextmenu",(e) => {
@@ -23,12 +25,18 @@ const Editor = () => {
 	}, [])
 
 	useEffect(() => {
-		document.getElementById('result').contentWindow.postMessage({message_type : "elements", message: elements}, "http://localhost:3000/frame")
+		if (undo_redo?.active === false) {
+			update_process(elements)
+		}
+	}, [elements])
+
+	useEffect(() => {
+		document.getElementById('result').contentWindow.postMessage({message_type : "elements", message: elements}, `${window.location.origin}/frame`)
 	}, [elements])
 	
 	useEffect(() => {
-		document.getElementById('result').contentWindow.postMessage({message_type : "active_element", message: active_element}, "http://localhost:3000/frame")
-	}, [active_element?.name])
+		document.getElementById('result').contentWindow.postMessage({message_type : "active_element", message: active_element}, `${window.location.origin}/frame`)
+	}, [active_element, elements[active_element]])
 	
 	useEffect(() => {
 		dispatch(update_modals({editor : true}))
@@ -36,12 +44,13 @@ const Editor = () => {
 
 	useEffect(() => {
 		if (modals?.editor === false && modals.new_element) dispatch(update_modals({new_element : false}))
+		// if (modals?.editor && !elements[active_element]) dispatch(update_modals({editor : false}));
 	}, [modals])
 
 	useEffect(() => {
 		window.onmessage = e => {
 			if (!e.data?.message) return;
-			if (e.origin !== "http://localhost:3000") return;
+			if (e.origin !== window.location.origin) return;
 			let {message_type, message} = e.data;
 			message = JSON.parse(JSON.stringify(message))
 			message_type === "active_element" && dispatch(set_active_element(message))
@@ -78,6 +87,7 @@ const Editor = () => {
 					</motion.div>
 				}
 			</AnimatePresence>
+			{modals?.dropdown && <DropDownOptions/>}
 		</div>
 	)
 }

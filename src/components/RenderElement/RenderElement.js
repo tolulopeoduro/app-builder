@@ -1,10 +1,9 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { set_active_element } from "../../Redux/Reducers/active_element";
-import hexRgb from "hex-rgb";
 import { obj_to_css } from "../../utils";
 import default_styles from "../../default_styles.json"
+import { set_active_element } from "../../Redux/Reducers/active_element";
 
 const process_css = (tag, css) => {
 	return obj_to_css({...default_styles?.[tag], ...css})
@@ -18,38 +17,54 @@ const Div = styled.div`${props => process_css("div", props.css)}`
 
 
 const RenderElement = (props) => {
-	let {children, builder_id, text, tag, name, innerHTML, type} = props;
-
 	const {elements} = useSelector(s => s)
-
-	const attributes = {...props.attributes, id : name}
+	const [element_data, update_data] = useState({})
+	const dispatch = useDispatch()
 
 	useEffect(() => {
-		if (type === "text") {
-			document.getElementById(name).innerHTML = innerHTML;
-		}
-	}, [props])
+		update_data(elements[props?.id])
+	}, [elements])
 
-	switch (tag) {
+
+
+	useEffect(() => {
+		if (element_data?.type === "text") {
+			document.getElementById(element_data?.name).innerHTML = element_data?.innerHTML;
+		}
+	}, [element_data])
+
+	const el_att = {
+		...element_data?.attributes,
+		onClick : (e) => {
+			const id = element_data?.name;
+			let rect = document.querySelector	(`[data-builder_id='${id}']`).getBoundingClientRect();
+			window.top.postMessage({message_type : "active_element", message : id}, `${window.location.origin}/editor`);	
+			window.top.postMessage({message_type : "active_element_dimension", message : rect}, `${window.location.origin}/editor`);	
+			dispatch(set_active_element(id));
+			e.stopPropagation();
+		}
+	}
+	
+	switch (element_data?.tag) {
 		case "div" : {
 			return (
-				<Div {...attributes}>
-					{children?.map(child => <RenderElement key= {elements[child]?.name} {...elements[child]}/>)}
+				<Div {...el_att}>
+					{element_data.children && element_data?.children?.map((child, index) => child &&  <RenderElement key= {index} 	id ={child} />)}
 				</Div>
 			)
 		}
 		break;
 		case "h2":
-			return <H2  {...attributes}></H2>
+			return <H2  {...el_att}></H2>
 			break;
 		case "h1":
-				return <H1 {...attributes}></H1>
+				return <H1 {...el_att}></H1>
 				break;
 		case "p":
-			return <P {...attributes}></P>
+			return <P {...el_att}></P>
 			break;
 		default:
-			return <SPAN 	{...attributes}></SPAN>
+			return <SPAN 	{...el_att}></SPAN>
 			break;
 	}
 }

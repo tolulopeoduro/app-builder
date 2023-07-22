@@ -6,6 +6,8 @@ import rgb2hex from "rgb2hex"
 import hex2rgb from "hex2rgb"
 import hex2rgba from "hex2rgba"
 import { set_active_element } from "./Redux/Reducers/active_element"
+import { toggle_undo } from "./Redux/Reducers/undo_redo"
+
 
 
 // export const updateText = (text) => {
@@ -27,13 +29,14 @@ export const create_element = (el, parent_id, id) => {
 	new_elements[id] = el
 	new_elements[parent_id] = c;
 
+	Store.dispatch(toggle_undo(false))
 	Store.dispatch(update_elements(new_elements));
-	// Store.dispatch(update_modals({new_element : false}));
 }
 
 export const edit_element = (element) => {
 	const new_elements = {...store.getState(s => s).elements}
-	new_elements[element?.name] = element;
+	new_elements[element.name] = element;
+	Store.dispatch(toggle_undo(false))
 	store.dispatch(update_elements(new_elements))
 }
 
@@ -88,6 +91,12 @@ export const obj_to_css = (object) => {
 		if (key === "color") {
 			str+= `color: ${hex2rgba(object?.color?.hex, object?.color.alpha)};`
 		}
+		if (key === "text-decoration") {
+			let ar = object?.["text-decoration"]
+			if (ar) {
+				str+= `text-decoration : ${ar.join(" ")};`
+			}
+		}
 		else
 			str += (`${key}: ${object[key].value || object[key]};\n`);
 	})
@@ -104,8 +113,9 @@ export const hex_to_rgb_object = (color) => {
 }
 
 const run_through = (new_elements, elements, el) => {
-	for(let i = el.children.length-1; i >= 0; i--) {
-		let id = el.children[i]
+	if (!el) return;
+	for(let i = el.children?.length-1; i >= 0; i--) {
+		let id = el?.children[i]
 		run_through(new_elements, elements, elements[id])
 	}
 	delete new_elements[el?.name]
@@ -114,12 +124,15 @@ const run_through = (new_elements, elements, el) => {
 export const delete_element = (id) => {
 	if (id === "App") {
 		alert("Can't delete base component")
+		return;
 	};
 	const {elements} = Store.getState(s => s);
 
 	let new_elements = {...elements};
 	run_through(new_elements, elements, elements[id])
-	Store.dispatch(set_active_element(elements[elements[id].parent]))
+	Store.dispatch(set_active_element(elements[id].parent))
+	document.getElementById("");
+	Store.dispatch(toggle_undo(false))
 	Store.dispatch(update_elements(new_elements))
 }
 
@@ -128,3 +141,84 @@ export const font_list = '&family=Delius&family=Eczar&family=Inter&family=Lora&f
 	if (index > 0)
 		return font_name.replace("+", " ")
 })	
+
+export const edit_style = (data, replace) => {
+	const {elements, active_element} = Store.getState(s => s);
+	const new_style = 
+	replace ? data :
+	{
+		...elements[active_element]?.attributes?.css,
+		...data
+	}
+	
+	const element = {
+		...elements[active_element],
+		attributes : {
+			...elements[active_element]?.attributes,
+			css : new_style
+		}
+	}
+
+
+	edit_element(element)
+}
+
+const check_for_new = (current, list) => {
+	if (!current || !list) return;
+	return list.some(e => JSON.stringify(e) === JSON.stringify(current))
+}
+
+export const update_process = (current_state) => {
+	let actions = JSON.parse(sessionStorage.getItem("actions"));
+	if (!actions) {
+		actions = {
+			list : [current_state],
+			position : 0
+		} ;
+		sessionStorage.setItem("actions", JSON.stringify(actions));
+		return
+	} 
+
+	if (actions.position === actions.list.length -1) {
+		let n_list = [...actions?.list, current_state]
+		actions = {
+			list : n_list,
+			position : n_list?.length-1,
+		} 	
+		sessionStorage.setItem("actions", JSON.stringify(actions))
+		return
+	}
+	let n_list = [...actions?.list]
+	n_list.splice(actions.position+1, actions.list.length, current_state);
+	actions = {
+		list : n_list,
+		position : n_list?.length-1,
+	} 	
+	sessionStorage.setItem("actions", JSON.stringify(actions))
+	
+}
+
+
+export const undo = () => {
+	let actions = JSON.parse(sessionStorage.getItem("actions"));
+	if (!actions) return;
+	if (actions.position <= 0) return;
+	const new_position = actions.position - 1;
+	Store.dispatch(toggle_undo(true))
+	Store.dispatch(update_elements(actions.list[new_position]))
+	
+	actions = {...actions, position : new_position}
+	sessionStorage.setItem("actions", JSON.stringify(actions))
+}
+
+export const redo = () => {
+	let actions = JSON.parse(sessionStorage.getItem("actions"));
+	if (actions.position >= actions.list.length-1) return;
+	if (!actions) return;
+	const new_position = actions.position + 1;
+	Store.dispatch(toggle_undo(true))
+	Store.dispatch(update_elements(actions.list[new_position]))
+	
+	actions = {...actions, position : new_position}
+	sessionStorage.setItem("actions", JSON.stringify(actions))
+}

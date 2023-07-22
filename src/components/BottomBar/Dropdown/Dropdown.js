@@ -3,6 +3,9 @@ import styles from "./Dropdown.module.scss"
 import ClickAwayListener from 'react-click-away-listener';
 import {motion, AnimatePresence} from "framer-motion"
 import { act } from 'react-dom/test-utils';
+import { useDispatch } from 'react-redux';
+import { update_modals } from '../../../Redux/Reducers/modals';
+import { edit_style } from '../../../utils';
 
 const Dropdown = (props) => {
 	
@@ -10,32 +13,51 @@ const Dropdown = (props) => {
 
 	const [active, set_active] = useState(false);
 	const [position , set_position] = useState({})
+	const dispatch = useDispatch();
 
-	useEffect(() => {
-		set_active(false)
-	}, [value])
-
-	
-	const getPosition = () => {
-		let el = document.getElementById(value)
-		let box = el?.getBoundingClientRect()
-		if (!box) return;
-		let total_height = box?.bottom + (box.height * options?.length);
-		if (total_height > window.innerHeight) {
-			return {bottom : (el.offsetParent?.offsetHeight - el?.offsetTop)+(document.getElementById("container_editor_body").scrollTop + (-box.height))}
-		} 
-		return{top: el.offsetTop - box?.height}
+	const activate = () => {
+		dispatch(update_modals({
+			dropdown : {
+				height : height,
+				options : options,
+				value : value,
+				style: style,
+				id : id,
+				box : document.getElementById(id)?.getBoundingClientRect()
+			}
+		}))
 	}
 
 	useEffect(() => {
-		set_position(getPosition())
-		document.getElementById("container_editor_body").style.overflowX = active ?  "hidden" : "scroll"
-	}, [active])
+		window.addEventListener("message", (e) => {
+			if (e.origin !== window.location.origin) return;
+			if (!e.data) return;
+			if (e.data.att !== id) return;
+			handle_change(e.data.option);
+			setTimeout(() => dispatch(update_modals({dropdown : null})), 0)
+		})
+		return () => {			
+			window.removeEventListener("message", (e) => {
+				if (e.origin !== window.location.origin) return;
+				if (!e.data) return;
+				if (e.data.att !== id) return;
+				handle_change(e.data.option);
+				setTimeout(() => dispatch(update_modals({dropdown : null})), 0)
+			})
+		}
+	}, [])
 
 	return (
 		<Fragment>
-			<div id = {value} style={{height: height}} className = {styles.box}>
-				<div style={{height : height, ...style}} className = {styles.dropdown} onClick={() => set_active(true)}>
+			<select className={styles.select} value={value} name ="name" onChange={(e) => handle_change(e.target.value)}>
+				{
+					options.map((option, index) =>
+						<option style={{color: "blue"}} value = {option}>{option}</option>
+					)
+				}
+			</select>
+			{/* <div top id = {id} style={{height: height}} className = {styles.box}>
+				<div style={{height : height, ...style}} className = {styles.dropdown} onClick={() => activate()}>
 					<div style={{fontFamily : id  === "font-family" && value}} className = {styles.value}>
 						{value}
 					</div>
@@ -43,26 +65,7 @@ const Dropdown = (props) => {
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="white" d="m7 10l5 5l5-5z"/></svg>
 					</div>
 				</div>
-						<AnimatePresence>
-							{
-								active &&
-								<ClickAwayListener onClickAway = {() => set_active(false)}>
-									<motion.div style={{...style, ...position}} initial={{height: 0, opacity: 0.1}} animate={{opacity: 1, height: "auto"}} 
-									exit={{height : 0, opacity: 0.5}} className = {styles.options}>
-										{
-											[value, ...options.filter(e => e !== value)].map((option) => {
-												return (
-													<div style={{height : height, fontFamily: id === "font-family" && option}} className = {styles.option} onClick={() => handle_change(option)}>
-														{option}
-													</div>
-												)
-											})
-										}
-									</motion.div>
-								</ClickAwayListener>
-							}
-						</AnimatePresence>
-			</div>
+			</div> */}
 		</Fragment>
 	)
 }

@@ -6,11 +6,11 @@ import {AnimatePresence, motion} from "framer-motion"
 
 const BackgroundColor = (props) => {
 
-	const {background : {type, colors, direction, gradient_type, image}, background, edit_style} = props;
+	const {background : {type, colors, direction, gradient_type, image}, background, edit_style, element_data} = props;
 	const [show, toggle] = useState(false)
 
 	const change_value = (data) => {
-		edit_style({background : {...background, ...data}})
+		edit_style(element_data?.name, {background : {...background, ...data}})
 	}
 
 	const change_color = (index, data) => {
@@ -40,9 +40,9 @@ const BackgroundColor = (props) => {
 	}
 
 	return (
-		<div>
+		<div className={styles.container}>
 			<div>
-					<Dropdown value={type?.value} options = {type?.available_options}
+					<Dropdown id ={"background_color_type"} value={type?.value} options = {type?.available_options}
 					handle_change = {(d) => change_value({type: {...type, value : d}})}
 					style={{marginLeft: "0.5rem", marginTop: "0.5rem"}}/>
 					{
@@ -52,7 +52,7 @@ const BackgroundColor = (props) => {
 								<span>
 									type
 								</span>
-								<Dropdown height="1.3rem" value={gradient_type?.value} options = {gradient_type?.available_options}
+								<Dropdown id={"background_gradient_type"} height="1.3rem" value={gradient_type?.value} options = {gradient_type?.available_options}
 								handle_change = {(d) => change_value({gradient_type: {...gradient_type, value : d}})}/>
 						</span>
 					</Fragment>
@@ -64,7 +64,7 @@ const BackgroundColor = (props) => {
 								<span>
 									direction
 								</span>
-								<Dropdown height="1.3rem" value={direction?.value} options = {direction?.available_options}
+								<Dropdown id="background_gradient_direction" height="1.3rem" value={direction?.value} options = {direction?.available_options}
 								handle_change = {(d) => change_value({direction: {...direction, value : d}})}/>
 						</span>
 					</Fragment>
@@ -77,11 +77,11 @@ const BackgroundColor = (props) => {
 				{
 					type.value === "gradient" &&
 					colors.map((color, index) => (
-						<div className={styles.color_item}>
+						<div key={index} className={styles.color_item}>
 							<Color type="background-color" initial_value={color} 
 							get_value={(data) => change_color(index, data)}/>
 							<svg className={styles.button} xmlns="http://www.w3.org/2000/svg" 
-							onClick={() => add_to_gradient(index)}width="24" height="24" 
+							onClick={() => add_to_gradient(index)}width="24" height="24"
 							viewBox="0 0 24 24"><path fill="white" 
 							d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"/></svg>
 
@@ -99,13 +99,13 @@ const BackgroundColor = (props) => {
 						<input placeholder='url' type='text' onChange={(e) => change_value({image : { ...image, url : e.target.value}})} value={image.url}/>
 						<div className={styles.image_settings}>
 							{
-								Object.keys(image).map(key => {
+								Object.keys(image).map((key, index) => {
 									if (key !== "url" && key !== "repeat	") 
 									return (
-										<Fragment>
+										<Fragment key = {index}>
 											<div className={styles.input}>
 												<span>{key}: </span>
-												<Dropdown height="1.3rem" value={image?.[key]?.value}
+												<Dropdown id={`image_${key}`} height="1.3rem" value={image?.[key]?.value}
 												options = {image?.[key]?.available_options}
 												handle_change = {v => change_value({image : {...image, [key] : {...image[key], value : v}}})} />
 											</div>

@@ -15,48 +15,59 @@ import Dropdown from '../BottomBar/Dropdown/Dropdown';
 import BackgroundColor from '../BackgroundColor/BackgroundColor';
 import { update_elements } from '../../Redux/Reducers/elements_reducer';
 import TextEditBox from '../TextEditBox/TextEditBox';
+import MarginEditor from '../MarginEditor/MarginEditor';
+import { toggle_undo } from '../../Redux/Reducers/undo_redo';
 
 const ContainerEditor = () => {
 
-	const {active_element, elements} = useSelector(s => s);
-	const {name, tag, attributes} = active_element;
-	const [element_style, set_element_style] = useState(null);
+	const {modals, elements, active_element} = useSelector(s => s);
 	const dispatch = (useDispatch());
-
-	const flex_attributes = ["flex-direction", "justify-content", "flex-wrap", "align-items", "align-content"]
+	// const [element_data, set_element_data] = useState();
+	// const [element_style, set_element_style] = useState();
 
 	useEffect(() => {
-		set_element_style(active_element?.attributes?.css);
-	}, [active_element])
+		// set_element_data(elements[active_element])
+		// set_element_style(elements[active_element]?.attributes.css)
+	}, [elements[active_element]])
 
-	const edit_style = (data, replace) => {
-		const new_style = 
-		replace ? data :
-		{
-			...element_style,
-			...data
+
+	const element_data = elements[active_element]
+	const element_style = elements[active_element]?.attributes?.css;
+
+	const edit_style = (id, data, replace) => {
+		let new_style = element_style
+		if (!replace) {
+			new_style = {...element_style, ...data}
+		} else {
+			new_style = data;
+		}
+		const new_element = {...elements[id]}
+		const attributes = new_element.attributes
+		new_element.attributes = {
+			...attributes,
+			css : new_style
 		}
 
-		set_element_style(new_style)
-
-		const element = {
-			...active_element,
-			attributes : {
-				...attributes,
-				css : new_style
-			}
-		}
-		edit_element(element)
+		let new_elements = {...elements}
+		new_elements[id] = new_element;
+		dispatch(toggle_undo(false))
+		dispatch(update_elements(new_elements))
 	}
 
 	const remove_attribute = (attribute) => {
 		let st = {...element_style};
-		delete st[attribute];
-		edit_style(st, true)
+		delete st[attribute]
+		edit_style(active_element, st, true)
 	}
 
 	const [list, set_list] = useState([])
-	const element = elements?.[active_element?.name]
+	const [element_array, set_element_array] = useState([])
+
+	useEffect(() => {
+		if (!element_style) return
+		const v = Object.keys(element_style)
+		v && set_element_array(v);
+	}, [element_style])
 
 	useEffect(() => {
 		if (!element_style) return;
@@ -80,55 +91,68 @@ const ContainerEditor = () => {
 			Object.keys(css_attributes_data?.flex_settings)
 			.forEach(key => {
 				if (!element_style[key])
-					edit_style({[key] : css_attributes_data.flex_settings[key]});
+					edit_style(element_data?.name, {[key] : css_attributes_data.flex_settings[key]});
 			})
 		}
 	}, [element_style])
 
-	const change_value = (key, val) => {
-		const new_elements = {...elements};
-		new_elements[active_element?.name] = {...elements[active_element?.name], [key] : val}
-		dispatch(update_elements(new_elements));
+	const change_value = (id ,key, val) => {
+		const new_element = {...elements[id]}
+		new_element[key] = val
+		let new_elements = {...elements}
+		new_elements[id] = new_element;
+		dispatch(toggle_undo(false))
+		dispatch(update_elements(new_elements))
 	}
 
 	return (
 		<div className={styles.container}>
 			<div className={styles.header}>
-				<h1>{tag}</h1>
+				<h1>{element_data?.tag}</h1>
 				<span className={styles.path_container}>
-					<PathDisplay elements={elements} element = {active_element}/>
+					<PathDisplay elements={elements} element = {element_data}/>
 				</span>
 			</div>
-			<div id ="container_editor_body" className={styles.body}>
+			<div style={modals.dropdown ? {overflow : "hidden"} : {}} id ="container_editor_body" className={styles.body}>
 				{
-					tag !== "div" &&
-					<TextEditBox active_element={active_element} change_value = {change_value} element = {elements?.[active_element?.name]}/>
+					element_data?.tag !== "div" && (
+						<Fragment>
+							<TextEditBox element_style={element_style} edit_style={edit_style}
+							change_value = {change_value} element_data = {element_data}/>
+						</Fragment>
+					)
 				}
-					<Attribute exists edit_style={edit_style} type="dimensions "
-					child= {(<Dimensions {...element_style} edit_style = {edit_style}/>)}/>
-					<Attribute exists = {element_style?.background} handle_delete = {remove_attribute} type="background"
-					child={(<BackgroundColor edit_style={edit_style} background={element_style?.background}/>)}/>
-					<Attribute exists = {element_style?.border} type="border" handle_delete={remove_attribute} 
-					child={(<Border border_data={element_style?.border} edit_style={edit_style}/>)}/>
-					<Attribute exists = {element_style?.display} type="display"
+					<Attribute order = {1} exists edit_style={edit_style} type="dimensions"
+					child= {(<Dimensions element_data={element_data} {...element_style} edit_style = {edit_style}/>)}/>
+					<Attribute order = {element_array.indexOf("background")} exists = {element_style?.background} handle_delete = {remove_attribute} type="background"
+					child={(<BackgroundColor element_data={element_data} edit_style={edit_style} background={element_style?.background}/>)}/>
+					<Attribute order = {element_array.indexOf("border")} exists = {element_style?.border} type="border" handle_delete={remove_attribute} 
+					child={(<Border border_data={element_style?.border} element_data={element_data} edit_style={edit_style}/>)}/>
+					<Attribute order = {element_array.indexOf("display")} exists = {element_style?.display} type="display"
 					handle_delete={remove_attribute}
-					child={(<Display edit_style={edit_style} data={element_style?.display} /> )} /> 
-					{
-						(element_style?.display?.value === "flex" || element_style?.display?.value === "inline-flex") &&
-						<FlexLayoutEditor edit_style={edit_style} element_style={element_style}/>
-					}
-					<Attribute exists = {element_style?.color} edit_style={edit_style} type="color" handle_delete={remove_attribute}
-					child={(<Color type="Color" initial_value={element_style?.color} get_value={(v) => edit_style({"color" : v})}/>)}/>
-					<Attribute exists = {element_style?.["font-family"]} type = "font-family" handle_delete={remove_attribute}
+					child={(<Display edit_style={edit_style} data={element_style?.display}  element_data={element_data}
+					element_style = {element_style}  /> )} /> 
+					
+					<Attribute order = {element_array.indexOf("color")} exists = {element_style?.color} type="color" handle_delete={remove_attribute}
+					child={(<Color type="Color" initial_value={element_style?.color} element_data={element_data} get_value={(v) => edit_style(element_data?.name, {"color" : v})}/>)}/>
+					<Attribute order = {element_array.indexOf("font-family")} exists = {element_style?.["font-family"]} type = "font-family" handle_delete={remove_attribute}
 					child = {(
 						<div style={{padding: "0.5rem 0 0 0.5rem"}}>
 							<Dropdown id = {`font-family`}  value={element_style?.["font-family"]}
 							options={[...font_list].filter(e => e)}
-							handle_change={(v) => edit_style({["font-family"] : v})}/>
+							handle_change={(v) => edit_style(element_data?.name, {["font-family"] : v})}/>
 						</div>
 					)}/>
-				<AddStyleMenu attributes={list} edit_style={edit_style}/>
+					<Attribute order = {element_array.indexOf("margin")} exists = {element_style.margin != null} type = 'margin' handle_delete = {remove_attribute}
+					child = {(
+						<MarginEditor data={element_style["margin"]} edit_style={edit_style} active_element = {active_element} attribute ="margin" />	
+					)}/>
+					<Attribute order = {element_array.indexOf("padding")} exists = {element_style.padding != null} type = 'padding' handle_delete = {remove_attribute}
+					child = {(
+						<MarginEditor data={element_style["padding"]} edit_style={edit_style} active_element = {active_element} attribute ="padding" />	
+					)}/>
 			</div>
+			<AddStyleMenu  element_data={element_data} order={element_array?.length} attributes={list} edit_style={edit_style}/>
 		</div>
 	)
 }
