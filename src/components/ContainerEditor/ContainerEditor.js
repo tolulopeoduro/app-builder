@@ -16,6 +16,7 @@ import BackgroundColor from '../BackgroundColor/BackgroundColor';
 import { update_elements } from '../../Redux/Reducers/elements_reducer';
 import TextEditBox from '../TextEditBox/TextEditBox';
 import MarginEditor from '../MarginEditor/MarginEditor';
+import { toggle_undo } from '../../Redux/Reducers/undo_redo';
 
 const ContainerEditor = () => {
 
@@ -49,6 +50,7 @@ const ContainerEditor = () => {
 
 		let new_elements = {...elements}
 		new_elements[id] = new_element;
+		dispatch(toggle_undo(false))
 		dispatch(update_elements(new_elements))
 	}
 
@@ -99,6 +101,7 @@ const ContainerEditor = () => {
 		new_element[key] = val
 		let new_elements = {...elements}
 		new_elements[id] = new_element;
+		dispatch(toggle_undo(false))
 		dispatch(update_elements(new_elements))
 	}
 

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ContainerEditor from '../ContainerEditor/ContainerEditor'
 import { update_modals } from '../../Redux/Reducers/modals'
 import {motion} from "framer-motion";
-import { delete_element } from '../../utils'
+import { delete_element, redo, undo } from '../../utils'
 
 const BottomBar = (props) => {
 
@@ -24,6 +24,16 @@ const BottomBar = (props) => {
 			<div className={styles.left}>
 				<div className = {styles.body}>
 					<ContainerEditor/>
+				</div>
+				<div className={styles.footer}>
+					<div className={styles.actions}>
+						<div title="undo" className={styles.option_button} onClick={() => undo()}>
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="white" d="M12 5H7V2L1 6l6 4V7h5c2.2 0 4 1.8 4 4s-1.8 4-4 4H7v2h5c3.3 0 6-2.7 6-6s-2.7-6-6-6z" class="st0"/></svg>
+						</div>
+						<div title='redo' className={styles.option_button} onClick={() => redo()}>
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="white" d="M14.78 6.28a.749.749 0 0 0 0-1.06l-3.5-3.5a.749.749 0 1 0-1.06 1.06L12.439 5H5.251l-.001.007L5.251 5a.8.8 0 0 0-.171.019A4.501 4.501 0 0 0 5.5 14h1.704a.75.75 0 0 0 0-1.5H5.5a3 3 0 1 1 0-6h6.939L10.22 8.72a.749.749 0 1 0 1.06 1.06l3.5-3.5Z"/></svg>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div className={styles.right}>
