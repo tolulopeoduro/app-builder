@@ -11,17 +11,24 @@ import ElementDescriptionBox from '../ElementDescriptionBox/ElementDescriptionBo
 import { update_modals } from '../../Redux/Reducers/modals';
 import { AnimatePresence, motion } from 'framer-motion';
 import DropDownOptions from '../DropdownOptions/DropDownOptions';
+import { update_process } from '../../utils';
 
 const Editor = () => {
 	
 	const dispatch = useDispatch();
-	const {elements, modals, active_element, active_element_dimension, viewed_element} = useSelector(s => s);
+	const {elements, modals, active_element, active_element_dimension, viewed_element, undo_redo} = useSelector(s => s);
 
 	useEffect(() => {
 		window.addEventListener("contextmenu",(e) => {
 			e.preventDefault();
 		})
 	}, [])
+
+	useEffect(() => {
+		if (undo_redo?.active === false) {
+			update_process(elements)
+		}
+	}, [elements])
 
 	useEffect(() => {
 		document.getElementById('result').contentWindow.postMessage({message_type : "elements", message: elements}, `${window.location.origin}/frame`)

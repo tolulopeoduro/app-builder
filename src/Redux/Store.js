@@ -9,6 +9,7 @@ import active_element from "./Reducers/active_element";
 import active_element_dimensions from "./Reducers/active_element_dimensions";
 import colors_reducer from "./Reducers/colors_reducer";
 import viewed_element from "./Reducers/viewed_element";
+import undo_redo from "./Reducers/undo_redo"
 
 const reducers = combineReducers({
 	elements : elements_reducer,
@@ -16,7 +17,8 @@ const reducers = combineReducers({
 	active_element : active_element,
 	active_element_dimension : active_element_dimensions,
 	colors: colors_reducer,
-	viewed_element: viewed_element
+	viewed_element: viewed_element,
+	undo_redo : undo_redo
 })
 
 
