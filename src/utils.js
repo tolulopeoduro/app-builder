@@ -222,3 +222,25 @@ export const redo = () => {
 	actions = {...actions, position : new_position}
 	sessionStorage.setItem("actions", JSON.stringify(actions))
 }
+
+
+const printEl = (el, elements) => {
+	console.log(el, "kkk")
+	let str = ""
+	const {tag, innerHTML, name, children, text} = el;
+	str+= `
+	<${tag} class = "${name}" >
+	  ${
+			tag === "div" ? children.map(child => printEl(elements[child]))
+			: innerHTML
+		}
+	</${tag}>
+	`
+	return str;
+}
+
+export const export_app = () => {
+	const elements = Store.getState().elements;
+	let st = printEl(elements["App"], elements)
+	console.log(st)
+}

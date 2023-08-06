@@ -12,6 +12,8 @@ import { update_modals } from '../../Redux/Reducers/modals';
 import { AnimatePresence, motion } from 'framer-motion';
 import DropDownOptions from '../DropdownOptions/DropDownOptions';
 import { update_process } from '../../utils';
+import FileOptionsButton from '../../FileOptionsButton/FileOptionsButton';
+import FileOptionsModal from '../../FileOptionsModal/FileOptionsModal';
 
 const Editor = () => {
 	
@@ -44,7 +46,6 @@ const Editor = () => {
 
 	useEffect(() => {
 		if (modals?.editor === false && modals.new_element) dispatch(update_modals({new_element : false}))
-		// if (modals?.editor && !elements[active_element]) dispatch(update_modals({editor : false}));
 	}, [modals])
 
 	useEffect(() => {
@@ -88,6 +89,8 @@ const Editor = () => {
 				}
 			</AnimatePresence>
 			{modals?.dropdown && <DropDownOptions/>}
+			<FileOptionsButton/>
+			{modals?.file_options && <FileOptionsModal/>}
 		</div>
 	)
 }
