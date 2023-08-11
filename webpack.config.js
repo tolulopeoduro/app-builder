@@ -33,9 +33,7 @@ module.exports = (_env, argv) => {
 				title : "App Buildr"
 			}),
 			new webpack.DefinePlugin({
-				'process.env.ENV': JSON.stringify(
-					"kdjhfln"
-				),
+				'process.env.APP_URL': JSON.stringify("http://localhost:3000"),
 			}),
 		],
 		output : {
