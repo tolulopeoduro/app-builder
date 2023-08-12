@@ -1,0 +1,42 @@
+.sub_header {
+	color: #fff;
+	font-weight: bold;
+	padding-left: 0.5rem;
+	margin-top: 0.5rem;
+	font-size: 0.8rem;
+}
+
+.background, .border {
+	width: fit-content;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	padding-left: 0.5rem;
+	margin-top: 0.4rem;
+	
+	>.color_display {
+		height: 20px;
+		width: 20px;
+		transition: all 200ms;
+		display: flex;
+	}
+
+	.color_input {
+		padding-left: 0.5rem;
+	
+		> input {
+			color: #fff;
+			background-color: transparent;
+			outline: none;
+			border: none;
+			width: 5rem;
+			font-size: 1rem;
+		}
+	
+		> input:nth-child(2) {
+			width: auto;
+			max-width: 3rem;
+		}
+	}
+}
+

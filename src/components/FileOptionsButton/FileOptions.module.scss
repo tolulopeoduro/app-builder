@@ -1,0 +1,23 @@
+.fileOptions {
+	position: absolute;
+	right: 1rem;
+	top: 1rem;
+	opacity: 0.7;
+	transition: opacity 350ms;
+}
+
+.fileOptions:hover {
+	opacity: 1;
+}
+
+.button {
+	color: #fff;
+	background-color: #00000099;
+	height: 2rem;
+	width: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 0.1rem solid #999999;
+	border-radius: 0.25rem;
+}

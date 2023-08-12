@@ -1,0 +1,108 @@
+.text_content_editor {
+	margin-top: 0.5rem;
+	height: 180px;
+	background-color: rgba($color: #000000, $alpha: 0.3);
+	margin-left: 0.5rem;
+	margin-right: 0.2rem;
+	clip-path: polygon(0% 1.7rem, 6.2rem 1.7rem, 6.2rem% 0, 85% 0%, 100% 0, 100% 100%, 0 100%);
+	border-radius: 0.25rem;
+	transition: all 250ms;
+	width: 390px;
+
+	>div {
+		height: 1.5rem;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		padding-right: 0.25rem;
+		color: #fff;
+		padding-left: 6.5rem;
+		justify-content: space-between;
+		flex-direction: row-reverse;
+
+		>span {
+			overflow: hidden;
+			transition: all 200ms;
+		}
+
+		>svg {
+			height: 1rem;
+			width: 1rem;
+			transition: transform 200ms;
+		}
+	}
+
+	>span {
+		color: white;
+		outline: none;
+		width: 100%;
+		display: block;
+		height: auto;
+		margin-top: 0.5rem;
+		margin-left: 0.5rem;
+		line-height: 1.2rem;
+	}
+
+	>span:focus {
+		outline: none;
+	}
+}
+
+.attribute_box {
+	padding-left: 0.5rem;
+	margin-top: 0.5rem;
+	position: absolute;
+}
+
+.style_input {
+	display: flex;
+	align-items: center;
+	margin-top: 0.3rem;
+
+	> span {
+		color: #fff;
+		font-size: 0.7rem;
+		padding-left: 0.5rem;
+		margin-right: 0.5rem;
+	}
+
+	> input {
+		height: 1.6rem;
+		background-color: rgba($color: #000000, $alpha: 0.2);
+		border: none;
+		color: #fff;
+		outline: none;
+		width: 6rem;
+		padding-left: 0.5rem;
+	}
+}
+
+.text_align_value {
+	height: 2rem;
+	width: 2rem;
+	border-radius: 0.25rem ;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background-color 400ms;
+	height: 22px;
+	width: 22px;
+
+	> svg {
+		height: 90%;
+		width: 90%;
+		color: #fff;
+	}
+}
+
+.text_decoration, .text_align {
+	padding: 0.5rem 0 0 0.5rem;
+	display: flex;
+	justify-content: space-between;
+	width: 5rem;
+	flex-direction: row;
+}
+
+.text_decoration {
+	margin-left: 1rem;
+}

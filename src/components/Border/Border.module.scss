@@ -1,0 +1,42 @@
+.sub_header {
+	color: #fff;
+	font-weight: bold;
+	padding-left: 0.5rem;
+	margin-top: 0.5rem;
+	font-size: 0.6rem;
+}
+
+.border {
+	width: fit-content;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	padding-left: 0.5rem;
+	margin-top: 0.4rem;
+	
+	>.color_display {
+		height: 1.4rem;
+		width: 1.4rem;;
+	}
+
+	.color_input {
+	
+		> input {
+			color: #fff;
+			background-color: transparent;
+			outline: none;
+			border: none;
+			width: auto;
+			max-width: 4rem;
+			font-size: 1rem;
+			height: 1.5rem;
+		}
+		>input:focus {
+			background-color: rgba($color: #000000, $alpha: 0.3);
+		}
+	
+		> input:nth-child(2) {
+			width: 1.3rem;
+		}
+	}
+}

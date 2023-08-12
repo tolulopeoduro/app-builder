@@ -7,6 +7,7 @@ module.exports = (_env, argv) => {
 
 	return {
 		entry : "./src/index.js",
+		devtool : 'inline-source-map',
 		module : {
 			rules : [
 				{
@@ -39,9 +40,11 @@ module.exports = (_env, argv) => {
 		output : {
 			filename : '[name].[contenthash].js',
 			path : path.resolve(__dirname, "dist"),
-			clean : true
+			clean : true,
+			publicPath: "/"
 		},
 		devServer: {
+			historyApiFallback: true,
 			static: {
 				directory: path.join(__dirname, "dist"),
 			},
