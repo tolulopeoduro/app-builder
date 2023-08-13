@@ -51,7 +51,7 @@ const NewElementSelect = () => {
 		<AnimatePresence>
 			{
 				modals?.new_element &&
-				<ClickAwayListener>
+				// <ClickAwayListener>
 					<motion.div initial={initial} animate={animate} exit={{bottom: "-50vh"}} className={styles.container}>
 						<h1>
 							New Element
@@ -65,7 +65,7 @@ const NewElementSelect = () => {
 							</div>
 						</div>
 					</motion.div>
-				</ClickAwayListener>
+				// </ClickAwayListener>
 			}
 		</AnimatePresence>
 	)

@@ -5,6 +5,7 @@ import { update_modals } from "./Redux/Reducers/modals"
 import { set_active_element } from "./Redux/Reducers/active_element"
 import { toggle_undo } from "./Redux/Reducers/undo_redo"
 import { colorcolor } from "colorcolor"
+import { createElement } from "react"
 
 export const hex_rgba = (hex, alpha) => {
 	let rgb_val = colorcolor(hex, 'rgb').split(/rgb\(|\)/)[1];
@@ -91,7 +92,7 @@ export const obj_to_css = (object) => {
 			str+= `border: ${size} ${style}  ${color};`
 		} 
 		if (key === "color") {
-			str+= `color: ${color};`
+			str+= `color: ${object.color};`
 		}
 		if (key === "text-decoration") {
 			let ar = object?.["text-decoration"]
@@ -133,7 +134,6 @@ export const delete_element = (id) => {
 	let new_elements = {...elements};
 	run_through(new_elements, elements, elements[id])
 	Store.dispatch(set_active_element(elements[id].parent))
-	document.getElementById("");
 	Store.dispatch(toggle_undo(false))
 	Store.dispatch(update_elements(new_elements))
 }
@@ -227,7 +227,6 @@ export const redo = () => {
 
 
 const printEl = (el, elements) => {
-	console.log(el, "kkk")
 	let str = ""
 	const {tag, innerHTML, name, children, text} = el;
 	str+= `
@@ -244,5 +243,27 @@ const printEl = (el, elements) => {
 export const export_app = () => {
 	const elements = Store.getState().elements;
 	let st = printEl(elements["App"], elements)
-	console.log(st)
+}
+
+export const remove_alpha_from_hex = (hex) => {
+	if (hex.length === 9) {
+		let new_hex = hex.split("")
+		new_hex.pop();
+		new_hex.pop();
+		return new_hex?.join("")
+	}
+	return hex
+}
+
+export const screen_logger = (val) => {
+	const el = document.createElement("div")
+	el.classList.add("screen_logger");
+	el.innerHTML = `
+	<h2>Onscreen Logger</h2>
+	<span>${val}</span>
+	`
+	document.getElementsByTagName("body")[0].appendChild(el)
+	setTimeout(() => {
+		document.getElementsByTagName("body")[0].removeChild(el)
+	}, 3000)
 }

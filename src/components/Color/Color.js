@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import styles from "./Color.module.scss"
 import {AnimatePresence, motion} from "framer-motion"
 import Color_picker from './Color_picker/Color_picker';
+import { remove_alpha_from_hex } from '../../utils';
 
 const Color = (props) => {
 
@@ -25,7 +26,7 @@ const Color = (props) => {
 				<div id={props.type} className={styles.background}>
 					<div  className={styles.color_display} style={{backgroundColor: "white"}}
 					onClick={() => toggle_color_picker(true)}>
-						<div style={{height:"100%", width:"50%", backgroundColor:`${initial_value}`}}>
+						<div style={{height:"100%", width:"50%", backgroundColor:`${remove_alpha_from_hex(initial_value)}`}}>
 						</div>
 						<div style={{height:"100%", width:"50%", backgroundColor:initial_value}}>
 						</div>

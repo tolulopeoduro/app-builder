@@ -6,6 +6,7 @@ import { update_modals } from '../../Redux/Reducers/modals'
 import {AnimatePresence, motion} from "framer-motion";
 import { create_element, delete_element, redo, undo } from '../../utils'
 import randomstring from "randomstring"
+import { update_elements } from '../../Redux/Reducers/elements_reducer'
 
 const BottomBar = (props) => {
 
@@ -21,17 +22,33 @@ const BottomBar = (props) => {
 		)
 	}
 
-	const duplicate_element = (element) => {
-		let new_el = {...elements[element]}
-		const new_name = randomstring.generate();
-		new_el.name = new_name;
-		new_el.attributes = {
-			...new_el.attributes,
-			id : new_name,
-			className : new_name, "data-builder_id" : new_name
+	const duplicate_elements = (element, parent, elements, is_base) => {
+		const original_element = elements[element]
+		let duplicate_element = {...elements[element]};
+		let new_name = randomstring.generate();
+		
+		duplicate_element.name = new_name;
+		duplicate_element.parent = parent;
+		duplicate_element.attributes = {
+			...duplicate_element.attributes,
+			className: new_name,
+			"data-builder_id": new_name,
+			id: new_name
 		}
+		duplicate_element.children = [];
 
-		create_element(new_el, new_el?.parent, new_name);
+		elements[new_name] = duplicate_element;
+		elements[parent] = {
+			...elements[parent],
+			children : [...elements[parent]?.children, new_name]
+		}
+		const original_element_children = original_element.children
+		original_element_children.forEach(child => {
+			duplicate_elements(child, new_name, elements, false);
+		});
+		if (is_base) {
+			dispatch(update_elements(elements))
+		}
 	}
 
 
@@ -70,7 +87,7 @@ const BottomBar = (props) => {
 										</div>
 										{
 											active_element !== "App" &&
-											<div onClick={() => duplicate_element(active_element)} className={styles.option_button}
+											<div onClick={() => duplicate_elements(active_element, elements[active_element]?.parent, {...elements}, true)} className={styles.option_button}
 											title="duplicate">
 												<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g fill="white"><path d="M7 9a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V9Z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2V5h8a2 2 0 0 0-2-2H5Z"/></g></svg>
 											</div>

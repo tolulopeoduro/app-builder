@@ -11,7 +11,7 @@ import ElementDescriptionBox from '../ElementDescriptionBox/ElementDescriptionBo
 import { update_modals } from '../../Redux/Reducers/modals';
 import { AnimatePresence, motion } from 'framer-motion';
 import DropDownOptions from '../DropdownOptions/DropDownOptions';
-import { update_process } from '../../utils';
+import { screen_logger, update_process } from '../../utils';
 import FileOptionsButton from '../FileOptionsButton/FileOptionsButton';
 import FileOptionsModal from '../FileOptionsModal/FileOptionsModal';
 
