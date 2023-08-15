@@ -6,7 +6,7 @@ module.exports = (_env, argv) => {
 	const isProduction = argv.mode = "production";
 
 	return {
-		entry : "./src/index.js",
+		entry :  "./src/index.js",
 		devtool : 'inline-source-map',
 		module : {
 			rules : [
@@ -27,7 +27,7 @@ module.exports = (_env, argv) => {
 		},
 		//pass all js files througn babel
 		resolve: {
-			extensions: ["*", ".js", ".jsx"]
+			extensions: [".*", ".js", ".jsx"]
 		},
 		plugins : [
 			new HtmlWebpackPlugin({

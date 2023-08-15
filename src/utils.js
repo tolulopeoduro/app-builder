@@ -5,7 +5,6 @@ import { update_modals } from "./Redux/Reducers/modals"
 import { set_active_element } from "./Redux/Reducers/active_element"
 import { toggle_undo } from "./Redux/Reducers/undo_redo"
 import { colorcolor } from "colorcolor"
-import { createElement } from "react"
 
 export const hex_rgba = (hex, alpha) => {
 	let rgb_val = colorcolor(hex, 'rgb').split(/rgb\(|\)/)[1];
@@ -226,23 +225,63 @@ export const redo = () => {
 }
 
 
-const printEl = (el, elements) => {
-	let str = ""
+const printEl = (el, elements, tab_spacing) => {
+	
 	const {tag, innerHTML, name, children, text} = el;
-	str+= `
-	<${tag} class = "${name}" >
-	  ${
-			tag === "div" ? children.map(child => printEl(elements[child]))
-			: innerHTML
+
+	const handle_children = () => {
+		let str = ""
+		if (tag === "div") {
+			for (let i = 0; i < children.length; i++) {
+				const child = children[i];
+				str+= printEl(elements[child], elements, tab_spacing+1)
+			}
 		}
-	</${tag}>
-	`
+		else str +=	innerHTML;
+		return str;
+	}
+
+	const handle_tabs = (no_of_tabs) => {
+		let ar = new Array(no_of_tabs).fill("  ")
+		let st = ""
+		for (let i = 0; i < ar.length	; i++) {
+			st+= ar[i];
+		}
+		return st;
+	}
+
+	const tabs = handle_tabs(tab_spacing);
+	let str = "";
+
+	str+= tabs + "<" + tag+ " class = \""+name+"\">\n";
+	str+= tabs + handle_children()+"\n";
+	str+= tabs + "</" + tag+ ">\n";
+// 	`
+// ${tabs}<${tag} class = "${name}" >
+// ${tabs}${handle_children()}
+// ${tabs}</${tag}>
+// `
 	return str;
 }
 
 export const export_app = () => {
 	const elements = Store.getState().elements;
-	let st = printEl(elements["App"], elements)
+	let st = printEl(elements["App"], elements, 3)
+	let html_code = 
+	`
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <title>App Buildr</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+${st}
+  </body>
+</html>
+	`
+	console.log(html_code)
 }
 
 export const remove_alpha_from_hex = (hex) => {
