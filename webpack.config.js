@@ -49,6 +49,9 @@ module.exports = (_env, argv) => {
 				directory: path.join(__dirname, "dist"),
 			},
 			port: 3000
-		}
+		},
+		optimization: {
+			minimize: false
+		},
 	}
 }

@@ -29,7 +29,8 @@ const RenderElement = (props) => {
 
 	useEffect(() => {
 		if (element_data?.type === "text") {
-			document.getElementById(element_data?.name).innerHTML = element_data?.innerHTML;
+			let el = document.getElementById(element_data?.name);
+			if (el) el.innerHTML = element_data?.innerHTML;
 		}
 	}, [element_data])
 

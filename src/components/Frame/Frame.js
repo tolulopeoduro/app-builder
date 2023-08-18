@@ -16,13 +16,15 @@ const Frame = () => {
 		window.top.postMessage({message_type : "active_element_dimension", message : rect}, `${window.location.origin}/editor`);	
 	}, [elements, active_element, elements[active_element]])
 	
+
+	/** 
 	useEffect(() => {
 		document.getElementById("App")?.querySelectorAll("*").forEach(el => {
 			if (!el.dataset.builder_id)	el.remove();
 		})
 		
 	}, [elements])
-	
+	*/
 	
 	useEffect(() => {
 		window.onmessage = e => {
