@@ -11,7 +11,7 @@ describe('MainNav', () => {
     render(MainNav)
     const buttons = screen.getAllByRole('button')
     const values = buttons.map((button) => button.textContent)
-    expect(values).toEqual(['BUILD', 'SIGN IN'])
+    expect(values).toEqual(['PROFILE', 'BUILD'])
   })
   it('Shows links', () => {
     render(MainNav)

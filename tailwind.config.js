@@ -13,8 +13,12 @@ module.exports = {
       dark: '#030808',
       warning: '#E4C703',
       danger: '#F10117',
+      backdrop: 'rgba(0,0,0,0.5)',
       'light-gray': '#C1C1C1',
-      'green-1': '#95E365'
+      'green-1': '#95E365',
+      'light-gray-2': '#d9d9d9',
+      transparent: '#00000000',
+      black: '#000000'
     },
     extend: {}
   },
