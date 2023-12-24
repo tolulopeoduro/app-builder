@@ -11,11 +11,42 @@
     @submit.prevent="handleSignup"
     class="mt-4 flex w-full flex-col items-center justify-center"
   >
-    <BaseTextInput v-model="data.email" type="email" placeholder="email or username" />
-    <BaseTextInput v-model="data.password" type="password" placeholder="password" />
+    <BaseTextInput
+      name="username"
+      v-model="data.username"
+      type="text"
+      placeholder="username"
+      :errors="v$.$errors"
+      :apiError="apiError"
+    />
+    <BaseTextInput
+      name="email"
+      v-model="data.email"
+      type="email"
+      placeholder="email"
+      :errors="v$.$errors"
+      :apiError="apiError"
+    />
+    <BaseTextInput
+      name="password"
+      v-model="data.password"
+      type="password"
+      placeholder="password"
+      :errors="v$.$errors"
+      :apiError="apiError"
+    />
+    <span
+      v-if="apiError?.issue && !apiError?.source"
+      class="drop-shadow-danger mt-1 text-sm text-danger drop-shadow-sm"
+      >{{ apiError?.issue }}</span
+    >
     <RectangleButton
       text="sign up"
       class="mt-4 !h-[44px] !w-[333px] !rounded-md !bg-primary !text-xl uppercase"
+      :handleClick="handleSignup"
+      :loading="loading"
+      type="submit"
+      :status="status"
     />
   </form>
   <span class="text-md mt-2 text-white"
@@ -24,14 +55,40 @@
 </template>
 
 <script setup>
-import { computed, onMounted, reactive, watch } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import BaseTextInput from './BaseTextInput.vue'
 import RectangleButton from './RectangleButton.vue'
 import { useVuelidate } from '@vuelidate/core'
-import { required, email } from '@vuelidate/validators'
+import { required, email, helpers } from '@vuelidate/validators'
+import axios from 'axios'
+import { useModalStore } from '../store/ModalsStore'
 
-const handleSignup = () => {
-  console.log(data)
+const loading = ref(false)
+const status = ref('loading')
+
+const handleSignup = async () => {
+  v$.value.$validate().then(() => {
+    if (v$.value.$errors.length == 0) {
+      loading.value = true
+      axios
+        .post(`${import.meta.env.VITE_API_URL}/users/signup`, data)
+        .then((res) => {
+          Object.keys(res.data).forEach((key) => {
+            localStorage.setItem(key, res.data[key])
+          })
+          status.value = 'success'
+        })
+        .catch((err) => {
+          if (err.response.data) {
+            apiError.value = err.response.data
+          }
+          status.value = 'failure'
+        })
+        .finally(() => {
+          loading.value = false
+        })
+    }
+  })
 }
 
 const data = reactive({
@@ -39,13 +96,29 @@ const data = reactive({
   password: ''
 })
 
+const apiError = ref({})
+
 const rules = {
-  email: { required, email },
-  password: { required }
+  username: { required: helpers.withMessage(() => 'please input username', required) },
+  email: { required: helpers.withMessage(() => 'please input email', required), email },
+  password: { required: helpers.withMessage(() => 'please input password', required) }
 }
 
 const v$ = useVuelidate(rules, data)
-watch(data, () => {
-  console.log(v$.value)
+// watch(data, async () => {
+//   console.log(v$.value.$errors)
+// })
+let to
+
+watch(status, () => {
+  if (to) clearTimeout(to)
+
+  to = setTimeout(() => {
+    if (status.value === 'failure') {
+      status.value = null
+    } else if (status.value === 'success') {
+      useModalStore().clear_modal()
+    }
+  }, 2500)
 })
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="shadow-black absolute bottom-[-60px] justify-start rounded-sm bg-gray-1 font-sans font-light text-white shadow-md"
+    class="absolute bottom-[-60px] justify-start rounded-sm bg-gray-1 font-sans font-light text-white shadow-md shadow-black"
   >
     <RectangleButton
       text="SIGN IN"
@@ -17,18 +17,11 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import RectangleButton from './RectangleButton.vue'
 import { useModalStore } from '../store/ModalsStore'
-export default {
-  name: 'ProfileDropdown',
-  components: { RectangleButton },
-  setup() {
-    const modalStore = useModalStore()
-    const go_to = (destination) => {
-      modalStore.active_modal = destination
-    }
-    return { go_to }
-  }
+const modalStore = useModalStore()
+const go_to = (destination) => {
+  modalStore.active_modal = destination
 }
 </script>

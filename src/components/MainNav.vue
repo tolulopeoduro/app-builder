@@ -17,7 +17,7 @@
               toggle_profile_menu()
             }
           "
-          text="PROFILE"
+          :text="userStore.data?.username || 'PROFILE'"
           class="mr-3 !bg-gray-1 text-white"
           icon="ph:user-light"
         />
@@ -28,22 +28,18 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 import MainNavLogo from './MainNavLogo.vue'
 import ProfileDropdown from './ProfileDropdown.vue'
 import RectangleButton from './RectangleButton.vue'
 import SearchBar from './SearchBar.vue'
+import { useUserStore } from '../store/UserStore'
 
-export default {
-  name: 'App',
-  components: { MainNavLogo, RectangleButton, SearchBar, ProfileDropdown },
-  setup() {
-    const show_profile_menu = ref(false)
-    const toggle_profile_menu = () => {
-      show_profile_menu.value = show_profile_menu.value ? false : true
-    }
-    return { show_profile_menu, toggle_profile_menu }
-  }
+const userStore = useUserStore()
+
+const show_profile_menu = ref(false)
+const toggle_profile_menu = () => {
+  show_profile_menu.value = show_profile_menu.value ? false : true
 }
 </script>
