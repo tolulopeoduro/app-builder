@@ -26,6 +26,12 @@
     <!-- </Transition> -->
   </button>
   <button
+    class="flex h-6 w-24 flex-row items-center justify-center rounded-md bg-white"
+    v-else-if="withCustomContent === true"
+  >
+    <slot name="buttonContent"></slot>
+  </button>
+  <button
     v-else
     class="flex h-6 w-24 flex-row items-center justify-center rounded-md bg-white"
     @click="
@@ -48,7 +54,16 @@ import { watch } from 'vue'
 
 export default {
   name: 'RectangleButton',
-  props: ['text', 'icon', 'handleClick', 'loading', 'type', 'status'],
+  props: [
+    'text',
+    'icon',
+    'handleClick',
+    'loading',
+    'type',
+    'status',
+    'hasSlot',
+    'withCustomContent'
+  ],
   components: { Icon },
 
   setup() {

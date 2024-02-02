@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useModalStore = defineStore('modals', {
   state: () => ({
-    active_modal: 'login'
+    active_modal: null
   }),
   actions: {
     update_modal(value) {

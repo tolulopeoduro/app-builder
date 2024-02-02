@@ -21,7 +21,17 @@
           class="mr-3 !bg-gray-1 text-white"
           icon="ph:user-light"
         />
-        <ProfileDropdown v-if="show_profile_menu" @closeMenu="() => toggle_profile_menu()" />
+        <ProfileDropdown v-if="show_profile_menu" @closeMenu="() => toggle_profile_menu()">
+          <template v-slot:userOptions>
+            <RectangleButton
+              class="!bg-gray-1 text-white"
+              :withCustomContent="true"
+              @click="() => router.push('profile')"
+            >
+              <template v-slot:buttonContent>MY PROFILE</template>
+            </RectangleButton>
+          </template>
+        </ProfileDropdown>
       </div>
       <RectangleButton text="BUILD" class="!bg-primary" />
     </div>
@@ -35,6 +45,7 @@ import ProfileDropdown from './ProfileDropdown.vue'
 import RectangleButton from './RectangleButton.vue'
 import SearchBar from './SearchBar.vue'
 import { useUserStore } from '../store/UserStore'
+import router from '../router/index'
 
 const userStore = useUserStore()
 

@@ -21,5 +21,7 @@ export default {
     <LoginModal v-if="modalStore.active_modal == 'login'" />
     <SignupModal v-if="modalStore.active_modal == 'signup'" />
   </BaseModal>
-  <router-view></router-view>
+  <div class="h-full w-full">
+    <router-view></router-view>
+  </div>
 </template>
