@@ -1,6 +1,6 @@
 <template>
   <div class="fixed flex h-10 w-full flex-row items-center justify-between bg-gray-1 px-4">
-    <main-nav-logo />
+    <main-nav-logo @click="() => router.push('/')" />
 
     <div class="flex w-auto flex-row items-center justify-between">
       <a href="/" class="text-md mr-4 font-sans font-light text-light-gray hover:text-light"
@@ -26,7 +26,7 @@
             <RectangleButton
               class="!bg-gray-1 text-white"
               :withCustomContent="true"
-              @click="() => router.push('profile')"
+              @click="() => dropdownNavigate('profile', toggle_profile_menu)"
             >
               <template v-slot:buttonContent>MY PROFILE</template>
             </RectangleButton>
@@ -46,6 +46,7 @@ import RectangleButton from './RectangleButton.vue'
 import SearchBar from './SearchBar.vue'
 import { useUserStore } from '../store/UserStore'
 import router from '../router/index'
+import dropdownNavigate from '../utils/dropdownNavigate'
 
 const userStore = useUserStore()
 

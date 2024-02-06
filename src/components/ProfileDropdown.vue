@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute bottom-[-60px] justify-start rounded-sm bg-gray-1 font-sans font-light text-white shadow-md shadow-black"
+    class="absolute top-8 justify-start rounded-sm bg-gray-1 font-sans font-light text-white shadow-md shadow-black"
   >
     <fragment v-if="userStore.data === null">
       <RectangleButton
